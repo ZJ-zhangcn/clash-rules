@@ -1,0 +1,438 @@
+port: 7890
+socks-port: 7891
+mixed-port: 7892
+redir-port: 7893
+tproxy-port: 7894
+unified-delay: true
+geodata-mode: false
+geodata-loader: standard
+geo-auto-update: true
+geo-update-interval: 24
+tcp-concurrent: true
+find-process-mode: strict
+global-client-fingerprint: chrome
+allow-lan: true
+mode: rule
+log-level: info
+ipv6: true
+udp: true
+external-controller: '0.0.0.0:9090'
+geox-url:
+  mmdb: 'https://geodata.kelee.one/Country-Masaiki.mmdb'
+  asn: 'https://geodata.kelee.one/GeoLite2-ASN-P3TERX.mmdb'
+profile:
+  store-selected: true
+  store-fake-ip: true
+sniffer:
+  enable: true
+  force-dns-mapping: true
+  parse-pure-ip: true
+  override-destination: true
+  sniff:
+    HTTP:
+      ports:
+        - 80
+        - 8080-8880
+      override-destination: true
+    TLS:
+      ports:
+        - 443
+        - 8443
+    QUIC:
+      ports:
+        - 443
+        - 8443
+  force-domain:
+    - +.v2ex.com
+  skip-domain:
+    - Mijia Cloud
+tun:
+  enable: true
+  stack: system
+  dns-hijack:
+    - 'any:53'
+  auto-route: true
+  auto-detect-interface: true
+listeners:
+  - name: socks5-in-1
+    type: socks
+    port: 10808
+    listen: 0.0.0.0
+    udp: true
+    users: []
+    proxy: DIRECT
+dns:
+  enable: true
+  prefer-h3: true
+  listen: '0.0.0.0:1053'
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 28.0.0.1/8
+  fake-ip-filter:
+    - '*'
+    - +.lan
+  default-nameserver:
+    - 223.5.5.5
+    - 223.6.6.6
+  nameserver:
+    - 'https://223.5.5.5/dns-query'
+    - 'https://223.6.6.6/dns-query'
+NodeParam:
+  type: http
+  interval: 3600
+  health-check:
+    enable: true
+    url: 'http://www.google.com/blank.html'
+    interval: 6
+FilterHK: "^(?=.*((?i)\U0001F1ED\U0001F1F0|香港|(\\b(HK|HKG|Hong)(\\d+)?\\b)))(?!.*((?i)回国|校园|游戏|\U0001F3AE|(\\b(GAME)\\b))).*$"
+FilterTW: "^(?=.*((?i)\U0001F1F9\U0001F1FC|台湾|(\\b(TW|TWN|Tai|Taiwan)(\\d+)?\\b)))(?!.*((?i)回国|校园|游戏|\U0001F3AE|(\\b(GAME)\\b))).*$"
+FilterJP: "^(?=.*((?i)\U0001F1EF\U0001F1F5|日本|川日|东京|大阪|泉日|埼玉|(\\b(JP|JPN|Japan)(\\d+)?\\b)))(?!.*((?i)回国|校园|游戏|\U0001F3AE|(\\b(GAME)\\b))).*$"
+FilterKR: "^(?=.*((?i)\U0001F1F0\U0001F1F7|韩国|韓|首尔|(\\b(KR|KOR|Korea)(\\d+)?\\b)))(?!.*((?i)回国|校园|游戏|\U0001F3AE|(\\b(GAME)\\b))).*$"
+FilterSG: "^(?=.*((?i)\U0001F1F8\U0001F1EC|新加坡|狮|(\\b(SG|SGP|Singapore)(\\d+)?\\b)))(?!.*((?i)回国|校园|游戏|\U0001F3AE|(\\b(GAME)\\b))).*$"
+FilterUS: "^(?=.*((?i)\U0001F1FA\U0001F1F8|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|(\\b(US|USA|United States)(\\d+)?\\b)))(?!.*((?i)回国|校园|游戏|\U0001F3AE|(\\b(GAME)\\b))).*$"
+FilterUSNEW: "^(?=.*\\bUS-)(?!.*((?i)回国|校园|游戏|\U0001F3AE|(\\bGAME\\b))).*$"
+FilterUK: "^(?=.*((?i)\U0001F1EC\U0001F1E7|英国|伦敦|(\\b(UK|GBR|United Kingdom)(\\d+)?\\b)))(?!.*((?i)回国|校园|游戏|\U0001F3AE|(\\b(GAME)\\b))).*$"
+FilterFR: "^(?=.*((?i)\U0001F1EB\U0001F1F7|法国|(\\b(FR|FRA|France)(\\d+)?\\b)))(?!.*((?i)回国|校园|游戏|\U0001F3AE|(\\b(GAME)\\b))).*$"
+FilterDE: "^(?=.*((?i)\U0001F1E9\U0001F1EA|德国|(\\b(DE|DEU|Germany)(\\d+)?\\b)))(?!.*((?i)回国|校园|游戏|\U0001F3AE|(\\b(GAME)\\b))).*$"
+FilterAll: >-
+  ^(?=.*(.))(?!.*((?i)群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|福利|邀请|好友|失联|(\b(USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Traffic)(\d+)?\b|(\d{4}-\d{2}-\d{2}|\dG)))).*$
+FilterResidential: ^.*(?i)(家宽|住宅|isp|residential|native|原生).*$
+FilterZX: .*IPLC-美国.*
+FilterUSLD: .*US-ss.*
+UrlTest:
+  type: url-test
+  interval: 6
+  tolerance: 20
+  lazy: true
+  url: 'http://www.google.com/blank.html'
+  disable-udp: false
+  timeout: 2000
+  max-failed-times: 3
+  hidden: true
+  include-all: true
+FallBack:
+  type: fallback
+  interval: 6
+  lazy: true
+  url: 'http://www.google.com/blank.html'
+  disable-udp: false
+  timeout: 2000
+  max-failed-times: 3
+  hidden: true
+  include-all: true
+LoadBalance:
+  type: load-balance
+  interval: 6
+  lazy: true
+  url: 'http://www.google.com/blank.html'
+  disable-udp: false
+  strategy: consistent-hashing
+  timeout: 2000
+  max-failed-times: 3
+  hidden: true
+  include-all: true
+RuleProviders:
+  type: http
+  behavior: classical
+  interval: 3600
+  format: yaml
+  proxy: DIRECT
+proxy-groups:
+  - name: AI
+    type: fallback
+    proxies:
+      - 兜底后备策略
+  - name: TikTok
+    type: fallback
+    proxies:
+      - 香港自动策略
+      - 美国自动策略
+      - 专线链式代理
+      - 兜底后备策略
+  - name: Netflix
+    type: fallback
+    proxies:
+      - 美国自动策略
+      - 台湾自动策略
+      - 专线链式代理
+      - 兜底后备策略
+  - name: 游戏选择
+    type: select
+    filter: >-
+      ^(?=.*(.))(?!.*((?i)群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|福利|邀请|好友|失联|(\b(USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Traffic)(\d+)?\b|(\d{4}-\d{2}-\d{2}|\dG)))).*$
+    proxies:
+      - PASS
+      - DIRECT
+  - name: 美国fallback
+    type: fallback
+    interval: 6
+    lazy: true
+    url: 'http://www.google.com/blank.html'
+    disable-udp: false
+    timeout: 2000
+    max-failed-times: 3
+    hidden: false
+    include-all: true
+    filter: "^(?=.*\\bUS-)(?!.*((?i)回国|校园|游戏|\U0001F3AE|(\\bGAME\\b))).*$"
+  - name: 家宽手动策略
+    type: select
+    include-all: true
+    filter: ^.*(?i)(家宽|住宅|isp|residential|native|原生).*$
+  - name: 兜底后备策略
+    type: fallback
+    proxies:
+      - 日本自动策略
+      - 新国自动策略
+      - 香港自动策略
+      - 台湾自动策略
+      - 美国fallback
+      - 家宽链式代理
+  - name: Speedtest国际
+    type: select
+    include-all: true
+    filter: >-
+      ^(?=.*(.))(?!.*((?i)群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|福利|邀请|好友|失联|(\b(USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Traffic)(\d+)?\b|(\d{4}-\d{2}-\d{2}|\dG)))).*$
+    proxies:
+      - PASS
+      - DIRECT
+  - name: 香港自动策略
+    type: url-test
+    interval: 6
+    tolerance: 20
+    lazy: true
+    url: 'http://www.google.com/blank.html'
+    disable-udp: false
+    timeout: 2000
+    max-failed-times: 3
+    hidden: true
+    include-all: true
+    filter: "^(?=.*((?i)\U0001F1ED\U0001F1F0|香港|(\\b(HK|HKG|Hong)(\\d+)?\\b)))(?!.*((?i)回国|校园|游戏|\U0001F3AE|(\\b(GAME)\\b))).*$"
+  - name: 台湾自动策略
+    type: url-test
+    interval: 6
+    tolerance: 20
+    lazy: true
+    url: 'http://www.google.com/blank.html'
+    disable-udp: false
+    timeout: 2000
+    max-failed-times: 3
+    hidden: true
+    include-all: true
+    filter: "^(?=.*((?i)\U0001F1F9\U0001F1FC|台湾|(\\b(TW|TWN|Tai|Taiwan)(\\d+)?\\b)))(?!.*((?i)回国|校园|游戏|\U0001F3AE|(\\b(GAME)\\b))).*$"
+  - name: 日本自动策略
+    type: url-test
+    interval: 6
+    tolerance: 20
+    lazy: true
+    url: 'http://www.google.com/blank.html'
+    disable-udp: false
+    timeout: 2000
+    max-failed-times: 3
+    hidden: true
+    include-all: true
+    filter: "^(?=.*((?i)\U0001F1EF\U0001F1F5|日本|川日|东京|大阪|泉日|埼玉|(\\b(JP|JPN|Japan)(\\d+)?\\b)))(?!.*((?i)回国|校园|游戏|\U0001F3AE|(\\b(GAME)\\b))).*$"
+  - name: 韩国自动策略
+    type: url-test
+    interval: 6
+    tolerance: 20
+    lazy: true
+    url: 'http://www.google.com/blank.html'
+    disable-udp: false
+    timeout: 2000
+    max-failed-times: 3
+    hidden: true
+    include-all: true
+    filter: "^(?=.*((?i)\U0001F1F0\U0001F1F7|韩国|韓|首尔|(\\b(KR|KOR|Korea)(\\d+)?\\b)))(?!.*((?i)回国|校园|游戏|\U0001F3AE|(\\b(GAME)\\b))).*$"
+  - name: 新国自动策略
+    type: url-test
+    interval: 6
+    tolerance: 20
+    lazy: true
+    url: 'http://www.google.com/blank.html'
+    disable-udp: false
+    timeout: 2000
+    max-failed-times: 3
+    hidden: true
+    include-all: true
+    filter: "^(?=.*((?i)\U0001F1F8\U0001F1EC|新加坡|狮|(\\b(SG|SGP|Singapore)(\\d+)?\\b)))(?!.*((?i)回国|校园|游戏|\U0001F3AE|(\\b(GAME)\\b))).*$"
+  - name: 英国自动策略
+    type: url-test
+    interval: 6
+    tolerance: 20
+    lazy: true
+    url: 'http://www.google.com/blank.html'
+    disable-udp: false
+    timeout: 2000
+    max-failed-times: 3
+    hidden: true
+    include-all: true
+    filter: "^(?=.*((?i)\U0001F1EC\U0001F1E7|英国|伦敦|(\\b(UK|GBR|United Kingdom)(\\d+)?\\b)))(?!.*((?i)回国|校园|游戏|\U0001F3AE|(\\b(GAME)\\b))).*$"
+  - name: 法国自动策略
+    type: url-test
+    interval: 6
+    tolerance: 20
+    lazy: true
+    url: 'http://www.google.com/blank.html'
+    disable-udp: false
+    timeout: 2000
+    max-failed-times: 3
+    hidden: true
+    include-all: true
+    filter: "^(?=.*((?i)\U0001F1EB\U0001F1F7|法国|(\\b(FR|FRA|France)(\\d+)?\\b)))(?!.*((?i)回国|校园|游戏|\U0001F3AE|(\\b(GAME)\\b))).*$"
+  - name: 德国自动策略
+    type: url-test
+    interval: 6
+    tolerance: 20
+    lazy: true
+    url: 'http://www.google.com/blank.html'
+    disable-udp: false
+    timeout: 2000
+    max-failed-times: 3
+    hidden: true
+    include-all: true
+    filter: "^(?=.*((?i)\U0001F1E9\U0001F1EA|德国|(\\b(DE|DEU|Germany)(\\d+)?\\b)))(?!.*((?i)回国|校园|游戏|\U0001F3AE|(\\b(GAME)\\b))).*$"
+  - name: 美国自动策略
+    type: url-test
+    interval: 6
+    tolerance: 20
+    lazy: true
+    url: 'http://www.google.com/blank.html'
+    disable-udp: false
+    timeout: 2000
+    max-failed-times: 3
+    hidden: true
+    include-all: true
+    filter: "^(?=.*((?i)\U0001F1FA\U0001F1F8|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|(\\b(US|USA|United States)(\\d+)?\\b)))(?!.*((?i)回国|校园|游戏|\U0001F3AE|(\\b(GAME)\\b))).*$"
+  - name: 家宽链式代理
+    type: select
+    proxies:
+      - 家宽手动策略
+    dialer-proxy: 专线自动策略
+  - name: 专线自动策略
+    type: url-test
+    interval: 6
+    tolerance: 20
+    lazy: true
+    url: 'http://www.google.com/blank.html'
+    disable-udp: false
+    timeout: 2000
+    max-failed-times: 3
+    hidden: true
+    include-all: true
+    filter: .*IPLC-.*
+  - name: 美国落地
+    type: url-test
+    interval: 6
+    tolerance: 20
+    lazy: true
+    url: 'http://www.google.com/blank.html'
+    disable-udp: false
+    timeout: 2000
+    max-failed-times: 3
+    hidden: true
+    include-all: true
+    filter: .*US-ss.*
+  - name: 专线链式代理
+    type: select
+    proxies:
+      - 美国落地
+    dialer-proxy: 专线自动策略
+rule-providers:
+  LAN:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/Lan.yaml
+    url: 'https://kelee.one/Tool/Clash/Rule/LAN_SPLITTER.yaml'
+  Direct:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/Direct.yaml
+    url: 'https://kelee.one/Tool/Clash/Rule/Direct.yaml'
+  Proxy:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/Proxy.yaml
+    url: 'https://kelee.one/Tool/Clash/Rule/Proxy.yaml'
+  AI:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/AI.yaml
+    url: 'https://kelee.one/Tool/Clash/Rule/AI.yaml'
+  google:
+    type: http
+    format: mrs
+    behavior: domain
+    url: >-
+      https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google.mrs
+    path: ./ruleset/google.mrs
+    interval: 86400
+  TikTok:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/TikTok.yaml
+    url: 'https://kelee.one/Tool/Clash/Rule/TikTok.yaml'
+  SpeedtestIntl:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/SpeedtestInternational.yaml
+    url: 'https://kelee.one/Tool/Clash/Rule/SpeedtestInternational.yaml'
+  Game:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/Game.yaml
+    url: 'https://kelee.one/Tool/Clash/Rule/Game.yaml'
+  Netflix:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/Netflix.yaml
+    url: 'https://rule.kelee.one/Clash/Netflix.yaml'
+  ESET_China:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/ESET_China.yaml
+    url: 'https://kelee.one/Tool/Clash/Rule/ESET_China.yaml'
+rules:
+  - 'DOMAIN-SUFFIX, h-e.top, DIRECT'
+  - 'DOMAIN-SUFFIX, linux.do, 美国fallback'
+  - 'AND,((IP-CIDR,142.171.44.177/32,no-resolve),(DST-PORT,42645)), 美国fallback'
+  - 'DOMAIN, proxy.942645.xyz, 新国自动策略'
+  - 'DOMAIN-SUFFIX, 942645.xyz, DIRECT'
+  - 'RULE-SET, LAN, DIRECT'
+  - 'RULE-SET, Direct, DIRECT'
+  - 'RULE-SET, Proxy, 兜底后备策略'
+  - 'RULE-SET, AI, AI'
+  - 'RULE-SET, google, AI'
+  - 'RULE-SET, TikTok, TikTok'
+  - 'RULE-SET, SpeedtestIntl, Speedtest国际'
+  - 'RULE-SET, Game, 游戏选择'
+  - 'RULE-SET, Netflix, Netflix'
+  - 'RULE-SET, ESET_China, DIRECT'
+  - 'GEOIP, CN, DIRECT'
+  - 'MATCH, 兜底后备策略'
