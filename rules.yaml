@@ -444,10 +444,8 @@ rules:
 
   # 直连分流
   - 'DOMAIN-SUFFIX,h-e.top,DIRECT'
-  - 'DOMAIN-SUFFIX,942645.xyz,DIRECT'
-  - 'DOMAIN,proxy.942645.xyz,新加坡自动策略'
-  - 'AND,((IP-CIDR,142.171.44.177/32,no-resolve),(DST-PORT,42645)),美国自动策略'
-  - 'DOMAIN,openlist.942645.xyz,Proxy'
+  - 'DOMAIN-SUFFIX,942645.xyz,美国fallback'
+  - 'AND,((IP-CIDR,142.171.44.177/32,no-resolve),(DST-PORT,42645)),美国fallback'
 
   - 'RULE-SET,LAN,DIRECT'
   - 'RULE-SET,Direct,DIRECT'
