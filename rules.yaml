@@ -330,7 +330,7 @@ rules:
   - RULE-SET,SpeedtestIntl,Speedtest国际
   - RULE-SET,Game,游戏选择
   - DOMAIN-SUFFIX,942645.xyz,美国fallback
-  - AND,((IP-CIDR,142.171.44.177/32,no-resolve),(DST-PORT,42645)),美国自动策略
+  - AND,((IP-CIDR,142.171.44.177/32,no-resolve),(DST-PORT,42645)),美国fallback
 
   # AI 分流
   - GEOSITE,openai,AI
