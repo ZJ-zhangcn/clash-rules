@@ -244,7 +244,14 @@ proxy-groups:
     filter: *FilterUS
 
   - name: 美国fallback
-    <<: *fallback-defaults
+    type: fallback
+    interval: 6
+    lazy: true
+    url: 'http://www.google.com/blank.html'
+    disable-udp: false
+    timeout: 2000
+    max-failed-times: 3
+    hidden: false
     include-all: true
     filter: *FilterUSNEW
 
@@ -256,6 +263,7 @@ proxy-groups:
 
   - name: 家宽链式代理
     type: select
+    hidden: true
     proxies:
       - 家宽手动策略
     dialer-proxy: 美国落地
