@@ -162,7 +162,7 @@ Fallback_Defaults: &fallback-defaults
 
 proxy-groups:
   # ---- 核心出口组 ----
-  - name: Proxy
+  - name: 全部
     type: select
     proxies:
       - BetterFB - 全部
