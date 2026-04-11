@@ -1,13 +1,14 @@
 # ====================
-// 基础设置
-// ====================
+# 基础设置
+# ====================
 port: 7890
 socks-port: 7891
 mixed-port: 7892
 redir-port: 7893
 tproxy-port: 7894
 unified-delay: true
-geodata-mode: true  # 开启 geodata 模式，配合 JS 脚本的 GEO 规则
+geodata-mode: true
+geodata-loader: standard
 geo-auto-update: true
 geo-update-interval: 24
 tcp-concurrent: true
@@ -28,11 +29,11 @@ geox-url:
 
 profile:
   store-selected: true
-  store-fake-ip: true  # 修复：开启 store-fake-ip 映射，避免重启后丢失映射导致断网
+  store-fake-ip: true
 
 # ====================
-// 嗅探器与 TUN 设置
-// ====================
+# 嗅探器与 TUN 设置
+# ====================
 sniffer:
   enable: true
   force-dns-mapping: true
@@ -40,12 +41,18 @@ sniffer:
   override-destination: true
   sniff:
     HTTP:
-      ports: [80, 8080-8880]
+      ports:
+        - 80
+        - 8080-8880
       override-destination: true
     TLS:
-      ports: [443, 8443]
+      ports:
+        - 443
+        - 8443
     QUIC:
-      ports: [443, 8443]
+      ports:
+        - 443
+        - 8443
   force-domain:
     - '+.v2ex.com'
   skip-domain:
@@ -56,14 +63,11 @@ tun:
   stack: system
   dns-hijack:
     - 'any:53'
-    - 'tcp://any:53'  # 增加 tcp 劫持
+    - 'tcp://any:53'
   auto-route: true
   auto-detect-interface: true
-  strict-route: true  # 增加 strict-route 防止路由泄漏
+  strict-route: true
 
-# ====================
-// 监听器设置
-// ====================
 listeners:
   - name: socks5-in-1
     type: socks
@@ -74,164 +78,224 @@ listeners:
     proxy: DIRECT
 
 # ====================
-// 节点过滤正则定义
-// ====================
-FilterHK: "^(?=.*((?i)港|HK|HKG|HongKong))(?!.*((?i)回国|校园|游戏|GAME)).*$"
-FilterTW: "^(?=.*((?i)台|TW|TWN|Tai))(?!.*((?i)回国|校园|游戏|GAME)).*$"
-FilterJP: "^(?=.*((?i)日|JP|JPN|Japan))(?!.*((?i)回国|校园|游戏|GAME)).*$"
-FilterKR: "^(?=.*((?i)韩|KR|KOR|Korea))(?!.*((?i)回国|校园|游戏|GAME)).*$"
-FilterSG: "^(?=.*((?i)新|SG|SGP|Singapore))(?!.*((?i)回国|校园|游戏|GAME)).*$"
-FilterUS: "^(?=.*((?i)美|US|USA|United States))(?!.*((?i)回国|校园|游戏|GAME)).*$"
-FilterAll: "^(?=.*(.))(?!.*((?i)群|邀请|返利|官网|客服|订阅|流量|到期|机场|备用|过期|已用|联系|邮箱|工单|贩卖|倒卖|防止|特别|教程|更新|失联|频道|TOTAL|EXPIRE|Traffic)).*$"
-FilterResidential: "^.*(?i)(家宽|住宅|isp|residential|native|原生).*$"
-FilterZX: ".*IPLC-美国.*" # 调整：更精确的专线匹配
-FilterUSLD: ".*US-ss.*"
-FilterUSNEW: "^(?=.*\\bUS-)(?!.*((?i)回国|校园|游戏|\U0001F3AE|(\\bGAME\\b))).*$"
+# 节点过滤正则 (定义锚点)
+# ====================
+FilterHK: &FilterHK "^(?=.*((?i)港|HK|HKG|Hong(?:Kong)?))(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterTW: &FilterTW "^(?=.*((?i)台|TW|TWN|Tai(?:wan)?))(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterJP: &FilterJP "^(?=.*((?i)日|JP|JPN|Japan))(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterKR: &FilterKR "^(?=.*((?i)韩|KR|KOR|Korea))(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterSG: &FilterSG "^(?=.*((?i)新|SG|SGP|Singapore))(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterUS: &FilterUS "^(?=.*((?i)美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|USA|United(?:\\s)?States))(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterUSNEW: &FilterUSNEW "^(?=.*\\bUS-)(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterUK: &FilterUK "^(?=.*((?i)英|UK|GBR|United(?:\\s)?Kingdom|伦敦))(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterFR: &FilterFR "^(?=.*((?i)法|FR|FRA|France))(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterDE: &FilterDE "^(?=.*((?i)德|DE|DEU|Germany))(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterAll: &FilterAll "^(?=.*(.))(?!.*((?i)群|邀请|返利|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|福利|邀请|好友|失联|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Traffic|\\d{4}-\\d{2}-\\d{2}|\\dG)).*$"
+FilterResidential: &FilterResidential "^.*(?i)(家宽|住宅|isp|residential|native|原生).*$"
+FilterIPLC: &FilterIPLC ".*IPLC-美国.*"
+FilterUSLD: &FilterUSLD ".*US-ss.*"
+FilterAI: &FilterAI "^(?=.*((?i)美|US|JP|JPN|SG|SGP))(?!.*((?i)回国|校园|游戏|GAME|港|HK)).*$"
 
 # ====================
-// 策略组公共参数锚点
-// ====================
+# 策略组公共参数 (定义锚点)
+# ====================
 UrlTest_Defaults: &url-test-defaults
   type: url-test
-  interval: 300
-  tolerance: 50
+  interval: 6
+  tolerance: 20
   lazy: true
-  url: 'http://www.gstatic.com/generate_204'
-  timeout: 1000
+  url: 'http://www.google.com/blank.html'
+  disable-udp: false
+  timeout: 2000
   max-failed-times: 3
   hidden: true
   include-all: true
 
 BetterFB_Defaults: &better-fb-defaults
   type: url-test
-  interval: 300
-  tolerance: 1000  # 高容差，接近 fallback，稳定性更好
+  interval: 6
+  tolerance: 1000
   lazy: true
-  url: 'http://www.gstatic.com/generate_204'
-  timeout: 1000
-  max-failed-times: 5
+  url: 'http://www.google.com/blank.html'
+  disable-udp: false
+  timeout: 2000
+  max-failed-times: 3
   hidden: true
   include-all: true
 
 Fallback_Defaults: &fallback-defaults
   type: fallback
-  interval: 300
+  interval: 6
   lazy: true
-  url: 'http://www.gstatic.com/generate_204'
-  timeout: 1000
+  url: 'http://www.google.com/blank.html'
+  disable-udp: false
+  timeout: 2000
   max-failed-times: 3
   hidden: true
 
 # ====================
-// 策略组定义
-// ====================
+# 策略组 (使用别名复用)
+# ====================
 proxy-groups:
-  # === 核心出口组 ===
-  - name: "Proxy"
+  # ---- 核心出口组 ----
+  - name: Proxy
     type: select
-    proxies: ['BetterFB - 全部', 'URL Test - 全部', '香港自动策略', '台湾自动策略', '日本自动策略', '新加坡自动策略', '美国自动策略', '专线链式代理', '家宽链式代理', 'DIRECT']
+    proxies:
+      - BetterFB - 全部
+      - URL Test - 全部
+      - 香港自动策略
+      - 台湾自动策略
+      - 日本自动策略
+      - 新加坡自动策略
+      - 美国自动策略
+      - 专线链式代理
+      - 家宽链式代理
+      - DIRECT
 
-  - name: "AI"
+  - name: AI
     type: select
-    proxies: ['BetterFB - AI', 'URL Test - AI', '美国自动策略', '日本自动策略', '家宽链式代理', 'Proxy']
+    proxies:
+      - BetterFB - AI
+      - URL Test - AI
+      - 美国自动策略
+      - 日本自动策略
+      - 家宽链式代理
+      - Proxy
 
-  # === 稳定与测速组 ===
-  - name: "BetterFB - 全部"
+  # ---- BetterFB 容差稳定组 ----
+  - name: BetterFB - 全部
     <<: *better-fb-defaults
     filter: *FilterAll
 
-  - name: "URL Test - 全部"
+  - name: BetterFB - AI
+    <<: *better-fb-defaults
+    filter: *FilterAI
+
+  # ---- URL Test 测速组 ----
+  - name: URL Test - 全部
     <<: *url-test-defaults
-    tolerance: 50
     filter: *FilterAll
 
-  - name: "BetterFB - AI"
-    <<: *better-fb-defaults
-    filter: "^(?=.*((?i)美|US|JP|JPN|SG|SGP))(?!.*((?i)回国|校园|游戏|GAME|港|HK)).*$"
-
-  - name: "URL Test - AI"
+  - name: URL Test - AI
     <<: *url-test-defaults
-    tolerance: 50
-    filter: "^(?=.*((?i)美|US|JP|JPN|SG|SGP))(?!.*((?i)回国|校园|游戏|GAME|港|HK)).*$"
+    filter: *FilterAI
 
-  # === 兜底与备用组 ===
-  - name: "兜底后备策略"
+  # ---- 兜底与备用组 ----
+  - name: 兜底后备策略
     <<: *fallback-defaults
     include-all: false
-    proxies: ['日本自动策略', '新加坡自动策略', '香港自动策略', '台湾自动策略', '美国自动策略', 'DIRECT']
+    proxies:
+      - 日本自动策略
+      - 新加坡自动策略
+      - 香港自动策略
+      - 台湾自动策略
+      - 美国自动策略
+      - DIRECT
 
-  # === 地区自动策略 ===
-  - name: "香港自动策略"
+  # ---- 地区自动策略 ----
+  - name: 香港自动策略
     <<: *url-test-defaults
     filter: *FilterHK
 
-  - name: "台湾自动策略"
+  - name: 台湾自动策略
     <<: *url-test-defaults
     filter: *FilterTW
 
-  - name: "日本自动策略"
+  - name: 日本自动策略
     <<: *url-test-defaults
     filter: *FilterJP
 
-  - name: "新加坡自动策略"
+  - name: 韩国自动策略
+    <<: *url-test-defaults
+    filter: *FilterKR
+
+  - name: 新加坡自动策略
     <<: *url-test-defaults
     filter: *FilterSG
 
-  - name: "美国自动策略"
+  - name: 英国自动策略
     <<: *url-test-defaults
+    filter: *FilterUK
+
+  - name: 法国自动策略
+    <<: *url-test-defaults
+    filter: *FilterFR
+
+  - name: 德国自动策略
+    <<: *url-test-defaults
+    filter: *FilterDE
+
+  - name: 美国自动策略
+    <<: *url-test-defaults
+    filter: *FilterUS
+
+  - name: 美国fallback
+    <<: *fallback-defaults
+    include-all: true
     filter: *FilterUSNEW
 
-  # === 专线与家宽组 ===
-  - name: "家宽手动策略"
+  # ---- 家宽与专线组 ----
+  - name: 家宽手动策略
     type: select
     include-all: true
     filter: *FilterResidential
 
-  - name: "家宽链式代理"
+  - name: 家宽链式代理
     type: select
-    proxies: ['家宽手动策略']
-    dialer-proxy: '专线自动策略'
+    proxies:
+      - 家宽手动策略
+    dialer-proxy: 专线自动策略
 
-  - name: "专线自动策略"
+  - name: 专线自动策略
     <<: *url-test-defaults
     filter: *FilterIPLC
 
-  - name: "美国落地"
+  - name: 美国落地
     <<: *url-test-defaults
-    tolerance: 20
     filter: *FilterUSLD
 
-  - name: "专线链式代理"
+  - name: 专线链式代理
     type: select
-    proxies: ['美国落地']
-    dialer-proxy: '专线自动策略'
+    proxies:
+      - 美国落地
+    dialer-proxy: 专线自动策略
 
-  # === 流媒体与其他 ===
-  - name: "TikTok"
+  # ---- 流媒体与其他 ----
+  - name: TikTok
     <<: *fallback-defaults
     include-all: false
-    proxies: ['香港自动策略', '美国自动策略', '专线链式代理', '兜底后备策略']
+    proxies:
+      - 香港自动策略
+      - 美国fallback
+      - 兜底后备策略
 
-  - name: "Netflix"
+  - name: Netflix
     <<: *fallback-defaults
     include-all: false
-    proxies: ['美国自动策略', '台湾自动策略', '专线链式代理', '兜底后备策略']
+    proxies:
+      - 美国fallback
+      - 台湾自动策略
+      - 兜底后备策略
 
-  - name: "Speedtest国际"
+  - name: Speedtest国际
     type: select
     include-all: true
     filter: *FilterAll
-    proxies: ['PASS', 'DIRECT']
+    proxies:
+      - PASS
+      - DIRECT
 
-  - name: "游戏选择"
+  - name: 游戏选择
     type: select
     include-all: true
     filter: *FilterAll
-    proxies: ['PASS', 'DIRECT']
+    proxies:
+      - PASS
+      - DIRECT
 
 # ====================
-// 规则提供者
-// ====================
+# 规则提供者
+# ====================
 rule-providers:
   LAN:
     type: http
@@ -286,7 +350,7 @@ rule-providers:
     interval: 3600
     format: yaml
     proxy: DIRECT
-    path: './rules/SpeedtestInternational.yaml'
+    path: ./rules/SpeedtestInternational.yaml
     url: 'https://kelee.one/Tool/Clash/Rule/SpeedtestInternational.yaml'
   Game:
     type: http
@@ -294,7 +358,7 @@ rule-providers:
     interval: 3600
     format: yaml
     proxy: DIRECT
-    path: './rules/Game.yaml'
+    path: ./rules/Game.yaml
     url: 'https://kelee.one/Tool/Clash/Rule/Game.yaml'
   Netflix:
     type: http
@@ -302,7 +366,7 @@ rule-providers:
     interval: 3600
     format: yaml
     proxy: DIRECT
-    path: './rules/Netflix.yaml'
+    path: ./rules/Netflix.yaml
     url: 'https://rule.kelee.one/Clash/Netflix.yaml'
   ESET_China:
     type: http
@@ -310,12 +374,12 @@ rule-providers:
     interval: 3600
     format: yaml
     proxy: DIRECT
-    path: './rules/ESET_China.yaml'
+    path: ./rules/ESET_China.yaml
     url: 'https://kelee.one/Tool/Clash/Rule/ESET_China.yaml'
 
 # ====================
-// 重构后的 DNS 设置
-// ====================
+# DNS 设置
+# ====================
 dns:
   enable: true
   prefer-h3: true
@@ -323,35 +387,66 @@ dns:
   ipv6: false
   enhanced-mode: fake-ip
   fake-ip-range: 28.0.0.1/8
-  fake-ip-filter-mode: blacklist  # 修复：采用黑名单模式
   fake-ip-filter:
-    - '+'  # 默认所有域名返回 fake-ip
+    - '*.lan'
+    - '*.localhost'
+    - '*.local'
     - '+.lan'
-    - '+.localhost'
     - '+.local'
-    - 'geosite:private'
-    - 'geosite:cn'
-    - 'geosite:google-cn'
-    - 'geosite:synology'
-    - '+.942645.xyz'  # 保留你的直连域名
-    - '+.h-e.top'     # 保留你的直连域名
+    - '+.localhost'
+    - '+.localdomain'
+    - '+.942645.xyz'
+    - '+.h-e.top'
+    - 'stun.*.*'
+    - 'stun.*.*.*'
+    - '+.stun.playstation.net'
+    - 'localhost.ptlogin2.qq.com'
+    - '+.ntp.org'
+    - '+.pool.ntp.org'
+    - 'time*.cloud.tencent.com'
+    - 'time.windows.com'
+    - 'time.apple.com'
+    - 'time1.apple.com'
+    - 'time2.apple.com'
+    - 'time3.apple.com'
+    - 'time4.apple.com'
+    - 'time5.apple.com'
+    - 'time6.apple.com'
+    - 'time7.apple.com'
+    - 'ntp.aliyun.com'
   default-nameserver:
     - 223.5.5.5
     - 223.6.6.6
   nameserver:
-    - 'https://1.1.1.1/dns-query#Proxy'  # 默认走代理 DNS
+    - 'https://1.1.1.1/dns-query#Proxy'
     - 'https://8.8.8.8/dns-query#Proxy'
   nameserver-policy:
-    # 国内域名走直连 DNS
-    'geosite:cn': ['223.5.5.5', '223.6.6.6']
-    'geosite:private': ['system']
-    'geosite:google-cn': ['223.5.5.5', '223.6.6.6']
-    'geosite:synology': ['223.5.5.5', '223.6.6.6']
-    # AI 域名走代理 DNS (结合 JS 脚本思想)
-    'geosite:openai': ['https://1.1.1.1/dns-query#AI', 'https://8.8.8.8/dns-query#AI']
-    'geosite:anthropic': ['https://1.1.1.1/dns-query#AI', 'https://8.8.8.8/dns-query#AI']
-    'geosite:google-gemini': ['https://1.1.1.1/dns-query#AI', 'https://8.8.8.8/dns-query#AI']
-    'geosite:xai': ['https://1.1.1.1/dns-query#AI', 'https://8.8.8.8/dns-query#AI']
+    'geosite:cn':
+      - 223.5.5.5
+      - 223.6.6.6
+    'geosite:private':
+      - system
+    'geosite:synology':
+      - 223.5.5.5
+      - 223.6.6.6
+    'geosite:openai':
+      - 'https://1.1.1.1/dns-query#AI'
+      - 'https://8.8.8.8/dns-query#AI'
+    'geosite:anthropic':
+      - 'https://1.1.1.1/dns-query#AI'
+      - 'https://8.8.8.8/dns-query#AI'
+    'geosite:google-gemini':
+      - 'https://1.1.1.1/dns-query#AI'
+      - 'https://8.8.8.8/dns-query#AI'
+    'geosite:xai':
+      - 'https://1.1.1.1/dns-query#AI'
+      - 'https://8.8.8.8/dns-query#AI'
+  proxy-server-nameserver:
+    - 'https://223.5.5.5/dns-query#DIRECT'
+    - 'https://223.6.6.6/dns-query#DIRECT'
+  direct-nameserver:
+    - 'https://223.5.5.5/dns-query#DIRECT'
+    - 'https://223.6.6.6/dns-query#DIRECT'
   fallback:
     - 'https://1.0.0.1/dns-query#Proxy'
     - 'https://8.8.4.4/dns-query#Proxy'
@@ -362,17 +457,17 @@ dns:
       - '240.0.0.0/4'
 
 # ====================
-// 分流规则 (融合 JS 与原配置)
-// ====================
+# 分流规则
+# ====================
 rules:
-  # 广告拦截 (来自 JS)
+  # 广告拦截
   - 'GEOSITE,category-ads-all,REJECT'
 
-  # 直连分流 (来自 JS 与原配置合并)
+  # 直连分流
   - 'DOMAIN-SUFFIX,h-e.top,DIRECT'
   - 'DOMAIN-SUFFIX,942645.xyz,DIRECT'
   - 'DOMAIN,proxy.942645.xyz,新加坡自动策略'
-  - 'AND,((IP-CIDR,142.171.44.177/32,no-resolve),(DST-PORT,42645)),美国自动策略'
+  - 'AND,((IP-CIDR,142.171.44.177/32,no-resolve),(DST-PORT,42645)),美国fallback'
 
   - 'RULE-SET,LAN,DIRECT'
   - 'RULE-SET,Direct,DIRECT'
@@ -388,7 +483,7 @@ rules:
   - 'RULE-SET,SpeedtestIntl,Speedtest国际'
   - 'RULE-SET,Game,游戏选择'
 
-  # 兜底分流 (来自 JS 与原配置合并)
+  # 兜底分流
   - 'RULE-SET,Proxy,兜底后备策略'
   - 'GEOSITE,gfw,兜底后备策略'
   - 'GEOSITE,cn,DIRECT'
