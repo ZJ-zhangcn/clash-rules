@@ -289,6 +289,20 @@ proxy-groups:
       - PASS
       - DIRECT
 
+  - name: 服务器
+    type: fallback
+    interval: 6
+    lazy: true
+    url: 'http://www.google.com/blank.html'
+    disable-udp: false
+    timeout: 2000
+    max-failed-times: 3
+    hidden: false
+    include-all: true
+    proxies:
+      - 美国fallback
+      - 全部
+
 # ====================
 # 规则提供者
 # ====================
@@ -329,9 +343,9 @@ rules:
   # 服务分流
   - RULE-SET,SpeedtestIntl,Speedtest国际
   - RULE-SET,Game,游戏选择
-  - DOMAIN,emby-proxy.942645.xyz,美国fallback
-  - DOMAIN-SUFFIX,942645.xyz,全部
-  - AND,((IP-CIDR,142.171.44.177/32,no-resolve),(DST-PORT,42645)),美国fallback
+  - DOMAIN,emby-proxy.942645.xyz,服务器
+  - DOMAIN-SUFFIX,942645.xyz,服务器
+  - AND,((IP-CIDR,142.171.44.177/32,no-resolve),(DST-PORT,42645)),服务器
 
   # AI 分流
   - GEOSITE,openai,AI
