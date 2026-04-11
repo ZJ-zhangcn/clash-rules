@@ -225,17 +225,11 @@ proxy-groups:
   # ---- 链式代理组 (使用 relay 替代 dialer-proxy) ----
   # 流量走向: 家宽手动策略 → 专线自动策略 → 目标
   - name: 家宽链式代理
-    type: relay
+    type: select
     proxies:
-      - 专线自动策略
       - 家宽手动策略
+    dialer-proxy: 美国落地
 
-  # 流量走向: 美国落地 → 专线自动策略 → 目标
-  - name: 专线链式代理
-    type: relay
-    proxies:
-      - 专线自动策略
-      - 美国落地
 
   # ---- 家宽与专线组 ----
   - name: 家宽手动策略
