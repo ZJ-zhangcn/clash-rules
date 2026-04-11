@@ -329,6 +329,7 @@ rules:
   # 服务分流
   - RULE-SET,SpeedtestIntl,Speedtest国际
   - RULE-SET,Game,游戏选择
+  - DOMAIN,emby-proxy.942645.xyz,美国fallback
   - DOMAIN-SUFFIX,942645.xyz,全部
   - AND,((IP-CIDR,142.171.44.177/32,no-resolve),(DST-PORT,42645)),美国fallback
 
