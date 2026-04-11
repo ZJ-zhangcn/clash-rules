@@ -134,10 +134,10 @@ Fallback_Defaults: &fallback-defaults
   hidden: true
 
 # ====================
-# 策略组 (使用别名复用)
+# 代理策略组
 # ====================
 proxy-groups:
-  # ---- 核心出口组 ----
+  # ---- 核心出口组 (合并原兜底后备的平级选项) ----
   - name: Proxy
     type: select
     proxies:
@@ -147,8 +147,7 @@ proxy-groups:
       - 台湾自动策略
       - 日本自动策略
       - 新加坡自动策略
-      - 美国自动策略
-      - 专线链式代理
+      - 美国fallback
       - 家宽链式代理
       - DIRECT
 
@@ -157,9 +156,9 @@ proxy-groups:
     proxies:
       - BetterFB - AI
       - URL Test - AI
-      - 美国自动策略
-      - 日本自动策略
+      - 美国fallback
       - 家宽链式代理
+      - 日本自动策略
       - Proxy
 
   # ---- BetterFB 容差稳定组 ----
@@ -179,18 +178,6 @@ proxy-groups:
   - name: URL Test - AI
     <<: *url-test-defaults
     filter: *FilterAI
-
-  # ---- 兜底与备用组 ----
-  - name: 兜底后备策略
-    <<: *fallback-defaults
-    include-all: false
-    proxies:
-      - 日本自动策略
-      - 新加坡自动策略
-      - 香港自动策略
-      - 台湾自动策略
-      - 美国自动策略
-      - DIRECT
 
   # ---- 地区自动策略 ----
   - name: 香港自动策略
@@ -267,7 +254,7 @@ proxy-groups:
     proxies:
       - 香港自动策略
       - 美国fallback
-      - 兜底后备策略
+      - Proxy
 
   - name: Netflix
     <<: *fallback-defaults
@@ -275,7 +262,7 @@ proxy-groups:
     proxies:
       - 美国fallback
       - 台湾自动策略
-      - 兜底后备策略
+      - Proxy
 
   - name: Speedtest国际
     type: select
@@ -313,7 +300,7 @@ rule-providers:
     proxy: DIRECT
     path: ./rules/Direct.yaml
     url: 'https://kelee.one/Tool/Clash/Rule/Direct.yaml'
-  Proxy:
+  ProxyDomain:
     type: http
     behavior: classical
     interval: 3600
@@ -465,8 +452,7 @@ rules:
 
   # 直连分流
   - 'DOMAIN-SUFFIX,h-e.top,DIRECT'
-  - 'DOMAIN-SUFFIX,942645.xyz,DIRECT'
-  - 'DOMAIN,proxy.942645.xyz,新加坡自动策略'
+  - 'DOMAIN-SUFFIX,942645.xyz,美国fallback'
   - 'AND,((IP-CIDR,142.171.44.177/32,no-resolve),(DST-PORT,42645)),美国fallback'
 
   - 'RULE-SET,LAN,DIRECT'
@@ -483,9 +469,9 @@ rules:
   - 'RULE-SET,SpeedtestIntl,Speedtest国际'
   - 'RULE-SET,Game,游戏选择'
 
-  # 兜底分流
-  - 'RULE-SET,Proxy,兜底后备策略'
-  - 'GEOSITE,gfw,兜底后备策略'
+  # 兜底分流（映射至核心出口 Proxy）
+  - 'RULE-SET,ProxyDomain,Proxy'
+  - 'GEOSITE,gfw,Proxy'
   - 'GEOSITE,cn,DIRECT'
   - 'GEOIP,CN,DIRECT,no-resolve'
-  - 'MATCH,兜底后备策略'
+  - 'MATCH,Proxy'
