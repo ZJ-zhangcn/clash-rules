@@ -149,7 +149,6 @@ proxy-groups:
       - 新加坡自动策略
       - 美国自动策略
       - 家宽链式代理
-      - 专线链式代理
       - DIRECT
 
   - name: AI
