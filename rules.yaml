@@ -143,11 +143,11 @@ proxy-groups:
     proxies:
       - BetterFB - 全部
       - URL Test - 全部
+      - 美国fallback
       - 香港自动策略
       - 台湾自动策略
       - 日本自动策略
       - 新加坡自动策略
-      - 美国自动策略
       - 家宽链式代理
       - DIRECT
 
@@ -156,7 +156,7 @@ proxy-groups:
     proxies:
       - BetterFB - AI
       - URL Test - AI
-      - 美国自动策略
+      - 美国fallback
       - 日本自动策略
       - 家宽链式代理
       - Proxy
@@ -221,8 +221,7 @@ proxy-groups:
     include-all: true
     filter: *FilterUSNEW
 
-  # ---- 链式代理组 (使用 relay 替代 dialer-proxy) ----
-  # 流量走向: 家宽手动策略 → 专线自动策略 → 目标
+  # ---- 链式代理组 ----
   - name: 家宽链式代理
     type: select
     proxies:
@@ -230,15 +229,11 @@ proxy-groups:
     dialer-proxy: 美国落地
 
 
-  # ---- 家宽与专线组 ----
+  # ---- 家宽组 ----
   - name: 家宽手动策略
     type: select
     include-all: true
     filter: *FilterResidential
-
-  - name: 专线自动策略
-    <<: *url-test-defaults
-    filter: *FilterIPLC
 
   - name: 美国落地
     <<: *url-test-defaults
@@ -266,6 +261,7 @@ proxy-groups:
     include-all: true
     filter: *FilterAll
     proxies:
+      - PASS
       - DIRECT
 
   - name: 游戏选择
@@ -273,6 +269,7 @@ proxy-groups:
     include-all: true
     filter: *FilterAll
     proxies:
+      - PASS
       - DIRECT
 
 # ====================
