@@ -298,7 +298,6 @@ proxy-groups:
     timeout: 2000
     max-failed-times: 3
     hidden: false
-    include-all: true
     proxies:
       - 美国fallback
       - 全部
