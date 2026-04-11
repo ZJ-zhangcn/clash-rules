@@ -186,7 +186,7 @@ proxy-groups:
       - URL Test - AI
       - 美国fallback
       - 家宽链式代理
-      - Proxy
+      - 全部
 
   # ---- BetterFB 容差稳定组 ----
   - name: BetterFB - 全部
