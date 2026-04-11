@@ -137,7 +137,7 @@ Fallback_Defaults: &fallback-defaults
 # 代理策略组
 # ====================
 proxy-groups:
-  # ---- 核心出口组 (合并原兜底后备的平级选项) ----
+  # ---- 核心出口组 ----
   - name: Proxy
     type: select
     proxies:
@@ -147,8 +147,9 @@ proxy-groups:
       - 台湾自动策略
       - 日本自动策略
       - 新加坡自动策略
-      - 美国fallback
+      - 美国自动策略
       - 家宽链式代理
+      - 专线链式代理
       - DIRECT
 
   - name: AI
@@ -156,9 +157,9 @@ proxy-groups:
     proxies:
       - BetterFB - AI
       - URL Test - AI
-      - 美国fallback
-      - 家宽链式代理
+      - 美国自动策略
       - 日本自动策略
+      - 家宽链式代理
       - Proxy
 
   # ---- BetterFB 容差稳定组 ----
@@ -221,17 +222,26 @@ proxy-groups:
     include-all: true
     filter: *FilterUSNEW
 
+  # ---- 链式代理组 (使用 relay 替代 dialer-proxy) ----
+  # 流量走向: 家宽手动策略 → 专线自动策略 → 目标
+  - name: 家宽链式代理
+    type: relay
+    proxies:
+      - 专线自动策略
+      - 家宽手动策略
+
+  # 流量走向: 美国落地 → 专线自动策略 → 目标
+  - name: 专线链式代理
+    type: relay
+    proxies:
+      - 专线自动策略
+      - 美国落地
+
   # ---- 家宽与专线组 ----
   - name: 家宽手动策略
     type: select
     include-all: true
     filter: *FilterResidential
-
-  - name: 家宽链式代理
-    type: select
-    proxies:
-      - 家宽手动策略
-    dialer-proxy: 专线自动策略
 
   - name: 专线自动策略
     <<: *url-test-defaults
@@ -240,12 +250,6 @@ proxy-groups:
   - name: 美国落地
     <<: *url-test-defaults
     filter: *FilterUSLD
-
-  - name: 专线链式代理
-    type: select
-    proxies:
-      - 美国落地
-    dialer-proxy: 专线自动策略
 
   # ---- 流媒体与其他 ----
   - name: TikTok
@@ -269,7 +273,6 @@ proxy-groups:
     include-all: true
     filter: *FilterAll
     proxies:
-      - PASS
       - DIRECT
 
   - name: 游戏选择
@@ -277,7 +280,6 @@ proxy-groups:
     include-all: true
     filter: *FilterAll
     proxies:
-      - PASS
       - DIRECT
 
 # ====================
@@ -452,8 +454,10 @@ rules:
 
   # 直连分流
   - 'DOMAIN-SUFFIX,h-e.top,DIRECT'
-  - 'DOMAIN-SUFFIX,942645.xyz,美国fallback'
-  - 'AND,((IP-CIDR,142.171.44.177/32,no-resolve),(DST-PORT,42645)),美国fallback'
+  - 'DOMAIN-SUFFIX,942645.xyz,DIRECT'
+  - 'DOMAIN,proxy.942645.xyz,新加坡自动策略'
+  - 'AND,((IP-CIDR,142.171.44.177/32,no-resolve),(DST-PORT,42645)),美国自动策略'
+  - 'DOMAIN,openlist.942645.xyz,Proxy'
 
   - 'RULE-SET,LAN,DIRECT'
   - 'RULE-SET,Direct,DIRECT'
@@ -469,7 +473,7 @@ rules:
   - 'RULE-SET,SpeedtestIntl,Speedtest国际'
   - 'RULE-SET,Game,游戏选择'
 
-  # 兜底分流（映射至核心出口 Proxy）
+  # 兜底分流
   - 'RULE-SET,ProxyDomain,Proxy'
   - 'GEOSITE,gfw,Proxy'
   - 'GEOSITE,cn,DIRECT'
