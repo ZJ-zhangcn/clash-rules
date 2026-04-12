@@ -346,6 +346,7 @@ rules:
   - DOMAIN-SUFFIX,942645.xyz,服务器
   - AND,((IP-CIDR,142.171.44.177/32,no-resolve),(DST-PORT,42645)),服务器
   - DOMAIN,dongman.theluyuan.com,DIRECT
+  - DOMAIN,tavily.ivanli.cc,DIRECT
 
   # AI 分流
   - GEOSITE,openai,AI
