@@ -342,6 +342,7 @@ rules:
   # 服务分流
   - RULE-SET,SpeedtestIntl,Speedtest国际
   - RULE-SET,Game,游戏选择
+  - DOMAIN-SUFFIX,h-e.top,DIRECT
   - DOMAIN,emby-proxy.942645.xyz,服务器
   - DOMAIN-SUFFIX,942645.xyz,服务器
   - AND,((IP-CIDR,142.171.44.177/32,no-resolve),(DST-PORT,42645)),服务器
