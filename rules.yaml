@@ -350,6 +350,7 @@ rules:
   - DOMAIN,dongman.theluyuan.com,DIRECT
   - DOMAIN,tavily.ivanli.cc,DIRECT
   - DOMAIN,bees.fswork.cc,DIRECT
+  - DOMAIN,muyuan.do,DIRECT
 
   # AI 分流
   - GEOSITE,openai,AI
