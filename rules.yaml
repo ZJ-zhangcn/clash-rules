@@ -107,14 +107,14 @@ FilterJP: &FilterJP "^(?=.*((?i)日|JP|JPN|Japan))(?!.*((?i)回国|校园|游戏
 FilterKR: &FilterKR "^(?=.*((?i)韩|KR|KOR|Korea))(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterSG: &FilterSG "^(?=.*((?i)新|SG|SGP|Singapore))(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterUS: &FilterUS "^(?=.*((?i)美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|USA|United(?:\\s)?States))(?!.*((?i)回国|校园|游戏|GAME)).*$"
-FilterUSNEW: &FilterUSNEW "^(?=.*\\bUS-)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterUK: &FilterUK "^(?=.*((?i)英|UK|GBR|United(?:\\s)?Kingdom|伦敦))(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterFR: &FilterFR "^(?=.*((?i)法|FR|FRA|France))(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterDE: &FilterDE "^(?=.*((?i)德|DE|DEU|Germany))(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterAll: &FilterAll "^(?=.*(.))(?!.*((?i)群|邀请|返利|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|福利|邀请|好友|失联|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Traffic|\\d{4}-\\d{2}-\\d{2}|\\dG)).*$"
 FilterResidential: &FilterResidential "^.*(?i)(家宽|住宅|isp|residential|native|原生).*$"
-FilterUSLD: &FilterUSLD ".*US-ss.*"
 FilterAI: &FilterAI "^(?=.*((?i)美国|US|日本|JP|JPN|新国|新加坡|SG|SGP))(?!.*((?i)回国|校园|游戏|GAME|港|HK)).*$"
+FilterUSZJ: &FilterUSZJ "^(?=.*\\b美国-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterHKZJ: &FilterHKZJ "^(?=.*\\b香港-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 
 # ====================
 # 策略组公共参数 (定义锚点)
@@ -167,7 +167,8 @@ proxy-groups:
     proxies:
       - BetterFB - 全部
       - URL Test - 全部
-      - 美国fallback
+      - 香港自建
+      - 美国自建
       - 香港自动策略
       - 台湾自动策略
       - 日本自动策略
@@ -184,7 +185,8 @@ proxy-groups:
     proxies:
       - BetterFB - AI
       - URL Test - AI
-      - 美国fallback
+      - 香港自建
+      - 美国自建
       - 家宽链式代理
       - 美国自动策略
       - 全部
@@ -244,7 +246,7 @@ proxy-groups:
     <<: *url-test-defaults
     filter: *FilterUS
 
-  - name: 美国fallback
+  - name: 美国自建
     type: fallback
     interval: 6
     lazy: true
@@ -254,7 +256,19 @@ proxy-groups:
     max-failed-times: 3
     hidden: false
     include-all: true
-    filter: *FilterUSNEW
+    filter: *FilterUSZJ
+
+  - name: 香港自建
+    type: fallback
+    interval: 6
+    lazy: true
+    url: 'http://www.google.com/blank.html'
+    disable-udp: false
+    timeout: 2000
+    max-failed-times: 3
+    hidden: false
+    include-all: true
+    filter: *FilterHKZJ
 
   # ---- 家宽与专线组 ----
   - name: 家宽手动策略
@@ -267,11 +281,7 @@ proxy-groups:
     hidden: true
     proxies:
       - 家宽手动策略
-    dialer-proxy: 美国落地
-
-  - name: 美国落地
-    <<: *url-test-defaults
-    filter: *FilterUSLD
+    dialer-proxy: 香港自建
 
   # ---- 流媒体与其他 ----
   - name: Speedtest国际
@@ -300,7 +310,8 @@ proxy-groups:
     max-failed-times: 3
     hidden: false
     proxies:
-      - 美国fallback
+      - 香港自建
+      - 美国自建
       - 全部
 
 # ====================
