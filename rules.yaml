@@ -163,31 +163,44 @@ Fallback_Defaults: &fallback-defaults
 proxy-groups:
   # ---- 核心出口组 ----
   - name: 全部
-    type: select
+    type: fallback
+    interval: 6
+    lazy: true
+    url: 'http://www.google.com/blank.html'
+    disable-udp: false
+    timeout: 2000
+    max-failed-times: 3
+    hidden: false
     proxies:
-      - BetterFB - 全部
-      - URL Test - 全部
       - 香港自建
       - 美国自建
-      - 香港自动策略
-      - 台湾自动策略
+      - BetterFB - 全部
+      - URL Test - 全部
       - 日本自动策略
-      - 韩国自动策略
       - 新国自动策略
-      - 英国自动策略
-      - 法国自动策略
+      - 台湾自动策略
       - 美国自动策略
       - 家宽链式代理
+      - 香港自动策略
+      - 韩国自动策略
+      - 英国自动策略
+      - 法国自动策略
       - DIRECT
 
   - name: AI
-    type: select
+    type: fallback
+    interval: 6
+    lazy: true
+    url: 'http://www.google.com/blank.html'
+    disable-udp: false
+    timeout: 2000
+    max-failed-times: 3
+    hidden: false
     proxies:
-      - BetterFB - AI
-      - URL Test - AI
-      - 香港自建
       - 美国自建
       - 家宽链式代理
+      - BetterFB - AI
+      - URL Test - AI
       - 美国自动策略
       - 全部
 
