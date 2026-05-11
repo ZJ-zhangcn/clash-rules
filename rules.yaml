@@ -183,9 +183,6 @@ proxy-groups:
       - 家宽链式代理
       - 香港自动策略
       - 韩国自动策略
-      - 英国自动策略
-      - 法国自动策略
-      - DIRECT
 
   - name: AI
     type: fallback
