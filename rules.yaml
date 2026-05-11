@@ -284,17 +284,10 @@ proxy-groups:
     filter: *FilterHKZJ
 
   # ---- 家宽与专线组 ----
-  - name: 家宽手动策略
+  - name: 家宽链式代理
     type: select
     include-all: true
     filter: *FilterResidential
-
-  - name: 家宽链式代理
-    type: select
-    hidden: true
-    proxies:
-      - 家宽手动策略
-    dialer-proxy: 香港自建
 
   # ---- 流媒体与其他 ----
   - name: Speedtest国际
