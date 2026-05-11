@@ -197,8 +197,8 @@ proxy-groups:
     max-failed-times: 3
     hidden: false
     proxies:
-      - 美国自建
       - 家宽链式代理
+      - 美国自建
       - BetterFB - AI
       - URL Test - AI
       - 美国自动策略
