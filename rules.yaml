@@ -280,10 +280,11 @@ proxy-groups:
     include-all: true
     filter: *FilterHKZJ
 
-  # ---- 家宽与专线组 ----
+  # ---- 家宽 ----
   - name: 家宽链式代理
     type: select
     include-all: true
+    disable-udp: true
     filter: *FilterResidential
 
   # ---- 流媒体与其他 ----
@@ -360,12 +361,15 @@ rules:
   - DOMAIN-SUFFIX,h-e.top,DIRECT
   - DOMAIN,emby-proxy.942645.xyz,新国自动策略
   - DOMAIN-SUFFIX,942645.xyz,服务器
+  - DOMAIN-SUFFIX,zhangjiner.com,服务器
+  - IP-CIDR,103.24.219.232/32,服务器,no-resolve
+  - IP-CIDR,142.171.44.177/32,服务器,no-resolve
   - DOMAIN-SUFFIX,69yun69.com,香港自建
-  - AND,((IP-CIDR,142.171.44.177/32,no-resolve),(DST-PORT,42645)),服务器
   - DOMAIN,dongman.theluyuan.com,DIRECT
   - DOMAIN,tavily.ivanli.cc,DIRECT
   - DOMAIN,bees.fswork.cc,DIRECT
   - DOMAIN,muyuan.do,DIRECT
+  - AND,((NETWORK,UDP),(DST-PORT,443)),REJECT
 
   # AI 分流
   - GEOSITE,openai,AI
