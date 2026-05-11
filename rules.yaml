@@ -112,7 +112,6 @@ FilterFR: &FilterFR "^(?=.*((?i)法|FR|FRA|France))(?!.*((?i)回国|校园|游�
 FilterDE: &FilterDE "^(?=.*((?i)德|DE|DEU|Germany))(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterAll: &FilterAll "^(?=.*(.))(?!.*((?i)群|邀请|返利|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|福利|邀请|好友|失联|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Traffic|\\d{4}-\\d{2}-\\d{2}|\\dG)).*$"
 FilterResidential: &FilterResidential "^.*(?i)(自建家宽).*$"
-FilterAI: &FilterAI "^(?=.*((?i)美国|US|日本|JP|JPN|新国|新加坡|SG|SGP))(?!.*((?i)回国|校园|游戏|GAME|港|HK)).*$"
 FilterUSZJ: &FilterUSZJ "^(?=.*\\b美国-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterHKZJ: &FilterHKZJ "^(?=.*\\b香港-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 
@@ -123,18 +122,6 @@ UrlTest_Defaults: &url-test-defaults
   type: url-test
   interval: 6
   tolerance: 20
-  lazy: true
-  url: 'http://www.google.com/blank.html'
-  disable-udp: false
-  timeout: 2000
-  max-failed-times: 3
-  hidden: true
-  include-all: true
-
-BetterFB_Defaults: &better-fb-defaults
-  type: url-test
-  interval: 6
-  tolerance: 1000
   lazy: true
   url: 'http://www.google.com/blank.html'
   disable-udp: false
@@ -174,8 +161,6 @@ proxy-groups:
     proxies:
       - 香港自建
       - 美国自建
-      - BetterFB - 全部
-      - URL Test - 全部
       - 日本自动策略
       - 新国自动策略
       - 台湾自动策略
@@ -196,28 +181,8 @@ proxy-groups:
     proxies:
       - 家宽链式代理
       - 美国自建
-      - BetterFB - AI
-      - URL Test - AI
       - 美国自动策略
       - 全部
-
-  # ---- BetterFB 容差稳定组 ----
-  - name: BetterFB - 全部
-    <<: *better-fb-defaults
-    filter: *FilterAll
-
-  - name: BetterFB - AI
-    <<: *better-fb-defaults
-    filter: *FilterAI
-
-  # ---- URL Test 测速组 ----
-  - name: URL Test - 全部
-    <<: *url-test-defaults
-    filter: *FilterAll
-
-  - name: URL Test - AI
-    <<: *url-test-defaults
-    filter: *FilterAI
 
   # ---- 地区自动策略 ----
   - name: 香港自动策略
