@@ -324,6 +324,7 @@ rules:
   - RULE-SET,SpeedtestIntl,Speedtest国际
   - RULE-SET,Game,游戏选择
   - DOMAIN-SUFFIX,h-e.top,DIRECT
+  - DOMAIN-KEYWORD,-us.zhangjiner.com,服务器
   - DOMAIN,emby-proxy.942645.xyz,新国自动策略
   - DOMAIN-SUFFIX,942645.xyz,服务器
   - DOMAIN-SUFFIX,zhangjiner.com,服务器
