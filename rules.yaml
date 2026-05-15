@@ -250,6 +250,8 @@ proxy-groups:
 
   - name: 日本拼车
     type: select
+    include-all: true
+    disable-udp: true
     filter: *FilterJPPC
 
   # ---- 家宽 ----
