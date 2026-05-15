@@ -114,6 +114,7 @@ FilterAll: &FilterAll "^(?=.*(.))(?!.*((?i)群|邀请|返利|官网|客服|网�
 FilterResidential: &FilterResidential "^.*(?i)(自建家宽).*$"
 FilterUSZJ: &FilterUSZJ "^(?=.*\\b美国-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterHKZJ: &FilterHKZJ "^(?=.*\\b香港-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterJPPC: &FilterJPPC "^(?=.*\\b日本-拼车)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 
 # ====================
 # 策略组公共参数 (定义锚点)
@@ -159,6 +160,7 @@ proxy-groups:
     max-failed-times: 3
     hidden: false
     proxies:
+      - 日本拼车
       - 香港自建
       - 美国自建
       - 日本自动策略
@@ -180,6 +182,7 @@ proxy-groups:
     hidden: false
     proxies:
       - 家宽链式代理
+      - 日本拼车
       - 美国自建
       - 美国自动策略
       - 全部
@@ -244,6 +247,10 @@ proxy-groups:
     hidden: false
     include-all: true
     filter: *FilterHKZJ
+
+  - name: 日本拼车
+    type: select
+    filter: *FilterJPPC
 
   # ---- 家宽 ----
   - name: 家宽链式代理
