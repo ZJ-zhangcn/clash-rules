@@ -288,8 +288,8 @@ proxy-groups:
     max-failed-times: 3
     hidden: false
     proxies:
-      - 香港自建
       - 美国自建
+      - 香港自建
       - 全部
 
 # ====================
@@ -333,13 +333,11 @@ rules:
   - RULE-SET,SpeedtestIntl,Speedtest国际
   - RULE-SET,Game,游戏选择
   - DOMAIN-SUFFIX,h-e.top,DIRECT
-  - DOMAIN-KEYWORD,-us.zhangjiner.com,服务器
-  - DOMAIN,emby-proxy.942645.xyz,新国自动策略
   - DOMAIN-SUFFIX,942645.xyz,服务器
   - DOMAIN-SUFFIX,zhangjiner.com,服务器
   - IP-CIDR,103.24.219.232/32,服务器,no-resolve
   - IP-CIDR,142.171.44.177/32,服务器,no-resolve
-  - DOMAIN-SUFFIX,69yun69.com,香港自建
+  - DOMAIN-SUFFIX,69yun69.com,香港自动策略
   - DOMAIN,dongman.theluyuan.com,DIRECT
   - DOMAIN,tavily.ivanli.cc,DIRECT
   - DOMAIN,bees.fswork.cc,DIRECT
