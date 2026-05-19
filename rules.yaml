@@ -336,6 +336,7 @@ rules:
   - DOMAIN-SUFFIX,zhangjiner.com,服务器
   - IP-CIDR,103.24.219.232/32,服务器,no-resolve
   - IP-CIDR,142.171.44.177/32,服务器,no-resolve
+  - IP-CIDR,156.238.228.114/32,服务器,no-resolve
   - DOMAIN-SUFFIX,69yun69.com,香港自动策略
   - DOMAIN,dongman.theluyuan.com,DIRECT
   - DOMAIN,tavily.ivanli.cc,DIRECT
