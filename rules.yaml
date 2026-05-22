@@ -317,7 +317,7 @@ rule-providers:
     format: yaml
     proxy: DIRECT
     path: ./rules/BiliBiliIntl.yaml
-    url: 'https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/BiliBiliIntl.yaml'
+    url: 'https://rule.kelee.one/Clash/BiliBiliIntl.yaml'
   Bahamut:
     type: http
     behavior: classical
