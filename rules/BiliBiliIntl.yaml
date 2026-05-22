@@ -1,12 +1,5 @@
 payload:
-  # Bilibili 港澳台 / 国际版相关
   - DOMAIN-SUFFIX,bilibili.tv
   - DOMAIN-SUFFIX,biliintl.com
-  # Bilibili 主站与接口
   - DOMAIN-SUFFIX,biliapi.com
   - DOMAIN-SUFFIX,biliapi.net
-  # 视频 CDN
-  - DOMAIN-SUFFIX,bilivideo.com
-  - DOMAIN-SUFFIX,hdslb.com
-  # 短链，可选
-  - DOMAIN-SUFFIX,b23.tv
