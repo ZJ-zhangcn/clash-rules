@@ -3,7 +3,6 @@ payload:
   - DOMAIN-SUFFIX,bilibili.tv
   - DOMAIN-SUFFIX,biliintl.com
   # Bilibili 主站与接口
-  - DOMAIN-SUFFIX,bilibili.com
   - DOMAIN-SUFFIX,biliapi.com
   - DOMAIN-SUFFIX,biliapi.net
   # 视频 CDN
