@@ -326,6 +326,14 @@ rule-providers:
     proxy: DIRECT
     path: ./rules/Bahamut.yaml
     url: 'https://rule.kelee.one/Clash/Bahamut.yaml'
+  GitHub:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/GitHub.yaml
+    url: 'https://rule.kelee.one/Clash/GitHub.yaml'
 
 # ====================
 # 规则配置
@@ -349,6 +357,7 @@ rules:
   - RULE-SET,Google,AI
   - RULE-SET,BiliBiliIntl,香港自动策略
   - RULE-SET,Bahamut,台湾自动策略
+  - RULE-SET,GitHub,全部
   - DOMAIN-SUFFIX,h-e.top,DIRECT
   - DOMAIN-SUFFIX,942645.xyz,服务器
   - DOMAIN-SUFFIX,zhangjiner.com,服务器
