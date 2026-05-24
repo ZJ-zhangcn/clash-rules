@@ -160,7 +160,7 @@ proxy-groups:
     hidden: false
     proxies:
       - 美国自建
-      - 香港自建
+      # - 香港自建
       - 日本自动策略
       - 新国自动策略
       - 台湾自动策略
