@@ -279,7 +279,7 @@ proxy-groups:
     hidden: false
     proxies:
       - 美国自建
-      - 香港自建
+      # - 香港自建
       - 全部
 
 # ====================
