@@ -114,6 +114,7 @@ FilterAll: &FilterAll "^(?=.*(.))(?!.*((?i)群|邀请|返利|官网|客服|网�
 FilterResidential: &FilterResidential "^.*(?i)(自建家宽).*$"
 FilterUSZJ: &FilterUSZJ "^(?=.*(?:美国-自建|美国-三网精品))(?!.*(?:回国|校园|游戏|GAME)).*$"
 FilterHKZJ: &FilterHKZJ "^(?=.*\\b香港-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterJPZJ: &FilterJPZJ "^(?=.*\\b日本-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 
 # ====================
 # 策略组公共参数 (定义锚点)
@@ -159,6 +160,7 @@ proxy-groups:
     max-failed-times: 3
     hidden: false
     proxies:
+      - 日本自建
       - 美国自建
       # - 香港自建
       - 日本自动策略
@@ -243,6 +245,18 @@ proxy-groups:
   #   hidden: false
   #   include-all: true
   #   filter: *FilterHKZJ
+
+  - name: 日本自建
+    type: fallback
+    interval: 6
+    lazy: true
+    url: 'http://www.google.com/blank.html'
+    disable-udp: false
+    timeout: 2000
+    max-failed-times: 3
+    hidden: false
+    include-all: true
+    filter: *FilterJPZJ
 
   # ---- 家宽 ----
   - name: 家宽链式代理
