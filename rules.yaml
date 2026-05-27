@@ -101,12 +101,12 @@ profile:
 # ====================
 # 节点过滤正则 (定义锚点)
 # ====================
-FilterHK: &FilterHK "^(?=.*((?i)港|HK|HKG|Hong(?:Kong)?))(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterHK: &FilterHK "^(?=.*((?i)港|HK|HKG|Hong(?:Kong)?))(?!.*((?i)回国|校园|游戏|GAME|自建)).*$"
 FilterTW: &FilterTW "^(?=.*((?i)台|TW|TWN|Tai(?:wan)?))(?!.*((?i)回国|校园|游戏|GAME)).*$"
-FilterJP: &FilterJP "^(?=.*((?i)日|JP|JPN|Japan))(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterJP: &FilterJP "^(?=.*((?i)日|JP|JPN|Japan))(?!.*((?i)回国|校园|游戏|GAME|自建)).*$"
 FilterKR: &FilterKR "^(?=.*((?i)韩|KR|KOR|Korea))(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterSG: &FilterSG "^(?=.*((?i)新|SG|SGP|Singapore))(?!.*((?i)回国|校园|游戏|GAME)).*$"
-FilterUS: &FilterUS "^(?=.*((?i)美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|USA|United(?:\\s)?States))(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterUS: &FilterUS "^(?=.*((?i)美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|USA|United(?:\\s)?States))(?!.*((?i)回国|校园|游戏|GAME|自建)).*$"
 FilterUK: &FilterUK "^(?=.*((?i)英|UK|GBR|United(?:\\s)?Kingdom|伦敦))(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterFR: &FilterFR "^(?=.*((?i)法|FR|FRA|France))(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterDE: &FilterDE "^(?=.*((?i)德|DE|DEU|Germany))(?!.*((?i)回国|校园|游戏|GAME)).*$"
