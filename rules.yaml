@@ -160,8 +160,8 @@ proxy-groups:
     max-failed-times: 3
     hidden: false
     proxies:
-      - 日本自建
       - 美国自建
+      - 日本自建
       # - 香港自建
       - 日本自动策略
       - 新国自动策略
