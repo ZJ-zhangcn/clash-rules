@@ -17,7 +17,7 @@ payload:
 DOMAIN-SUFFIX,example.com
 ```
 
-> 根目录下旧的 `rules/*.yaml` / `rules/*.ymal` 暂时保留，避免旧订阅地址失效；新配置建议使用 `rules/clash/` 或 `rules/loon/`。
+> `rules/` 根目录只保留分类目录；Clash 用 `rules/clash/`，Loon 用 `rules/loon/`。
 
 ## Loon Rule-Set 地址
 
