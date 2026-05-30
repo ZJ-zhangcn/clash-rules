@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Convert Clash classical payload YAML files under rules/clash to Loon rule-set lists."""
+"""Convert Clash classical payload YAML files under rules/clash to Loon .lsr rule sets."""
 from pathlib import Path
 import shutil
 
@@ -44,10 +44,9 @@ def main() -> None:
     files = sorted(p for p in CLASH_DIR.iterdir() if p.is_file() and p.suffix.lower() in {".yaml", ".yml", ".ymal"})
     for src in files:
         content = convert_text(src.read_text(encoding="utf-8"))
-        for suffix in (".lsr", ".list"):
-            dst = LOON_DIR / f"{src.stem}{suffix}"
-            dst.write_text(content, encoding="utf-8")
-            print(f"{src.relative_to(ROOT)} -> {dst.relative_to(ROOT)}")
+        dst = LOON_DIR / f"{src.stem}.lsr"
+        dst.write_text(content, encoding="utf-8")
+        print(f"{src.relative_to(ROOT)} -> {dst.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":
