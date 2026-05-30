@@ -43,9 +43,11 @@ def main() -> None:
     LOON_DIR.mkdir(parents=True, exist_ok=True)
     files = sorted(p for p in CLASH_DIR.iterdir() if p.is_file() and p.suffix.lower() in {".yaml", ".yml", ".ymal"})
     for src in files:
-        dst = LOON_DIR / f"{src.stem}.list"
-        dst.write_text(convert_text(src.read_text(encoding="utf-8")), encoding="utf-8")
-        print(f"{src.relative_to(ROOT)} -> {dst.relative_to(ROOT)}")
+        content = convert_text(src.read_text(encoding="utf-8"))
+        for suffix in (".lsr", ".list"):
+            dst = LOON_DIR / f"{src.stem}{suffix}"
+            dst.write_text(content, encoding="utf-8")
+            print(f"{src.relative_to(ROOT)} -> {dst.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":

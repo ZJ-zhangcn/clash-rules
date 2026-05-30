@@ -21,13 +21,17 @@ DOMAIN-SUFFIX,example.com
 
 ## Loon Rule-Set 地址
 
+优先使用 `.lsr`：
+
 ```text
-https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/loon/Customer-Direct.list
-https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/loon/Customer-Proxy-All.list
-https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/loon/Customer-Proxy-HK.list
-https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/loon/DNS.list
-https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/loon/VPS.list
+https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/loon/Customer-Direct.lsr
+https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/loon/Customer-Proxy-All.lsr
+https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/loon/Customer-Proxy-HK.lsr
+https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/loon/DNS.lsr
+https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/loon/VPS.lsr
 ```
+
+兼容保留 `.list`。
 
 ## 转换
 
