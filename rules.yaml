@@ -64,9 +64,6 @@ dns:
     - "geosite:cn"
     - "geosite:google-cn"
     - "geosite:synology"
-    # 0. 直连域名(手动添加)
-    - "+.example.com"
-    - "+.none.com"
   nameserver-policy:
     # 国内/直连 DNS
     "geosite:cn": ["223.5.5.5#DIRECT", "119.29.29.29#DIRECT"]
@@ -316,7 +313,7 @@ rule-providers:
     interval: 3600
     format: yaml
     proxy: DIRECT
-    path: ./rules/Customer-Direct.yaml
+    path: ./rules/clash/Customer-Direct.yaml
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Direct.yaml"
   Customer-Proxy-All:
     type: http
@@ -324,7 +321,7 @@ rule-providers:
     interval: 3600
     format: yaml
     proxy: DIRECT
-    path: ./rules/Customer-Proxy-All.yaml
+    path: ./rules/clash/Customer-Proxy-All.yaml
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-All.yaml"
   Customer-Proxy-HK:
     type: http
@@ -332,7 +329,7 @@ rule-providers:
     interval: 3600
     format: yaml
     proxy: DIRECT
-    path: ./rules/Customer-Proxy-HK.yaml
+    path: ./rules/clash/Customer-Proxy-HK.yaml
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-HK.yaml"
   DNS:
     type: http
@@ -340,7 +337,7 @@ rule-providers:
     interval: 3600
     format: yaml
     proxy: DIRECT
-    path: ./rules/DNS.yaml
+    path: ./rules/clash/DNS.ymal
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/DNS.ymal"
   VPS:
     type: http
@@ -348,7 +345,7 @@ rule-providers:
     interval: 3600
     format: yaml
     proxy: DIRECT
-    path: ./rules/VPS.yaml
+    path: ./rules/clash/VPS.ymal
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/VPS.ymal"
   SpeedtestIntl:
     type: http
@@ -419,8 +416,6 @@ rules:
   - GEOSITE,google-cn,DIRECT
   - GEOSITE,synology,DIRECT
   - DOMAIN-SUFFIX,sharepoint.com,DIRECT
-  - DOMAIN-SUFFIX,example.com,DIRECT
-  - DOMAIN-SUFFIX,none.com,DIRECT
 
   # 服务分流
   - RULE-SET,SpeedtestIntl,Speedtest国际
@@ -429,13 +424,15 @@ rules:
   - RULE-SET,Bahamut,台湾自动策略
   - RULE-SET,GitHub,全部
   - RULE-SET,PayPal,家宽链式代理
-  - AND,((NETWORK,UDP),(DST-PORT,443)),REJECT
 
   # AI 分流
   - GEOSITE,openai,AI
   - GEOSITE,anthropic,AI
   - GEOSITE,google-gemini,AI
   - GEOSITE,xai,AI
+
+  # 禁用 QUIC
+  - AND,((NETWORK,UDP),(DST-PORT,443)),REJECT
 
   # 兜底分流
   - GEOSITE,gfw,全部
