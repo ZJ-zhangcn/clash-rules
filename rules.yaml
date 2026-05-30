@@ -74,10 +74,14 @@ dns:
     "geosite:google-cn": ["223.5.5.5#DIRECT", "119.29.29.29#DIRECT"]
     "geosite:synology": ["223.5.5.5#DIRECT", "119.29.29.29#DIRECT"]
     # AI 分流 DNS
-    "geosite:openai": ["https://1.1.1.1/dns-query#AI", "https://8.8.8.8/dns-query#AI"]
-    "geosite:anthropic": ["https://1.1.1.1/dns-query#AI", "https://8.8.8.8/dns-query#AI"]
-    "geosite:google-gemini": ["https://1.1.1.1/dns-query#AI", "https://8.8.8.8/dns-query#AI"]
-    "geosite:xai": ["https://1.1.1.1/dns-query#AI", "https://8.8.8.8/dns-query#AI"]
+    "geosite:openai":
+      ["https://1.1.1.1/dns-query#AI", "https://8.8.8.8/dns-query#AI"]
+    "geosite:anthropic":
+      ["https://1.1.1.1/dns-query#AI", "https://8.8.8.8/dns-query#AI"]
+    "geosite:google-gemini":
+      ["https://1.1.1.1/dns-query#AI", "https://8.8.8.8/dns-query#AI"]
+    "geosite:xai":
+      ["https://1.1.1.1/dns-query#AI", "https://8.8.8.8/dns-query#AI"]
   nameserver:
     - "https://1.1.1.1/dns-query#全部"
     - "https://8.8.8.8/dns-query#全部"
@@ -124,7 +128,7 @@ UrlTest_Defaults: &url-test-defaults
   interval: 6
   tolerance: 20
   lazy: true
-  url: 'http://www.google.com/blank.html'
+  url: "http://www.google.com/blank.html"
   disable-udp: false
   timeout: 2000
   max-failed-times: 3
@@ -135,7 +139,7 @@ Fallback_Defaults: &fallback-defaults
   type: fallback
   interval: 6
   lazy: true
-  url: 'http://www.google.com/blank.html'
+  url: "http://www.google.com/blank.html"
   disable-udp: false
   timeout: 2000
   max-failed-times: 3
@@ -154,7 +158,7 @@ proxy-groups:
     type: fallback
     interval: 6
     lazy: true
-    url: 'http://www.google.com/blank.html'
+    url: "http://www.google.com/blank.html"
     disable-udp: false
     timeout: 2000
     max-failed-times: 3
@@ -175,7 +179,7 @@ proxy-groups:
     type: fallback
     interval: 6
     lazy: true
-    url: 'http://www.google.com/blank.html'
+    url: "http://www.google.com/blank.html"
     disable-udp: false
     timeout: 2000
     max-failed-times: 3
@@ -226,7 +230,7 @@ proxy-groups:
     type: fallback
     interval: 6
     lazy: true
-    url: 'http://www.google.com/blank.html'
+    url: "http://www.google.com/blank.html"
     disable-udp: false
     timeout: 2000
     max-failed-times: 3
@@ -250,7 +254,7 @@ proxy-groups:
     type: fallback
     interval: 6
     lazy: true
-    url: 'http://www.google.com/blank.html'
+    url: "http://www.google.com/blank.html"
     disable-udp: false
     timeout: 2000
     max-failed-times: 3
@@ -263,7 +267,7 @@ proxy-groups:
     type: fallback
     interval: 6
     lazy: true
-    url: 'http://www.google.com/blank.html'
+    url: "http://www.google.com/blank.html"
     disable-udp: false
     timeout: 2000
     max-failed-times: 3
@@ -292,7 +296,7 @@ proxy-groups:
     type: fallback
     interval: 6
     lazy: true
-    url: 'http://www.google.com/blank.html'
+    url: "http://www.google.com/blank.html"
     disable-udp: false
     timeout: 2000
     max-failed-times: 3
@@ -306,6 +310,46 @@ proxy-groups:
 # 规则提供者
 # ====================
 rule-providers:
+  Customer-Direct:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/Customer-Direct.yaml
+    url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Direct.yaml"
+  Customer-Proxy-All:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/Customer-Proxy-All.yaml
+    url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-All.yaml"
+  Customer-Proxy-HK:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/Customer-Proxy-HK.yaml
+    url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-HK.yaml"
+  DNS:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/DNS.yaml
+    url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/DNS.ymal"
+  VPS:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/VPS.yaml
+    url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/VPS.ymal"
   SpeedtestIntl:
     type: http
     behavior: classical
@@ -313,7 +357,7 @@ rule-providers:
     format: yaml
     proxy: DIRECT
     path: ./rules/SpeedtestInternational.yaml
-    url: 'https://kelee.one/Tool/Clash/Rule/SpeedtestInternational.yaml'
+    url: "https://kelee.one/Tool/Clash/Rule/SpeedtestInternational.yaml"
   Game:
     type: http
     behavior: classical
@@ -321,7 +365,7 @@ rule-providers:
     format: yaml
     proxy: DIRECT
     path: ./rules/Game.yaml
-    url: 'https://kelee.one/Tool/Clash/Rule/Game.yaml'
+    url: "https://kelee.one/Tool/Clash/Rule/Game.yaml"
   Google:
     type: http
     behavior: classical
@@ -329,15 +373,7 @@ rule-providers:
     format: yaml
     proxy: DIRECT
     path: ./rules/Google.yaml
-    url: 'https://rule.kelee.one/Clash/Google.yaml'
-  BiliBiliIntl:
-    type: http
-    behavior: classical
-    interval: 3600
-    format: yaml
-    proxy: DIRECT
-    path: ./rules/BiliBiliIntl.yaml
-    url: 'https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/BiliBiliIntl.yaml'
+    url: "https://rule.kelee.one/Clash/Google.yaml"
   Bahamut:
     type: http
     behavior: classical
@@ -345,7 +381,7 @@ rule-providers:
     format: yaml
     proxy: DIRECT
     path: ./rules/Bahamut.yaml
-    url: 'https://rule.kelee.one/Clash/Bahamut.yaml'
+    url: "https://rule.kelee.one/Clash/Bahamut.yaml"
   GitHub:
     type: http
     behavior: classical
@@ -353,7 +389,7 @@ rule-providers:
     format: yaml
     proxy: DIRECT
     path: ./rules/GitHub.yaml
-    url: 'https://rule.kelee.one/Clash/GitHub.yaml'
+    url: "https://rule.kelee.one/Clash/GitHub.yaml"
   PayPal:
     type: http
     behavior: classical
@@ -361,7 +397,7 @@ rule-providers:
     format: yaml
     proxy: DIRECT
     path: ./rules/PayPal.yaml
-    url: 'https://rule.kelee.one/Clash/PayPal.yaml'
+    url: "https://rule.kelee.one/Clash/PayPal.yaml"
 
 # ====================
 # 规则配置
@@ -369,6 +405,13 @@ rule-providers:
 rules:
   # 广告过滤
   - GEOSITE,category-ads-all,REJECT
+
+  # Customer分流
+  - RULE-SET,Customer-Direct,DIRECT
+  - RULE-SET,Customer-Proxy-All,全部
+  - RULE-SET,Customer-Proxy-HK,香港自动策略
+  - RULE-SET,DNS,全部
+  - RULE-SET,VPS,DIRECT,no-resolve
 
   # 直连分流
   - GEOSITE,private,DIRECT
@@ -383,21 +426,9 @@ rules:
   - RULE-SET,SpeedtestIntl,Speedtest国际
   - RULE-SET,Game,游戏选择
   - RULE-SET,Google,AI
-  - RULE-SET,BiliBiliIntl,香港自动策略
   - RULE-SET,Bahamut,台湾自动策略
   - RULE-SET,GitHub,全部
   - RULE-SET,PayPal,家宽链式代理
-  - DOMAIN-SUFFIX,h-e.top,DIRECT
-  - DOMAIN-SUFFIX,942645.xyz,服务器
-  - DOMAIN-SUFFIX,zhangjiner.com,服务器
-  - IP-CIDR,192.129.152.33/32,DIRECT,no-resolve
-  - IP-CIDR,156.238.228.114/32,DIRECT,no-resolve
-  - IP-CIDR,154.21.199.36/32,DIRECT,no-resolve
-  - DOMAIN-SUFFIX,69yun69.com,香港自动策略
-  - DOMAIN,dongman.theluyuan.com,DIRECT
-  - DOMAIN,tavily.ivanli.cc,DIRECT
-  - DOMAIN,bees.fswork.cc,DIRECT
-  - DOMAIN,muyuan.do,DIRECT
   - AND,((NETWORK,UDP),(DST-PORT,443)),REJECT
 
   # AI 分流
