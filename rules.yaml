@@ -418,6 +418,7 @@ rules:
   - RULE-SET,Customer-Proxy-HK,香港自动策略
   - RULE-SET,DNS,全部
   - RULE-SET,VPS,DIRECT,no-resolve
+  - RULE-SET,Server-Domain,服务器
 
   # 直连分流
   - GEOSITE,private,DIRECT
