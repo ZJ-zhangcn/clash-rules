@@ -348,6 +348,14 @@ rule-providers:
     proxy: DIRECT
     path: ./rules/clash/VPS.ymal
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/VPS.ymal"
+  Server-Domain:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/clash/Server-Domain.ymal
+    url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Server-Domain.yaml"
   SpeedtestIntl:
     type: http
     behavior: classical
