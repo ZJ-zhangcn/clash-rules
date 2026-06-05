@@ -161,9 +161,9 @@ proxy-groups:
     max-failed-times: 3
     hidden: false
     proxies:
-      - 美国自建
       - 日本自建
-      # - 香港自建
+      - 香港自建
+      - 美国自建
       - 日本自动策略
       - 新国自动策略
       - 台湾自动策略
@@ -236,17 +236,17 @@ proxy-groups:
     include-all: true
     filter: *FilterUSZJ
 
-  # - name: 香港自建
-  #   type: fallback
-  #   interval: 6
-  #   lazy: true
-  #   url: 'http://www.google.com/blank.html'
-  #   disable-udp: false
-  #   timeout: 2000
-  #   max-failed-times: 3
-  #   hidden: false
-  #   include-all: true
-  #   filter: *FilterHKZJ
+  - name: 香港自建
+    type: fallback
+    interval: 6
+    lazy: true
+    url: 'http://www.google.com/blank.html'
+    disable-udp: false
+    timeout: 2000
+    max-failed-times: 3
+    hidden: false
+    include-all: true
+    filter: *FilterHKZJ
 
   - name: 日本自建
     type: fallback
