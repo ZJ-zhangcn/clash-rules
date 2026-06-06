@@ -262,7 +262,7 @@ proxy-groups:
     filter: *FilterJPZJ
 
   - name: 土耳其自建
-    type: select
+    type: fallback
     interval: 6
     lazy: true
     url: "http://www.google.com/blank.html"
