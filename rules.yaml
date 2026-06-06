@@ -271,7 +271,7 @@ proxy-groups:
     max-failed-times: 3
     hidden: false
     include-all: true
-    filter: *FilterTRQZJ
+    filter: *FilterTEQZJ
 
   # ---- 家宽 ----
   - name: 家宽链式代理
