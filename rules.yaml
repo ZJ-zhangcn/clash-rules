@@ -116,7 +116,7 @@ FilterResidential: &FilterResidential "^.*(?i)(自建家宽).*$"
 FilterUSZJ: &FilterUSZJ "^(?=.*(?:美国-自建|美国-三网精品|美国-A-三网精品))(?!.*(?:回国|校园|游戏|GAME)).*$"
 FilterHKZJ: &FilterHKZJ "^(?=.*\\b香港-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterJPZJ: &FilterJPZJ "^(?=.*\\b日本-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
-FilterJPZJ: &FilterTEQZJ "^(?=.*\\b土耳其-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterTEQZJ: &FilterTEQZJ "^(?=.*\\b土耳其-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 
 # ====================
 # 策略组公共参数 (定义锚点)
