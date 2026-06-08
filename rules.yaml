@@ -430,14 +430,14 @@ rule-providers:
     proxy: DIRECT
     path: ./rules/PayPal.yaml
     url: "https://rule.kelee.one/Clash/PayPal.yaml"
-  # YouTube:
-  #   type: http
-  #   behavior: classical
-  #   interval: 3600
-  #   format: yaml
-  #   proxy: DIRECT
-  #   path: ./rules/YouTube.yaml
-  #   url: "https://rule.kelee.one/Clash/YouTube.yaml"
+  YouTube:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/YouTube.yaml
+    url: "https://rule.kelee.one/Clash/YouTube.yaml"
 
 # ====================
 # 规则配置
