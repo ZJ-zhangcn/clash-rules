@@ -117,6 +117,7 @@ FilterUSZJ: &FilterUSZJ "^(?=.*(?:美国-自建|美国-三网精品|美国-A-三
 FilterHKZJ: &FilterHKZJ "^(?=.*\\b香港-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterJPZJ: &FilterJPZJ "^(?=.*\\b日本-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterTEQZJ: &FilterTEQZJ "^(?=.*\\b土耳其-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterMOZJ: &FilterMOZJ "^(?=.*\\b澳门-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 
 # ====================
 # 策略组公共参数 (定义锚点)
@@ -260,6 +261,18 @@ proxy-groups:
     hidden: false
     include-all: true
     filter: *FilterJPZJ
+
+  - name: 澳门自建
+    type: fallback
+    interval: 6
+    lazy: true
+    url: "http://www.google.com/blank.html"
+    disable-udp: false
+    timeout: 2000
+    max-failed-times: 3
+    hidden: false
+    include-all: true
+    filter: *FilterMOZJ
 
   # - name: 土耳其自建
   #   type: fallback
@@ -455,7 +468,7 @@ rules:
   - RULE-SET,Bahamut,台湾自动策略
   - RULE-SET,GitHub,全部
   - RULE-SET,PayPal,家宽链式代理
-  # - RULE-SET,YouTube,土耳其自建
+  - RULE-SET,YouTube,澳门自建
 
   # AI 分流
   - GEOSITE,openai,AI
