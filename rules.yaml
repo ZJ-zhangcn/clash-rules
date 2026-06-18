@@ -143,6 +143,7 @@ Fallback_Defaults: &fallback-defaults
   timeout: 2000
   max-failed-times: 3
   hidden: false
+  include-all: true
 
 # ====================
 # 策略组
@@ -228,21 +229,25 @@ proxy-groups:
     <<: *url-test-defaults
     filter: *FilterHK
 
-  - name: 台湾自动策略
-    <<: *url-test-defaults
-    filter: *FilterTW
-
   - name: 日本自动策略
     <<: *url-test-defaults
     filter: *FilterJP
 
-  - name: 韩国自动策略
-    <<: *url-test-defaults
-    filter: *FilterKR
-
   - name: 新国自动策略
     <<: *url-test-defaults
     filter: *FilterSG
+
+  - name: 美国自动策略
+    <<: *url-test-defaults
+    filter: *FilterUS
+
+  - name: 台湾自动策略
+    <<: *url-test-defaults
+    filter: *FilterTW
+
+  - name: 韩国自动策略
+    <<: *url-test-defaults
+    filter: *FilterKR
 
   - name: 英国自动策略
     <<: *url-test-defaults
@@ -255,10 +260,6 @@ proxy-groups:
   - name: 德国自动策略
     <<: *url-test-defaults
     filter: *FilterDE
-
-  - name: 美国自动策略
-    <<: *url-test-defaults
-    filter: *FilterUS
 
 # ====================
 # 规则提供者
