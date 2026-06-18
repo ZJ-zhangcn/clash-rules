@@ -110,7 +110,7 @@ FilterSG: &FilterSG "^(?=.*((?i)新|SG|SGP|Singapore))(?!.*((?i)回国|校园|�
 FilterUS: &FilterUS "^(?=.*((?i)美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|USA|United(?:\\s)?States))(?!.*((?i)回国|校园|游戏|GAME|自建|美国-三网精品|美国-zgo)).*$"
 FilterUK: &FilterUK "^(?=.*((?i)英|UK|GBR|United(?:\\s)?Kingdom|伦敦))(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterFR: &FilterFR "^(?=.*((?i)法|FR|FRA|France))(?!.*((?i)回国|校园|游戏|GAME)).*$"
-FilterDE: &FilterDE "^(?=.*((?i)德|DE|DEU|Germany))(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterDE: &FilterDE "^(?=.*((?i)德|DE|DEU|Germany))(?!.*((?i)回国|校园|游戏|GAME|自建)).*$"
 FilterAll: &FilterAll "^(?=.*(.))(?!.*((?i)群|邀请|返利|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|福利|邀请|好友|失联|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Traffic|\\d{4}-\\d{2}-\\d{2}|\\dG)).*$"
 FilterResidential: &FilterResidential "^.*(?i)(自建家宽).*$"
 FilterUSZJ: &FilterUSZJ "^(?=.*(?:美国-自建|美国-三网精品|美国-A-三网精品))(?!.*(?:回国|校园|游戏|GAME)).*$"
@@ -118,6 +118,7 @@ FilterHKZJ: &FilterHKZJ "^(?=.*\\b香港-自建)(?!.*((?i)回国|校园|游戏|G
 FilterJPZJ: &FilterJPZJ "^(?=.*\\b日本-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterTEQZJ: &FilterTEQZJ "^(?=.*\\b土耳其-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterMOZJ: &FilterMOZJ "^(?=.*\\b澳门-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterDEZJ: &FilterDEZJ "^(?=.*\\b德国-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 
 # ====================
 # 策略组公共参数 (定义锚点)
@@ -158,6 +159,7 @@ proxy-groups:
     proxies:
       # - 香港自建
       - 美国自建
+      - 德国自建
       - 日本自动策略
       - 香港自动策略
       - 新国自动策略
@@ -185,6 +187,11 @@ proxy-groups:
     <<: *fallback-defaults
     include-all: true
     filter: *FilterUSZJ
+
+  - name: 德国自建
+    <<: *fallback-defaults
+    include-all: true
+    filter: *FilterDEZJ
 
   # - name: 香港自建
   #   <<: *fallback-defaults
@@ -302,6 +309,14 @@ rule-providers:
     proxy: DIRECT
     path: ./rules/clash/Customer-Proxy-JP.yaml
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-JP.yaml"
+  Customer-Proxy-DE:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/clash/Customer-Proxy-DE.yaml
+    url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-DE.yaml"
   DNS:
     type: http
     behavior: classical
@@ -395,6 +410,7 @@ rules:
   - RULE-SET,Customer-Proxy-All,全部
   - RULE-SET,Customer-Proxy-HK,香港自动策略
   - RULE-SET,Customer-Proxy-JP,日本自动策略
+  - RULE-SET,Customer-Proxy-DE,德国自建
   - RULE-SET,DNS,全部
   - RULE-SET,Server-Domain,服务器
   - RULE-SET,VPS,服务器,no-resolve
