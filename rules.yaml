@@ -127,22 +127,22 @@ UrlTest_Defaults: &url-test-defaults
   interval: 6
   tolerance: 20
   lazy: true
-  url: "http://www.google.com/blank.html"
+  url: "http://www.gstatic.com/generate_204"
   disable-udp: false
   timeout: 2000
   max-failed-times: 3
-  hidden: true
+  hidden: false
   include-all: true
 
 Fallback_Defaults: &fallback-defaults
   type: fallback
   interval: 6
   lazy: true
-  url: "http://www.google.com/blank.html"
+  url: "http://www.gstatic.com/generate_204"
   disable-udp: false
   timeout: 2000
   max-failed-times: 3
-  hidden: true
+  hidden: false
 
 # ====================
 # 策略组
@@ -154,14 +154,7 @@ Fallback_Defaults: &fallback-defaults
 proxy-groups:
   # ---- 核心出口组 ----
   - name: 全部
-    type: fallback
-    interval: 6
-    lazy: true
-    url: "http://www.google.com/blank.html"
-    disable-udp: false
-    timeout: 2000
-    max-failed-times: 3
-    hidden: false
+    <<: *fallback-defaults
     proxies:
       # - 香港自建
       - 美国自建
@@ -177,7 +170,7 @@ proxy-groups:
     type: fallback
     interval: 6
     lazy: true
-    url: "http://www.google.com/blank.html"
+    url: "http://www.gstatic.com/generate_204"
     disable-udp: false
     timeout: 2000
     max-failed-times: 3
@@ -229,7 +222,7 @@ proxy-groups:
     type: fallback
     interval: 6
     lazy: true
-    url: "http://www.google.com/blank.html"
+    url: "http://www.gstatic.com/generate_204"
     disable-udp: false
     timeout: 2000
     max-failed-times: 3
@@ -241,7 +234,7 @@ proxy-groups:
   #   type: fallback
   #   interval: 6
   #   lazy: true
-  #   url: 'http://www.google.com/blank.html'
+  #   url: 'http://www.gstatic.com/generate_204'
   #   disable-udp: false
   #   timeout: 2000
   #   max-failed-times: 3
@@ -253,7 +246,7 @@ proxy-groups:
   #   type: fallback
   #   interval: 6
   #   lazy: true
-  #   url: "http://www.google.com/blank.html"
+  #   url: "http://www.gstatic.com/generate_204"
   #   disable-udp: false
   #   timeout: 2000
   #   max-failed-times: 3
@@ -265,7 +258,7 @@ proxy-groups:
   #   type: fallback
   #   interval: 6
   #   lazy: true
-  #   url: "http://www.google.com/blank.html"
+  #   url: "http://www.gstatic.com/generate_204"
   #   disable-udp: false
   #   timeout: 2000
   #   max-failed-times: 3
@@ -277,7 +270,7 @@ proxy-groups:
   #   type: fallback
   #   interval: 6
   #   lazy: true
-  #   url: "http://www.google.com/blank.html"
+  #   url: "http://www.gstatic.com/generate_204"
   #   disable-udp: false
   #   timeout: 2000
   #   max-failed-times: 3
@@ -290,7 +283,7 @@ proxy-groups:
     type: fallback
     interval: 6
     lazy: true
-    url: "http://www.google.com/blank.html"
+    url: "http://www.gstatic.com/generate_204"
     disable-udp: false
     timeout: 2000
     max-failed-times: 3
@@ -319,7 +312,7 @@ proxy-groups:
     type: fallback
     interval: 6
     lazy: true
-    url: "http://www.google.com/blank.html"
+    url: "http://www.gstatic.com/generate_204"
     disable-udp: false
     timeout: 2000
     max-failed-times: 3
