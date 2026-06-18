@@ -357,6 +357,14 @@ rule-providers:
     proxy: DIRECT
     path: ./rules/clash/Customer-Proxy-HK.yaml
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-HK.yaml"
+  Customer-Proxy-JP:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/clash/Customer-Proxy-JP.yaml
+    url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-JP.yaml"
   DNS:
     type: http
     behavior: classical
@@ -365,14 +373,6 @@ rule-providers:
     proxy: DIRECT
     path: ./rules/clash/DNS.ymal
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/DNS.ymal"
-  VPS:
-    type: http
-    behavior: classical
-    interval: 3600
-    format: yaml
-    proxy: DIRECT
-    path: ./rules/clash/VPS.ymal
-    url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/VPS.ymal"
   Server-Domain:
     type: http
     behavior: classical
@@ -381,6 +381,14 @@ rule-providers:
     proxy: DIRECT
     path: ./rules/clash/Server-Domain.ymal
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Server-Domain.yaml"
+  VPS:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/clash/VPS.ymal
+    url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/VPS.ymal"
   SpeedtestIntl:
     type: http
     behavior: classical
@@ -449,6 +457,7 @@ rules:
   - RULE-SET,Customer-Direct,DIRECT
   - RULE-SET,Customer-Proxy-All,全部
   - RULE-SET,Customer-Proxy-HK,香港自动策略
+  - RULE-SET,Customer-Proxy-JP,日本自动策略
   - RULE-SET,DNS,全部
   - RULE-SET,Server-Domain,服务器
   - RULE-SET,VPS,服务器,no-resolve
