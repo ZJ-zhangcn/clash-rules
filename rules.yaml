@@ -143,7 +143,6 @@ Fallback_Defaults: &fallback-defaults
   timeout: 2000
   max-failed-times: 3
   hidden: false
-  include-all: true
 
 # ====================
 # 策略组
@@ -212,7 +211,7 @@ proxy-groups:
 
   # ---- 家宽 ----
   - name: 家宽链式代理
-    <<: *fallback-defaults
+    <<: *url-test-defaults
     filter: *FilterResidential
 
   # ---- 流媒体与其他 ----
