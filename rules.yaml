@@ -159,27 +159,69 @@ proxy-groups:
       # - 香港自建
       - 美国自建
       - 日本自动策略
+      - 香港自动策略
       - 新国自动策略
-      - 台湾自动策略
+      # - 台湾自动策略
       - 美国自动策略
       - 家宽链式代理
-      - 香港自动策略
-      - 韩国自动策略
+      # - 韩国自动策略
 
   - name: AI
-    type: fallback
-    interval: 6
-    lazy: true
-    url: "http://www.gstatic.com/generate_204"
-    disable-udp: false
-    timeout: 2000
-    max-failed-times: 3
-    hidden: false
+    <<: *fallback-defaults
     proxies:
       - 家宽链式代理
       - 美国自建
       # - 日本自建
       - 全部
+
+  - name: 服务器
+    <<: *fallback-defaults
+    proxies:
+      - 美国自建
+      # - 香港自建
+      - 全部
+
+  - name: 美国自建
+    <<: *fallback-defaults
+    filter: *FilterUSZJ
+
+  # - name: 香港自建
+  #   <<: *fallback-defaults
+  #   filter: *FilterHKZJ
+
+  # - name: 日本自建
+  #   <<: *fallback-defaults
+  #   filter: *FilterJPZJ
+
+  # - name: 澳门自建
+  #   <<: *fallback-defaults
+  #   filter: *FilterMOZJ
+
+  # - name: 土耳其自建
+  #   <<: *fallback-defaults
+  #   filter: *FilterTEQZJ
+
+  - name: 游戏选择
+    type: select
+    include-all: true
+    filter: *FilterAll
+    proxies:
+      - PASS
+      - DIRECT
+
+  # ---- 家宽 ----
+  - name: 家宽链式代理
+    <<: *fallback-defaults
+    filter: *FilterResidential
+
+  # ---- 流媒体与其他 ----
+  - name: Speedtest国际
+    type: select
+    include-all: true
+    filter: *FilterAll
+    proxies:
+      - PASS
+      - DIRECT
 
   # ---- 地区自动策略 ----
   - name: 香港自动策略
@@ -217,110 +259,6 @@ proxy-groups:
   - name: 美国自动策略
     <<: *url-test-defaults
     filter: *FilterUS
-
-  - name: 美国自建
-    type: fallback
-    interval: 6
-    lazy: true
-    url: "http://www.gstatic.com/generate_204"
-    disable-udp: false
-    timeout: 2000
-    max-failed-times: 3
-    hidden: false
-    include-all: true
-  #   filter: *FilterUSZJ
-
-  # - name: 香港自建
-  #   type: fallback
-  #   interval: 6
-  #   lazy: true
-  #   url: 'http://www.gstatic.com/generate_204'
-  #   disable-udp: false
-  #   timeout: 2000
-  #   max-failed-times: 3
-  #   hidden: false
-  #   include-all: true
-  #   filter: *FilterHKZJ
-
-  # - name: 日本自建
-  #   type: fallback
-  #   interval: 6
-  #   lazy: true
-  #   url: "http://www.gstatic.com/generate_204"
-  #   disable-udp: false
-  #   timeout: 2000
-  #   max-failed-times: 3
-  #   hidden: false
-  #   include-all: true
-  #   filter: *FilterJPZJ
-
-  # - name: 澳门自建
-  #   type: fallback
-  #   interval: 6
-  #   lazy: true
-  #   url: "http://www.gstatic.com/generate_204"
-  #   disable-udp: false
-  #   timeout: 2000
-  #   max-failed-times: 3
-  #   hidden: false
-  #   include-all: true
-  #   filter: *FilterMOZJ
-
-  # - name: 土耳其自建
-  #   type: fallback
-  #   interval: 6
-  #   lazy: true
-  #   url: "http://www.gstatic.com/generate_204"
-  #   disable-udp: false
-  #   timeout: 2000
-  #   max-failed-times: 3
-  #   hidden: false
-  #   include-all: true
-  #   filter: *FilterTEQZJ
-
-  # ---- 家宽 ----
-  - name: 家宽链式代理
-    type: fallback
-    interval: 6
-    lazy: true
-    url: "http://www.gstatic.com/generate_204"
-    disable-udp: false
-    timeout: 2000
-    max-failed-times: 3
-    hidden: false
-    include-all: true
-    filter: *FilterResidential
-
-  # ---- 流媒体与其他 ----
-  - name: Speedtest国际
-    type: select
-    include-all: true
-    filter: *FilterAll
-    proxies:
-      - PASS
-      - DIRECT
-
-  - name: 游戏选择
-    type: select
-    include-all: true
-    filter: *FilterAll
-    proxies:
-      - PASS
-      - DIRECT
-
-  - name: 服务器
-    type: fallback
-    interval: 6
-    lazy: true
-    url: "http://www.gstatic.com/generate_204"
-    disable-udp: false
-    timeout: 2000
-    max-failed-times: 3
-    hidden: false
-    proxies:
-      - 美国自建
-      # - 香港自建
-      - 全部
 
 # ====================
 # 规则提供者
