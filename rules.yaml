@@ -155,7 +155,8 @@ Fallback_Defaults: &fallback-defaults
 proxy-groups:
   # ---- 核心出口组 ----
   - name: 全部
-    <<: *fallback-defaults
+    type: select
+    # <<: *fallback-defaults
     proxies:
       - 香港自建
       # - 日本自建
