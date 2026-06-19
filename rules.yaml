@@ -157,8 +157,8 @@ proxy-groups:
   - name: 全部
     <<: *fallback-defaults
     proxies:
-      - 日本自建
       - 香港自建
+      - 日本自建
       - 美国自建
       - 德国自建
       - 日本自动策略
