@@ -196,7 +196,8 @@ proxy-groups:
     filter: *FilterDEZJ
 
   - name: 香港自建
-    <<: *fallback-defaults
+    type: select
+    # <<: *fallback-defaults
     include-all: true
     filter: *FilterHKZJ
 
