@@ -358,6 +358,14 @@ rule-providers:
     proxy: DIRECT
     path: ./rules/Game.yaml
     url: "https://kelee.one/Tool/Clash/Rule/Game.yaml"
+  YouTube:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/YouTube.yaml
+    url: "https://rule.kelee.one/Clash/YouTube.yaml"
   Google:
     type: http
     behavior: classical
@@ -390,14 +398,6 @@ rule-providers:
     proxy: DIRECT
     path: ./rules/PayPal.yaml
     url: "https://rule.kelee.one/Clash/PayPal.yaml"
-  # YouTube:
-  #   type: http
-  #   behavior: classical
-  #   interval: 3600
-  #   format: yaml
-  #   proxy: DIRECT
-  #   path: ./rules/YouTube.yaml
-  #   url: "https://rule.kelee.one/Clash/YouTube.yaml"
 
 # ====================
 # 规则配置
@@ -426,11 +426,11 @@ rules:
   # 服务分流
   - RULE-SET,SpeedtestIntl,Speedtest国际
   - RULE-SET,Game,游戏选择
+  - RULE-SET,YouTube,全部
   - RULE-SET,Google,AI
   - RULE-SET,Bahamut,台湾自动策略
   - RULE-SET,GitHub,全部
   - RULE-SET,PayPal,家宽链式代理
-  # - RULE-SET,YouTube,全部
 
   # AI 分流
   - GEOSITE,openai,AI
