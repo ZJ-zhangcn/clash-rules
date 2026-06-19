@@ -360,6 +360,14 @@ rule-providers:
     proxy: DIRECT
     path: ./rules/Game.yaml
     url: "https://kelee.one/Tool/Clash/Rule/Game.yaml"
+  Disney:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: DIRECT
+    path: ./rules/Disney.yaml
+    url: "https://rule.kelee.one/Clash/Disney.yaml"
   YouTube:
     type: http
     behavior: classical
@@ -428,6 +436,7 @@ rules:
   # 服务分流
   - RULE-SET,SpeedtestIntl,Speedtest国际
   - RULE-SET,Game,游戏选择
+  - RULE-SET,Disney,美国自建
   - RULE-SET,YouTube,全部
   - RULE-SET,Google,AI
   - RULE-SET,Bahamut,台湾自动策略
