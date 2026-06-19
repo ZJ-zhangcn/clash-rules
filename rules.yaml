@@ -128,7 +128,7 @@ UrlTest_Defaults: &url-test-defaults
   interval: 6
   tolerance: 20
   lazy: true
-  url: "http://www.gstatic.com/generate_204"
+  url: "http://www.google.com/blank.html"
   disable-udp: false
   timeout: 2000
   max-failed-times: 3
@@ -139,7 +139,7 @@ Fallback_Defaults: &fallback-defaults
   type: fallback
   interval: 6
   lazy: true
-  url: "http://www.gstatic.com/generate_204"
+  url: "http://www.google.com/blank.html"
   disable-udp: false
   timeout: 2000
   max-failed-times: 3
