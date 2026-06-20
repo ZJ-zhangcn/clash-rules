@@ -155,8 +155,8 @@ Fallback_Defaults: &fallback-defaults
 proxy-groups:
   # ---- 核心出口组 ----
   - name: 全部
-    type: select
-    # <<: *fallback-defaults
+    # type: select
+    <<: *fallback-defaults
     proxies:
       - 香港自建
       # - 日本自建
@@ -196,8 +196,8 @@ proxy-groups:
     filter: *FilterDEZJ
 
   - name: 香港自建
-    type: select
-    # <<: *fallback-defaults
+    # type: select
+    <<: *fallback-defaults
     include-all: true
     filter: *FilterHKZJ
 
