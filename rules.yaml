@@ -158,7 +158,7 @@ proxy-groups:
     # type: select
     <<: *fallback-defaults
     proxies:
-      # - 香港自建
+      - 香港自建
       # - 日本自建
       - 美国自建
       - 德国自建
@@ -195,11 +195,11 @@ proxy-groups:
     include-all: true
     filter: *FilterDEZJ
 
-  # - name: 香港自建
-  #   # type: select
-  #   <<: *fallback-defaults
-  #   include-all: true
-  #   filter: *FilterHKZJ
+  - name: 香港自建
+    # type: select
+    <<: *fallback-defaults
+    include-all: true
+    filter: *FilterHKZJ
 
   # - name: 日本自建
   #   <<: *fallback-defaults
@@ -419,7 +419,7 @@ rules:
   # Customer分流
   - RULE-SET,Customer-Direct,DIRECT
   - RULE-SET,Customer-Proxy-All,全部
-  - RULE-SET,Customer-Proxy-HK,香港自动策略
+  - RULE-SET,Customer-Proxy-HK,香港自建
   - RULE-SET,Customer-Proxy-JP,日本自动策略
   - RULE-SET,Customer-Proxy-DE,德国自建
   - RULE-SET,DNS,全部
