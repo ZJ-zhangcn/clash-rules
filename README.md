@@ -23,7 +23,7 @@ payload:
 
 当前 Clash 规则：
 
-- `Customer-Direct.yaml`：7 条，Raw：`https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/clash/Customer-Direct.yaml`
+- `Customer-Direct.yaml`：6 条，Raw：`https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/clash/Customer-Direct.yaml`
 - `Customer-Proxy-All.yaml`：2 条，Raw：`https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/clash/Customer-Proxy-All.yaml`
 - `Customer-Proxy-HK.yaml`：5 条，Raw：`https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/clash/Customer-Proxy-HK.yaml`
 - `DNS.ymal`：4 条，Raw：`https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/clash/DNS.ymal`
@@ -40,7 +40,7 @@ IP-CIDR,1.1.1.1/32
 
 当前 Loon 规则：
 
-- `Customer-Direct.lsr`：7 条，Raw：`https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/loon/Customer-Direct.lsr`
+- `Customer-Direct.lsr`：6 条，Raw：`https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/loon/Customer-Direct.lsr`
 - `Customer-Proxy-All.lsr`：2 条，Raw：`https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/loon/Customer-Proxy-All.lsr`
 - `Customer-Proxy-HK.lsr`：5 条，Raw：`https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/loon/Customer-Proxy-HK.lsr`
 - `DNS.lsr`：4 条，Raw：`https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/loon/DNS.lsr`
