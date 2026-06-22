@@ -93,9 +93,6 @@ dns:
   direct-nameserver-follow-policy: true
 
 
-hosts:
-  newapi.942645.xyz: www.shopify.com
-
 # ====================
 # Profile 配置
 # ====================
