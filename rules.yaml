@@ -292,7 +292,7 @@ rule-providers:
     behavior: classical
     interval: 3600
     format: yaml
-    proxy: DIRECT
+    proxy: 全部
     path: ./rules/clash/Customer-Direct.yaml
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Direct.yaml"
   Customer-Proxy-All:
@@ -300,7 +300,7 @@ rule-providers:
     behavior: classical
     interval: 3600
     format: yaml
-    proxy: DIRECT
+    proxy: 全部
     path: ./rules/clash/Customer-Proxy-All.yaml
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-All.yaml"
   Customer-Proxy-HK:
@@ -308,7 +308,7 @@ rule-providers:
     behavior: classical
     interval: 3600
     format: yaml
-    proxy: DIRECT
+    proxy: 全部
     path: ./rules/clash/Customer-Proxy-HK.yaml
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-HK.yaml"
   Customer-Proxy-JP:
@@ -316,7 +316,7 @@ rule-providers:
     behavior: classical
     interval: 3600
     format: yaml
-    proxy: DIRECT
+    proxy: 全部
     path: ./rules/clash/Customer-Proxy-JP.yaml
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-JP.yaml"
   Customer-Proxy-DE:
@@ -324,7 +324,7 @@ rule-providers:
     behavior: classical
     interval: 3600
     format: yaml
-    proxy: DIRECT
+    proxy: 全部
     path: ./rules/clash/Customer-Proxy-DE.yaml
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-DE.yaml"
   DNS:
@@ -332,7 +332,7 @@ rule-providers:
     behavior: classical
     interval: 3600
     format: yaml
-    proxy: DIRECT
+    proxy: 全部
     path: ./rules/clash/DNS.ymal
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/DNS.ymal"
   Server-Domain:
@@ -340,7 +340,7 @@ rule-providers:
     behavior: classical
     interval: 3600
     format: yaml
-    proxy: DIRECT
+    proxy: 全部
     path: ./rules/clash/Server-Domain.ymal
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Server-Domain.yaml"
   VPS:
@@ -348,7 +348,7 @@ rule-providers:
     behavior: classical
     interval: 3600
     format: yaml
-    proxy: DIRECT
+    proxy: 全部
     path: ./rules/clash/VPS.ymal
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/VPS.ymal"
   SpeedtestIntl:
