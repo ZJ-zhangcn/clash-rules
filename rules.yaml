@@ -427,7 +427,7 @@ rules:
   - RULE-SET,Customer-Proxy-JP,日本自动策略
   - RULE-SET,DNS,全部
   - RULE-SET,Customer-Proxy-DE,德国自建
-  - RULE-SET,Customer-Proxy-US,美国自建
+  - RULE-SET,Customer-Proxy-US,美国自建ZGO
 
   # 直连分流
   - GEOSITE,private,DIRECT
