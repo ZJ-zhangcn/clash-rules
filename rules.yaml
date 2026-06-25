@@ -332,6 +332,14 @@ rule-providers:
     proxy: 全部
     path: ./rules/clash/Customer-Proxy-JP.yaml
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-JP.yaml"
+  Customer-Proxy-USRN:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: 全部
+    path: ./rules/clash/Customer-Proxy-USRN.yaml
+    url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-USRN.yaml"
   Customer-Proxy-DE:
     type: http
     behavior: classical
@@ -421,11 +429,12 @@ rules:
   - GEOSITE,category-ads-all,REJECT
 
   # Customer分流
+  - RULE-SET,DNS,全部
   - RULE-SET,Customer-Direct,DIRECT
   - RULE-SET,Customer-Proxy-All,全部
   - RULE-SET,Customer-Proxy-HK,香港自建
   - RULE-SET,Customer-Proxy-JP,日本自动策略
-  - RULE-SET,DNS,全部
+  - RULE-SET,Customer-Proxy-USRN,美国自建RN
   - RULE-SET,Customer-Proxy-DE,德国自建
   - RULE-SET,Customer-Proxy-US,美国自建ZGO
 
