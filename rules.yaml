@@ -167,7 +167,7 @@ proxy-groups:
     proxies:
       - 香港自建
       # - 日本自建
-      - 美国自建
+      - 美国自建ZGO
       - 德国自建
       - 日本自动策略
       - 香港自动策略
@@ -181,14 +181,14 @@ proxy-groups:
     <<: *fallback-defaults
     proxies:
       - 家宽链式代理
-      - 美国自建
+      - 美国自建ZGO
       # - 日本自建
       - 全部
 
   - name: 服务器
     <<: *fallback-defaults
     proxies:
-      - 美国自建
+      - 美国自建ZGO
       # - 香港自建
       - 全部
 
@@ -439,7 +439,7 @@ rules:
   # 服务分流
   - RULE-SET,SpeedtestIntl,Speedtest国际
   - RULE-SET,Game,游戏选择
-  - RULE-SET,Disney,美国自建
+  - RULE-SET,Disney,美国自建ZGO
   - RULE-SET,YouTube,全部
   - RULE-SET,Google,AI
   - RULE-SET,Bahamut,台湾自动策略
