@@ -1,3 +1,2 @@
 payload:
-  - DOMAIN,emby.942645.xyz
-  - DOMAIN,moontv.942645.xyz
+  - IP-CIDR,37.221.193.132/32
