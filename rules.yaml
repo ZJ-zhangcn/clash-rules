@@ -341,7 +341,7 @@ rule-providers:
     format: yaml
     proxy: 全部
     path: ./rules/clash/DNS.ymal
-    url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/DNS.ymal"
+    url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/DNS.yaml"
   Server-Domain:
     type: http
     behavior: classical
