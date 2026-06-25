@@ -98,7 +98,6 @@ dns:
     - "system"
   direct-nameserver-follow-policy: true
 
-
 # ====================
 # Profile 配置
 # ====================
@@ -303,6 +302,14 @@ rule-providers:
     proxy: 全部
     path: ./rules/clash/Customer-Proxy-All.yaml
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-All.yaml"
+  Customer-Proxy-DE:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: 全部
+    path: ./rules/clash/Customer-Proxy-DE.yaml
+    url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-DE.yaml"
   Customer-Proxy-HK:
     type: http
     behavior: classical
@@ -319,14 +326,14 @@ rule-providers:
     proxy: 全部
     path: ./rules/clash/Customer-Proxy-JP.yaml
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-JP.yaml"
-  Customer-Proxy-DE:
+  Customer-Proxy-US:
     type: http
     behavior: classical
     interval: 3600
     format: yaml
     proxy: 全部
-    path: ./rules/clash/Customer-Proxy-DE.yaml
-    url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-DE.yaml"
+    path: ./rules/clash/Customer-Proxy-US.yaml
+    url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-US.yaml"
   DNS:
     type: http
     behavior: classical
@@ -343,14 +350,6 @@ rule-providers:
     proxy: 全部
     path: ./rules/clash/Server-Domain.ymal
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Server-Domain.yaml"
-  VPS:
-    type: http
-    behavior: classical
-    interval: 3600
-    format: yaml
-    proxy: 全部
-    path: ./rules/clash/VPS.ymal
-    url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/VPS.ymal"
   SpeedtestIntl:
     type: http
     behavior: classical
@@ -429,9 +428,9 @@ rules:
   - RULE-SET,Customer-Proxy-HK,香港自建
   - RULE-SET,Customer-Proxy-JP,日本自动策略
   - RULE-SET,Customer-Proxy-DE,德国自建
+  - RULE-SET,Customer-Proxy-US,美国自建
   - RULE-SET,DNS,全部
   - RULE-SET,Server-Domain,服务器
-  - RULE-SET,VPS,服务器,no-resolve
 
   # 直连分流
   - GEOSITE,private,DIRECT
