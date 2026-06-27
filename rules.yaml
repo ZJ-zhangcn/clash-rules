@@ -416,11 +416,11 @@ rules:
 
   # Customer分流
   - RULE-SET,DNS,全部
-  - RULE-SET,Customer-Direct,DIRECT
   - RULE-SET,Customer-Proxy-All,全部
   - RULE-SET,Customer-Proxy-HK,香港自建
   - RULE-SET,Customer-Proxy-JP,日本自动策略
   - RULE-SET,Customer-Proxy-DE,德国自建
+  - RULE-SET,Customer-Direct,DIRECT
   - RULE-SET,Customer-Proxy-US,美国自建
 
   # 直连分流
