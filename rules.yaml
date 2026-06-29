@@ -65,17 +65,30 @@ dns:
   default-nameserver:
     - "223.5.5.5"
     - "119.29.29.29"
+  fake-ip-range: 198.18.0.0/16
   fake-ip-filter:
     - "geosite:private"
     - "geosite:cn"
     - "geosite:google-cn"
     - "geosite:synology"
+    - "*.lan"
+    - "*.local"
+    - "*.arpa"
+    - "time.*.com"
+    - "ntp.*.com"
+    - "+.market.xiaomi.com"
+    - "localhost.ptlogin2.qq.com"
+    - "*.msftncsi.com"
+    - "www.msftconnecttest.com"
   nameserver-policy:
     # 国内/直连 DNS
-    "geosite:cn": ["223.5.5.5#DIRECT", "119.29.29.29#DIRECT"]
+    "geosite:cn": ["https://doh.pub/dns-query#DIRECT", "https://dns.alidns.com/dns-query#DIRECT"]
+    "geosite:apple": ["https://doh.pub/dns-query#DIRECT", "https://dns.alidns.com/dns-query#DIRECT"]
     "geosite:private": "system"
     "geosite:google-cn": ["223.5.5.5#DIRECT", "119.29.29.29#DIRECT"]
     "geosite:synology": ["223.5.5.5#DIRECT", "119.29.29.29#DIRECT"]
+    "*.linux.do": "https://xxx.ddd.oaifree.com/query-dns#全部"
+    "linux.do": "https://xxx.ddd.oaifree.com/query-dns#全部"
     # AI 分流 DNS
     "geosite:openai":
       ["https://1.1.1.1/dns-query#AI", "https://8.8.8.8/dns-query#AI"]
@@ -93,8 +106,8 @@ dns:
     - "119.29.29.29#DIRECT"
     - "system"
   direct-nameserver:
-    - "223.5.5.5#DIRECT"
-    - "119.29.29.29#DIRECT"
+    - "https://doh.pub/dns-query#DIRECT"
+    - "https://dns.alidns.com/dns-query#DIRECT"
     - "system"
   direct-nameserver-follow-policy: true
 
@@ -292,7 +305,7 @@ rule-providers:
     interval: 3600
     format: yaml
     proxy: 全部
-    path: ./rules/clash/DNS.ymal
+    path: ./rules/clash/DNS.yaml
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/DNS.yaml"
   Customer-Direct:
     type: http
