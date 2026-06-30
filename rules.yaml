@@ -185,9 +185,9 @@ proxy-groups:
     # type: select
     <<: *fallback-defaults
     proxies:
+      - 美国自建
       - 香港自建
       # - 日本自建
-      - 美国自建
       - 德国自建
       - 日本自动策略
       - 香港自动策略
@@ -209,7 +209,7 @@ proxy-groups:
     <<: *fallback-defaults
     proxies:
       - 美国自建
-      # - 香港自建
+      - 德国自建
       - 全部
 
   - name: 美国自建
