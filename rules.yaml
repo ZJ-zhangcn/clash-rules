@@ -82,13 +82,21 @@ dns:
     - "www.msftconnecttest.com"
   nameserver-policy:
     # 国内/直连 DNS
-    "geosite:cn": ["https://doh.pub/dns-query#DIRECT", "https://dns.alidns.com/dns-query#DIRECT"]
-    "geosite:apple": ["https://doh.pub/dns-query#DIRECT", "https://dns.alidns.com/dns-query#DIRECT"]
+    "geosite:cn":
+      [
+        "https://doh.pub/dns-query#DIRECT",
+        "https://dns.alidns.com/dns-query#DIRECT",
+      ]
+    "geosite:apple":
+      [
+        "https://doh.pub/dns-query#DIRECT",
+        "https://dns.alidns.com/dns-query#DIRECT",
+      ]
     "geosite:private": "system"
     "geosite:google-cn": ["223.5.5.5#DIRECT", "119.29.29.29#DIRECT"]
     "geosite:synology": ["223.5.5.5#DIRECT", "119.29.29.29#DIRECT"]
-    "*.linux.do": "https://xxx.ddd.oaifree.com/query-dns#全部"
-    "linux.do": "https://xxx.ddd.oaifree.com/query-dns#全部"
+    "*.linux.do": "https://xxx.ddd.oaifree.com/query-dns#美国自建"
+    "linux.do": "https://xxx.ddd.oaifree.com/query-dns#美国自建"
     # AI 分流 DNS
     "geosite:openai":
       ["https://1.1.1.1/dns-query#AI", "https://8.8.8.8/dns-query#AI"]
