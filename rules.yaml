@@ -187,6 +187,7 @@ proxy-groups:
     <<: *fallback-defaults
     proxies:
       - 美国自建
+      - 美国自建GT
       # - 香港自建
       # - 日本自建
       # - 德国自建
@@ -203,6 +204,7 @@ proxy-groups:
     proxies:
       - 家宽链式代理
       - 美国自建
+      - 美国自建GT
       # - 日本自建
       - 全部
 
