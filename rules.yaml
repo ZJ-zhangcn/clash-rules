@@ -140,7 +140,8 @@ FilterFR: &FilterFR "^(?=.*((?i)法|FR|FRA|France))(?!.*((?i)回国|校园|游�
 FilterDE: &FilterDE "^(?=.*((?i)德|DE|DEU|Germany))(?!.*((?i)回国|校园|游戏|GAME|自建)).*$"
 FilterAll: &FilterAll "^(?=.*(.))(?!.*((?i)群|邀请|返利|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|福利|邀请|好友|失联|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Traffic|\\d{4}-\\d{2}-\\d{2}|\\dG)).*$"
 FilterResidential: &FilterResidential "^.*(?i)(自建家宽).*$"
-FilterUSZJ: &FilterUSZJ "^(?=.*(?:美国-自建))(?!.*(?:回国|校园|游戏|GAME|美国-自建1-zgo-http)).*$"
+FilterUSZJ: &FilterUSZJ "^(?=.*(?:美国-自建1))(?!.*(?:回国|校园|游戏|GAME|美国-自建1-zgo-http)).*$"
+FilterUSGTZJ: &FilterUSGTZJ "^(?=.*(?:美国-自建2))(?!.*(?:回国|校园|游戏|GAME)).*$"
 FilterHKZJ: &FilterHKZJ "^(?=.*\\b香港-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterJPZJ: &FilterJPZJ "^(?=.*\\b日本-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterTEQZJ: &FilterTEQZJ "^(?=.*\\b土耳其-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
@@ -209,7 +210,7 @@ proxy-groups:
     <<: *fallback-defaults
     proxies:
       - 美国自建
-      - 德国自建
+      - 美国自建GT
       - 全部
 
   - name: 美国自建
@@ -217,16 +218,21 @@ proxy-groups:
     include-all: true
     filter: *FilterUSZJ
 
-  - name: 德国自建
+  - name: 美国自建GT
     <<: *fallback-defaults
     include-all: true
-    filter: *FilterDEZJ
+    filter: *FilterUSGTZJ
 
-  - name: 香港自建
-    # type: select
-    <<: *fallback-defaults
-    include-all: true
-    filter: *FilterHKZJ
+  # - name: 德国自建
+  #   <<: *fallback-defaults
+  #   include-all: true
+  #   filter: *FilterDEZJ
+
+  # - name: 香港自建
+  #   # type: select
+  #   <<: *fallback-defaults
+  #   include-all: true
+  #   filter: *FilterHKZJ
 
   # - name: 日本自建
   #   <<: *fallback-defaults
@@ -347,14 +353,22 @@ rule-providers:
     proxy: 全部
     path: ./rules/clash/Customer-Proxy-JP.yaml
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-JP.yaml"
-  Customer-Proxy-DE:
+  # Customer-Proxy-DE:
+  #   type: http
+  #   behavior: classical
+  #   interval: 3600
+  #   format: yaml
+  #   proxy: 全部
+  #   path: ./rules/clash/Customer-Proxy-DE.yaml
+  #   url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-DE.yaml"
+  Customer-Proxy-USGT:
     type: http
     behavior: classical
     interval: 3600
     format: yaml
     proxy: 全部
-    path: ./rules/clash/Customer-Proxy-DE.yaml
-    url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-DE.yaml"
+    path: ./rules/clash/Customer-Proxy-USGT.yaml
+    url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-USGT.yaml"
   Customer-Proxy-US:
     type: http
     behavior: classical
@@ -438,9 +452,10 @@ rules:
   # Customer分流
   - RULE-SET,DNS,全部
   - RULE-SET,Customer-Proxy-All,全部
-  - RULE-SET,Customer-Proxy-HK,香港自建
+  - RULE-SET,Customer-Proxy-HK,香港自动策略
   - RULE-SET,Customer-Proxy-JP,日本自动策略
-  - RULE-SET,Customer-Proxy-DE,德国自建
+  # - RULE-SET,Customer-Proxy-DE,德国自建
+  - RULE-SET,Customer-Proxy-USGT,美国自建GT
   - RULE-SET,Customer-Direct,DIRECT
   - RULE-SET,Customer-Proxy-US,美国自建
 
@@ -454,7 +469,7 @@ rules:
   # 服务分流
   - RULE-SET,SpeedtestIntl,Speedtest国际
   - RULE-SET,Game,游戏选择
-  - RULE-SET,Disney,美国自建
+  - RULE-SET,Disney,美国自建GT
   - RULE-SET,YouTube,全部
   - RULE-SET,Google,AI
   - RULE-SET,Bahamut,台湾自动策略
