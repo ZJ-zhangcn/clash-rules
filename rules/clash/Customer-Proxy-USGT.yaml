@@ -2,5 +2,3 @@ payload:
   - DOMAIN,emby.942645.xyz
   - DOMAIN,moontv.942645.xyz
   - DOMAIN,webdav.942645.xyz
-  - DOMAIN,newapi-longtask.942645.xyz
-  - IP-CIDR,157.254.234.145/32

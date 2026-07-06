@@ -2,5 +2,4 @@ payload:
   - DOMAIN-SUFFIX,hybgzs.com
   - DOMAIN-SUFFIX,linux.do
   - DOMAIN-SUFFIX,idcflare.com
-  - IP-CIDR,192.129.152.33/32
-  - IP-CIDR,154.21.199.36/32
+  - DOMAIN,newapi-longtask.942645.xyz

@@ -1,7 +1,13 @@
 DOMAIN-SUFFIX,muyuan.do
-DOMAIN-SUFFIX,942645.xyz
 DOMAIN,dongman.theluyuan.com
 DOMAIN-SUFFIX,h-e.top
 DOMAIN,tavily.ivanli.cc
 DOMAIN,bees.fswork.cc
 DOMAIN-SUFFIX,netcup.com
+DOMAIN,gateway-relay.942645.xyz
+DOMAIN,zgo-relay.942645.xyz
+DOMAIN,de-relay.942645.xyz
+DOMAIN-SUFFIX,942645.xyz
+IP-CIDR,192.129.152.33/32
+IP-CIDR,154.21.199.36/32
+IP-CIDR,157.254.234.145/32
