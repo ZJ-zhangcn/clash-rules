@@ -189,7 +189,7 @@ proxy-groups:
       - 美国自建
       # - 美国自建GT
       # - 香港自建
-      # - 日本自建
+      - 日本自建
       # - 德国自建
       - 日本自动策略
       - 香港自动策略
@@ -204,15 +204,13 @@ proxy-groups:
     proxies:
       - 家宽链式代理
       - 美国自建
-      - 美国自建GT
-      # - 日本自建
+      - 日本自建
       - 全部
 
   - name: 服务器
     <<: *fallback-defaults
     proxies:
       - 美国自建
-      - 美国自建GT
       - 全部
 
   - name: 美国自建
@@ -236,10 +234,10 @@ proxy-groups:
   #   include-all: true
   #   filter: *FilterHKZJ
 
-  # - name: 日本自建
-  #   <<: *fallback-defaults
-  #   include-all: true
-  #   filter: *FilterJPZJ
+  - name: 日本自建
+    <<: *fallback-defaults
+    include-all: true
+    filter: *FilterJPZJ
 
   # - name: 澳门自建
   #   <<: *fallback-defaults
