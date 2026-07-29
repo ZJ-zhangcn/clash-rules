@@ -186,10 +186,10 @@ proxy-groups:
     # type: select
     <<: *fallback-defaults
     proxies:
+      - 日本自建
       - 美国自建
       # - 美国自建GT
       # - 香港自建
-      - 日本自建
       # - 德国自建
       - 日本自动策略
       - 香港自动策略
