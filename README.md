@@ -8,18 +8,8 @@
 rules.yaml                         # Clash 主配置
 rules/clash/                       # Clash classical payload 规则
 rules/loon/                        # Loon Rule-Set 规则，使用 .lsr 后缀
-stash/stash.yaml                   # Stash 远程配置（由 Mac 当前 Mihomo 配置生成）
 scripts/convert-clash-to-loon.py   # Clash -> Loon 转换脚本
 ```
-
-## Stash 远程配置
-
-- Raw：`https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/stash/stash.yaml`
-- 配置只引用 Sub-Store 远程订阅，不内嵌任何节点；订阅每小时刷新一次。
-- 保留当前 Mac Mihomo 的策略组、规则集与分流顺序。
-- 移动端自动测速间隔设为 300 秒，避免沿用 Mac 的 6 秒轮询造成额外耗电。
-
-在 Stash 中选择“从 URL 导入配置”，粘贴上述 Raw 地址即可。
 
 ## Clash 规则
 
