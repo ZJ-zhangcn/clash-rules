@@ -345,14 +345,14 @@ rule-providers:
     proxy: 全部
     path: ./rules/clash/Customer-Proxy-HK.yaml
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-HK.yaml"
-  Customer-Proxy-JP:
-    type: http
-    behavior: classical
-    interval: 3600
-    format: yaml
-    proxy: 全部
-    path: ./rules/clash/Customer-Proxy-JP.yaml
-    url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-JP.yaml"
+  # Customer-Proxy-JP:
+  #   type: http
+  #   behavior: classical
+  #   interval: 3600
+  #   format: yaml
+  #   proxy: 全部
+  #   path: ./rules/clash/Customer-Proxy-JP.yaml
+  #   url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-JP.yaml"
   # Customer-Proxy-DE:
   #   type: http
   #   behavior: classical
@@ -361,14 +361,14 @@ rule-providers:
   #   proxy: 全部
   #   path: ./rules/clash/Customer-Proxy-DE.yaml
   #   url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-DE.yaml"
-  Customer-Proxy-USGT:
-    type: http
-    behavior: classical
-    interval: 3600
-    format: yaml
-    proxy: 全部
-    path: ./rules/clash/Customer-Proxy-USGT.yaml
-    url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-USGT.yaml"
+  # Customer-Proxy-USGT:
+  #   type: http
+  #   behavior: classical
+  #   interval: 3600
+  #   format: yaml
+  #   proxy: 全部
+  #   path: ./rules/clash/Customer-Proxy-USGT.yaml
+  #   url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-USGT.yaml"
   Customer-Proxy-US:
     type: http
     behavior: classical
@@ -453,9 +453,9 @@ rules:
   - RULE-SET,DNS,全部
   - RULE-SET,Customer-Proxy-All,全部
   - RULE-SET,Customer-Proxy-HK,香港自动策略
-  - RULE-SET,Customer-Proxy-JP,日本自动策略
+  # - RULE-SET,Customer-Proxy-JP,日本自动策略
   # - RULE-SET,Customer-Proxy-DE,德国自建
-  - RULE-SET,Customer-Proxy-USGT,美国自建GT
+  # - RULE-SET,Customer-Proxy-USGT,美国自建GT
   - RULE-SET,Customer-Direct,DIRECT
   - RULE-SET,Customer-Proxy-US,美国自建
 

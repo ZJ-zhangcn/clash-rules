@@ -1,2 +1,3 @@
-DOMAIN,moontv.942645.xyz
-DOMAIN,webdav.942645.xyz
+# payload:
+#   - DOMAIN,moontv.942645.xyz
+#   - DOMAIN,webdav.942645.xyz
