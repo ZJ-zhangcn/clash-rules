@@ -29,6 +29,14 @@ payload:
 - `DNS.ymal`：4 条，Raw：`https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/clash/DNS.ymal`
 - `VPS.ymal`：2 条，Raw：`https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/clash/VPS.ymal`
 
+### Docker Desktop / Mihomo
+
+`rules.yaml` 在最终 `MATCH` 前保留一条 `PROCESS-NAME,com.docker.backend,DIRECT`：
+
+- 明确的 Customer、地区和服务规则优先，避免 Docker 流量覆盖既有代理分流。
+- 未命中这些规则的 Docker Desktop 流量走直连，供 qBittorrent Peer 连接使用。
+- Docker Desktop 的 gvisor 网络层以 `com.docker.backend` 代表容器出站，规则粒度不是单个容器。
+
 ## Loon 规则
 
 Loon 规则放在 `rules/loon/`，只保留 `.lsr` 文件，格式示例：

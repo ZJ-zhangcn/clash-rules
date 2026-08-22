@@ -53,6 +53,9 @@ tun:
     - "any:53"
     - "tcp://any:53"
 
+# 进程规则需要显式启用进程识别；Docker Desktop 出站在 Mihomo 中表现为此宿主进程。
+find-process-mode: strict
+
 # ====================
 # DNS 配置
 # ====================
@@ -489,4 +492,8 @@ rules:
   - GEOSITE,gfw,全部
   - GEOSITE,cn,DIRECT
   - GEOIP,CN,DIRECT,no-resolve
+  # Docker Desktop：仅作为未命中明确目标规则时的兜底直连。
+  # 必须放在 MATCH 前，否则会覆盖上面的 Customer-Proxy / gfw 分流。
+  # Docker Desktop 的 gvisor 网络层只能识别 com.docker.backend，单个容器不会被分别识别。
+  - PROCESS-NAME,com.docker.backend,DIRECT
   - MATCH,全部
