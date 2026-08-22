@@ -36,6 +36,7 @@ payload:
 - 明确的 Customer、地区和服务规则优先，避免 Docker 流量覆盖既有代理分流。
 - 未命中这些规则的 Docker Desktop 流量走直连，供 qBittorrent Peer 连接使用。
 - Docker Desktop 的 gvisor 网络层以 `com.docker.backend` 代表容器出站，规则粒度不是单个容器。
+- `7890` 仅绑定 `127.0.0.1`，不向局域网或公网 IPv6 暴露无认证代理。
 
 ## Loon 规则
 
