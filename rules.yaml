@@ -4,6 +4,15 @@
 mixed-port: 7890
 allow-lan: false
 bind-address: 127.0.0.1
+
+# qB 专属入口：只允许 qB 显式使用，出口固定 DIRECT；不影响其他 Docker 容器。
+listeners:
+  - name: qb-direct
+    type: mixed
+    listen: 127.0.0.1
+    port: 7891
+    proxy: DIRECT
+    udp: true
 mode: rule
 log-level: warning
 ipv6: true
@@ -493,8 +502,6 @@ rules:
   - GEOSITE,gfw,全部
   - GEOSITE,cn,DIRECT
   - GEOIP,CN,DIRECT,no-resolve
-  # Docker Desktop：仅作为未命中明确目标规则时的兜底直连。
-  # 必须放在 MATCH 前，否则会覆盖上面的 Customer-Proxy / gfw 分流。
-  # Docker Desktop 的 gvisor 网络层只能识别 com.docker.backend，单个容器不会被分别识别。
-  - PROCESS-NAME,com.docker.backend,DIRECT
+  # Docker Desktop 不做宿主进程级 DIRECT 兜底：
+  # Mihomo 只能看到 com.docker.backend，无法按容器区分；qB 使用上面的专属 listener。
   - MATCH,全部

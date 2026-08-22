@@ -31,12 +31,12 @@ payload:
 
 ### Docker Desktop / Mihomo
 
-`rules.yaml` 在最终 `MATCH` 前保留一条 `PROCESS-NAME,com.docker.backend,DIRECT`：
+不对 Docker Desktop 设置 `PROCESS-NAME,com.docker.backend,DIRECT`，因为该进程代表所有容器：
 
-- 明确的 Customer、地区和服务规则优先，避免 Docker 流量覆盖既有代理分流。
-- 未命中这些规则的 Docker Desktop 流量走直连，供 qBittorrent Peer 连接使用。
-- Docker Desktop 的 gvisor 网络层以 `com.docker.backend` 代表容器出站，规则粒度不是单个容器。
-- `7890` 仅绑定 `127.0.0.1`，不向局域网或公网 IPv6 暴露无认证代理。
+- `rules.yaml` 不含宿主进程级 Docker 直连兜底，MoviePilot、OpenList 等容器继续按正常规则分流。
+- qB 使用独立的 Mihomo listener：`127.0.0.1:7891`，出口固定为 `DIRECT`。
+- qB 显式配置 SOCKS5 `host.docker.internal:7891`，并启用 BitTorrent / Peer 连接代理；其他容器不会使用这个入口。
+- `7890` 与 `7891` 均只绑定本机地址，不向局域网或公网 IPv6 暴露无认证代理。
 
 ## Loon 规则
 
