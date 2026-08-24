@@ -13,4 +13,4 @@ payload:
   - IP-CIDR,154.21.199.36/32
   - IP-CIDR,157.254.234.145/32
   - DOMAIN-SUFFIX,younoyes.com
-  - DOMAIN-SUFFIX,m-team.cc
+  - DOMAIN-KEYWORD,m-team
