@@ -153,13 +153,13 @@ FilterFR: &FilterFR "^(?=.*((?i)法|FR|FRA|France))(?!.*((?i)回国|校园|游�
 FilterDE: &FilterDE "^(?=.*((?i)德|DE|DEU|Germany))(?!.*((?i)回国|校园|游戏|GAME|自建)).*$"
 FilterAll: &FilterAll "^(?=.*(.))(?!.*((?i)群|邀请|返利|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|福利|邀请|好友|失联|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Traffic|\\d{4}-\\d{2}-\\d{2}|\\dG)).*$"
 FilterResidential: &FilterResidential "^.*(?i)(自建家宽).*$"
-FilterUSZJ: &FilterUSZJ "^(?=.*(?:美国-自建))(?!.*(?:回国|校园|游戏|GAME|美国-自建1-zgo-http|美国-自建2)).*$"
-FilterUSGTZJ: &FilterUSGTZJ "^(?=.*(?:美国-自建2))(?!.*(?:回国|校园|游戏|GAME)).*$"
+FilterUSZJ: &FilterUSZJ "^(?=.*(?:美国-自建-zgo))(?!.*(?:回国|校园|游戏|GAME|美国-自建1-zgo-http|美国-自建2)).*$"
+FilterUSGTZJ: &FilterUSGTZJ "^(?=.*(?:美国-自建-gate))(?!.*(?:回国|校园|游戏|GAME)).*$"
 FilterHKZJ: &FilterHKZJ "^(?=.*\\b香港-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterJPZJ: &FilterJPZJ "^(?=.*\\b日本-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterTEQZJ: &FilterTEQZJ "^(?=.*\\b土耳其-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterMOZJ: &FilterMOZJ "^(?=.*\\b澳门-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
-FilterDEZJ: &FilterDEZJ "^(?=.*\\b德国-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterDEZJ: &FilterDEZJ "^(?=.*\\b德国-自建-netcup)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 
 # ====================
 # 策略组公共参数 (定义锚点)
@@ -199,7 +199,7 @@ proxy-groups:
     # type: select
     <<: *fallback-defaults
     proxies:
-      # - 日本自建
+      - 日本自建
       - 美国自建
       # - 美国自建GT
       # - 香港自建
@@ -236,10 +236,10 @@ proxy-groups:
     include-all: true
     filter: *FilterUSGTZJ
 
-  # - name: 德国自建
-  #   <<: *fallback-defaults
-  #   include-all: true
-  #   filter: *FilterDEZJ
+  - name: 德国自建
+    <<: *fallback-defaults
+    include-all: true
+    filter: *FilterDEZJ
 
   # - name: 香港自建
   #   # type: select
@@ -247,10 +247,10 @@ proxy-groups:
   #   include-all: true
   #   filter: *FilterHKZJ
 
-  # - name: 日本自建
-  #   <<: *fallback-defaults
-  #   include-all: true
-  #   filter: *FilterJPZJ
+  - name: 日本自建
+    <<: *fallback-defaults
+    include-all: true
+    filter: *FilterJPZJ
 
   # - name: 澳门自建
   #   <<: *fallback-defaults
