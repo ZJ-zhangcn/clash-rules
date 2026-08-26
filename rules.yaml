@@ -155,7 +155,7 @@ FilterAll: &FilterAll "^(?=.*(.))(?!.*((?i)群|邀请|返利|官网|客服|网�
 FilterResidential: &FilterResidential "^.*(?i)(自建家宽).*$"
 FilterUSZJ: &FilterUSZJ "^(?=.*(?:美国-自建-zgo))(?!.*(?:回国|校园|游戏|GAME|美国-自建1-zgo-http|美国-自建2)).*$"
 FilterUSGTZJ: &FilterUSGTZJ "^(?=.*(?:美国-自建-gate))(?!.*(?:回国|校园|游戏|GAME)).*$"
-FilterUSSJZJ: &FilterUSSJZJ "^(?=.*(?:美国-自建-sj))(?!.*(?:回国|校园|游戏|GAME)).*$"
+FilterSGZJ: &FilterSGZJ "^(?=.*(?:新国-自建-))(?!.*(?:回国|校园|游戏|GAME)).*$"
 FilterHKZJ: &FilterHKZJ "^(?=.*\\b香港-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterJPZJ: &FilterJPZJ "^(?=.*\\b日本-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterTEQZJ: &FilterTEQZJ "^(?=.*\\b土耳其-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
@@ -201,11 +201,11 @@ proxy-groups:
     <<: *fallback-defaults
     proxies:
       # - 日本自建
-      - 美国自建SJ
+      - 新国自建
       - 美国自建
       # - 美国自建GT
       # - 香港自建
-      # - 德国自建
+      - 德国自建
       - 日本自动策略
       - 香港自动策略
       # - 新国自动策略
@@ -238,15 +238,15 @@ proxy-groups:
     include-all: true
     filter: *FilterUSGTZJ
 
-  - name: 美国自建SJ
-    <<: *fallback-defaults
-    include-all: true
-    filter: *FilterUSSJZJ
-
   - name: 德国自建
     <<: *fallback-defaults
     include-all: true
     filter: *FilterDEZJ
+
+  - name: 新国自建
+    <<: *fallback-defaults
+    include-all: true
+    filter: *FilterSGZJ
 
   # - name: 香港自建
   #   # type: select
