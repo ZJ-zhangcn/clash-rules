@@ -397,6 +397,22 @@ rule-providers:
     proxy: 全部
     path: ./rules/clash/Customer-Proxy-US.yaml
     url: "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/refs/heads/main/rules/clash/Customer-Proxy-US.yaml"
+  WeChat:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: 全部
+    path: ./rules/clash/WeChat.yaml
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/WeChat/WeChat.yaml"
+  Tencent:
+    type: http
+    behavior: classical
+    interval: 3600
+    format: yaml
+    proxy: 全部
+    path: ./rules/clash/Tencent.yaml
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Tencent/Tencent.yaml"
   SpeedtestIntl:
     type: http
     behavior: classical
@@ -495,6 +511,8 @@ rules:
   - RULE-SET,Bahamut,台湾自动策略
   - RULE-SET,GitHub,全部
   - RULE-SET,PayPal,家宽链式代理
+  - RULE-SET,WeChat,美国自建
+  - RULE-SET,Tencent,美国自建
 
   # AI 分流
   - GEOSITE,openai,AI
