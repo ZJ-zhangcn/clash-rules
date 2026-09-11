@@ -200,15 +200,15 @@ proxy-groups:
     # type: select
     <<: *fallback-defaults
     proxies:
+      - 日本自动策略
+      - 香港自动策略
       # - 日本自建
       # - 新国自建
       - 香港自建
       - 美国自建
       # - 美国自建GT
       - 德国自建
-      # - 日本自动策略
-      # - 香港自动策略
-      - 新国自动策略
+      # - 新国自动策略
       # - 台湾自动策略
       # - 美国自动策略
       # - 家宽链式代理
@@ -233,10 +233,10 @@ proxy-groups:
     include-all: true
     filter: *FilterUSZJ
 
-  - name: 美国自建GT
-    <<: *fallback-defaults
-    include-all: true
-    filter: *FilterUSGTZJ
+  # - name: 美国自建GT
+  #   <<: *fallback-defaults
+  #   include-all: true
+  #   filter: *FilterUSGTZJ
 
   - name: 德国自建
     <<: *fallback-defaults
@@ -313,21 +313,21 @@ proxy-groups:
     <<: *url-test-defaults
     filter: *FilterTW
 
-  - name: 韩国自动策略
-    <<: *url-test-defaults
-    filter: *FilterKR
+  # - name: 韩国自动策略
+  #   <<: *url-test-defaults
+  #   filter: *FilterKR
 
-  - name: 英国自动策略
-    <<: *url-test-defaults
-    filter: *FilterUK
+  # - name: 英国自动策略
+  #   <<: *url-test-defaults
+  #   filter: *FilterUK
 
-  - name: 法国自动策略
-    <<: *url-test-defaults
-    filter: *FilterFR
+  # - name: 法国自动策略
+  #   <<: *url-test-defaults
+  #   filter: *FilterFR
 
-  - name: 德国自动策略
-    <<: *url-test-defaults
-    filter: *FilterDE
+  # - name: 德国自动策略
+  #   <<: *url-test-defaults
+  #   filter: *FilterDE
 
 # ====================
 # 规则提供者
@@ -505,7 +505,7 @@ rules:
   # 服务分流
   - RULE-SET,SpeedtestIntl,Speedtest国际
   - RULE-SET,Game,游戏选择
-  - RULE-SET,Disney,美国自建GT
+  - RULE-SET,Disney,美国自建
   - RULE-SET,YouTube,全部
   - RULE-SET,Google,AI
   - RULE-SET,Bahamut,台湾自动策略
