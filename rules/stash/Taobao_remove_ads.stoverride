@@ -1,0 +1,42 @@
+name: "淘宝去广告"
+rules:
+  - "DOMAIN,adashx.m.taobao.com,REJECT"
+  - "DOMAIN,ossgw.alicdn.com,REJECT"
+  - "DOMAIN,ems.youku.com,REJECT"
+  - "DOMAIN,hudong.alicdn.com,REJECT"
+  - "DOMAIN,h-adashx.ut.taobao.com,REJECT"
+  - "DOMAIN,ut.taobao.com,REJECT"
+http:
+  mitm:
+    - "acs.m.taobao.com"
+    - "heic.alicdn.com"
+    - "guide-acs.m.taobao.com"
+    - "poplayer.template.alibaba.com"
+  url-rewrite:
+    - "^https:\\/\\/acs\\.m\\.taobao\\.com\\/gw\\/mtop\\.fliggy\\.crm\\.screen\\.(allresource|predict) - reject"
+    - "^https:\\/\\/acs\\.m\\.taobao\\.com\\/gw\\/mtop\\.alibaba\\.advertisementservice\\.getadv - reject"
+    - "^https:\\/\\/acs\\.m\\.taobao\\.com\\/gw\\/mtop\\.alimama\\.etao\\.config\\.query\\/.+?etao_advertise - reject"
+    - "^https:\\/\\/acs\\.m\\.taobao\\.com\\/gw\\/mtop\\.alimusic\\.common\\.mobileservice\\.startinit - reject"
+    - "^https:\\/\\/acs\\.m\\.taobao\\.com\\/gw\\/mtop\\.etao\\.noah\\.query\\/.+tao_splash - reject"
+    - "^https:\\/\\/acs\\.m\\.taobao\\.com\\/gw\\/mtop\\.film\\.mtopadvertiseapi\\.queryadvertise - reject"
+    - "^https:\\/\\/acs\\.m\\.taobao\\.com\\/gw\\/mtop\\.o2o\\.ad\\.gateway\\.get - reject"
+    - "^https:\\/\\/acs\\.m\\.taobao\\.com\\/gw\\/mtop\\.taobao\\.idle\\.home\\.welcome - reject"
+    - "^https:\\/\\/acs\\.m\\.taobao\\.com\\/gw\\/mtop\\.trip\\.activity\\.querytmsresources - reject"
+    - "^https:\\/\\/(?:gw|heic)\\.alicdn\\.com\\/imgextra\\/i\\d\\/\\d*\\/?[\\w!]+-\\d-(?:octopus|tps)-(?:1080|1125)-\\d{4}\\.(?:jpg|png)_(?:1\\d{3}|9\\d{2})x(?:\\d|1\\d{3}|9\\d{2})q[59]0 - reject"
+    - "^https:\\/\\/guide-acs\\.m\\.taobao\\.com\\/gw\\/mtop\\.taobao\\.(volvo\\.secondfloor\\.getconfig|wireless\\.home\\.newface\\.awesome\\.get) - reject"
+  script:
+    - match: "^https:\\/\\/guide-acs\\.m\\.taobao\\.com\\/gw\\/mtop\\.taobao\\.(cloudvideo\\.video\\.query|wireless\\.home\\.splash\\.awesome\\.get)"
+      name: "loon_taobao_remove_ads_01"
+      type: "response"
+      require-body: true
+    - match: "^https:\\/\\/poplayer\\.template\\.alibaba\\.com\\/\\w+\\.json"
+      name: "loon_taobao_remove_ads_02"
+      type: "response"
+      require-body: true
+script-providers:
+  "loon_taobao_remove_ads_01":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/Taobao/Taobao_remove_ads.js"
+    interval: 86400
+  "loon_taobao_remove_ads_02":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/Taobao/Taobao_remove_ads.js"
+    interval: 86400

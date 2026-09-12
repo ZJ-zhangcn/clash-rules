@@ -1,0 +1,14 @@
+name: "微信外部链接解锁"
+http:
+  mitm:
+    - "weixin110.qq.com"
+    - "security.wechat.com"
+  script:
+    - match: "^https\\:\\/\\/(weixin110\\.qq|security.wechat)\\.com\\/cgi-bin\\/mmspamsupport-bin\\/newredirectconfirmcgi\\?"
+      name: "loon_weixin_external_links_unlock_01"
+      type: "response"
+      require-body: true
+script-providers:
+  "loon_weixin_external_links_unlock_01":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/Weixin/Weixin_external_links_unlock.js"
+    interval: 86400

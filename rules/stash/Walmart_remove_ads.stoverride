@@ -1,0 +1,10 @@
+name: "沃尔玛去广告"
+http:
+  mitm:
+    - "api-hyper.walmartmobile.cn"
+  url-rewrite:
+    - "^https:\\/\\/api-hyper\\.walmartmobile\\.cn\\/search\\/ad\\/ - reject"
+    - "^https:\\/\\/api-hyper\\.walmartmobile\\.cn\\/cms-web\\/frontapi\\/shadedWords\\/list\\? - reject"
+    - "^https:\\/\\/api-hyper\\.walmartmobile\\.cn\\/search\\/frontapi\\/discovery-words\\/list$ - reject"
+  body-rewrite:
+    - "^https:\\/\\/api-hyper\\.walmartmobile\\.cn\\/cms-web\\/frontapi\\/common\\/page\\/get\\?.*&type=26$ response-jq .data |= (.moduleList | map(select(.templateCode == \"nav-bar-title\" or .templateCode == \"member-info\" or .templateCode == \"distribution-center\" or .templateCode == \"wallet\" or .templateCode == \"swiper\" or .templateCode == \"my-order\")))"

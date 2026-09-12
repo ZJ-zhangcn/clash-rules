@@ -1,0 +1,34 @@
+name: "YouTube 去广告"
+http:
+  mitm:
+    - "*.googlevideo.com"
+    - "youtubei.googleapis.com"
+  script:
+    - match: "^https:\\/\\/youtubei\\.googleapis\\.com\\/(youtubei\\/v1\\/(browse|next|player|search|reel\\/reel_watch_sequence|guide|account\\/get_setting|get_watch|log_event|config))(\\?(.*))?$"
+      name: "loon_youtube_remove_ads_01"
+      type: "response"
+      require-body: true
+      binary-mode: true
+      argument: "{\"blockUpload\":false,\"blockShorts\":false,\"blockImmersive\":false,\"captionLang\":\"zh-Hans\",\"debug\":false}"
+    - match: "^https?:\\/\\/[\\w-]+\\.googlevideo\\.com\\/initplayback.+&ack.*"
+      name: "loon_youtube_remove_ads_02"
+      type: "request"
+      require-body: true
+      binary-mode: true
+      argument: "{\"captionLang\":\"zh-Hans\"}"
+    - match: "^https:\\/\\/youtubei\\.googleapis\\.com\\/youtubei\\/v1\\/log_event"
+      name: "loon_youtube_remove_ads_03"
+      type: "request"
+      require-body: true
+      binary-mode: true
+      argument: "{\"blockUpload\":false,\"blockShorts\":false,\"blockImmersive\":false,\"captionLang\":\"zh-Hans\",\"debug\":false}"
+script-providers:
+  "loon_youtube_remove_ads_01":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/YouTube/YouTube_remove_ads/YouTube_remove_ads_response.js"
+    interval: 86400
+  "loon_youtube_remove_ads_02":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/YouTube/YouTube_remove_ads/YouTube_remove_ads_request.js"
+    interval: 86400
+  "loon_youtube_remove_ads_03":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/YouTube/YouTube_remove_ads/YouTube_remove_ads_request.js"
+    interval: 86400

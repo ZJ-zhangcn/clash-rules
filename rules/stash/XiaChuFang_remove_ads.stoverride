@@ -1,0 +1,13 @@
+name: "下厨房去广告"
+http:
+  mitm:
+    - "api.xiachufang.com"
+  url-rewrite:
+    - "^https:\\/\\/api\\.xiachufang\\.com\\/v2\\/ad\\/ - reject"
+    - "^https:\\/\\/api\\.xiachufang\\.com\\/v2\\/account\\/feeds_v7\\.json - reject"
+    - "^https:\\/\\/api\\.xiachufang\\.com\\/v2\\/homepage1810\\/init_page\\.json - reject"
+    - "^https:\\/\\/api\\.xiachufang\\.com\\/v2\\/mark_mission\\/get_sticker_info\\.json - reject"
+  body-rewrite:
+    - "^https:\\/\\/api\\.xiachufang\\.com\\/v2\\/homepage\\/paged_waterfall_recommendations\\.json$ response-jq del(.multiplex_cells[] | select(.recommendation_cell.impression_sensor_events[]?.properties.target_type? == \"ad\"))"
+    - "^https:\\/\\/api\\.xiachufang\\.com\\/v2\\/config\\/get\\.json$ response-json-del content.recipe_ad content.splash_ad_req_time content.splash_sdk_ad_req_time content.splash_ad_lifecycle_interval content.waterfall_ad_feedback content.homepage_waterfall_test_ad_pos content.ad_app_look_around content.ad_sdk_text_removal_keywords"
+    - "^https:\\/\\/api\\.xiachufang\\.com\\/v2\\/homepage\\/ranking_list\\/paged_homepage_ranking_list_section_v2\\.json$ response-jq .cells |= map(del(.side_slip_activity_cell, .dish_square_cell))"

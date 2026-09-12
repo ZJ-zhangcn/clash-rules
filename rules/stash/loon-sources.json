@@ -1,0 +1,153 @@
+[
+  {
+    "name": "招商银行开屏广告",
+    "source": "https://raw.githubusercontent.com/ZJ-zhangcn/loon-plugins/main/plugins/cmb-startup-ad.lpx",
+    "output": "cmb-startup-ad.stoverride"
+  },
+  {
+    "name": "沃尔玛去广告",
+    "source": "https://kelee.one/Tool/Loon/Lpx/Walmart_remove_ads.lpx",
+    "output": "Walmart_remove_ads.stoverride"
+  },
+  {
+    "name": "盒马开屏广告",
+    "source": "https://raw.githubusercontent.com/ZJ-zhangcn/loon-plugins/main/plugins/freshippo-splash.lpx",
+    "output": "freshippo-splash.stoverride"
+  },
+  {
+    "name": "得物去广告",
+    "source": "https://kelee.one/Tool/Loon/Lpx/Dewu_remove_ads.lpx",
+    "output": "Dewu_remove_ads.stoverride"
+  },
+  {
+    "name": "闲鱼去广告",
+    "source": "https://kelee.one/Tool/Loon/Lpx/FleaMarket_remove_ads.lpx",
+    "output": "FleaMarket_remove_ads.stoverride"
+  },
+  {
+    "name": "微信公众号去广告",
+    "source": "https://kelee.one/Tool/Loon/Lpx/Weixin_Official_Accounts_remove_ads.lpx",
+    "output": "Weixin_Official_Accounts_remove_ads.stoverride"
+  },
+  {
+    "name": "拼多多去广告",
+    "source": "https://kelee.one/Tool/Loon/Lpx/PinDuoDuo_remove_ads.lpx",
+    "output": "PinDuoDuo_remove_ads.stoverride"
+  },
+  {
+    "name": "高德地图去广告",
+    "source": "https://kelee.one/Tool/Loon/Lpx/Amap_remove_ads.lpx",
+    "output": "Amap_remove_ads.stoverride"
+  },
+  {
+    "name": "菜鸟去广告",
+    "source": "https://kelee.one/Tool/Loon/Lpx/Cainiao_remove_ads.lpx",
+    "output": "Cainiao_remove_ads.stoverride"
+  },
+  {
+    "name": "Google 中国跳转",
+    "source": "https://kelee.one/Tool/Loon/Lpx/Google.lpx",
+    "output": "Google.stoverride"
+  },
+  {
+    "name": "淘宝去广告",
+    "source": "https://kelee.one/Tool/Loon/Lpx/Taobao_remove_ads.lpx",
+    "output": "Taobao_remove_ads.stoverride"
+  },
+  {
+    "name": "YouTube 去广告",
+    "source": "https://kelee.one/Tool/Loon/Lpx/YouTube_remove_ads.lpx",
+    "output": "YouTube_remove_ads.stoverride"
+  },
+  {
+    "name": "哔哩哔哩去广告",
+    "source": "https://kelee.one/Tool/Loon/Lpx/Bilibili_remove_ads.lpx",
+    "output": "Bilibili_remove_ads.stoverride"
+  },
+  {
+    "name": "夸克浏览器去广告",
+    "source": "https://kelee.one/Tool/Loon/Lpx/QuarkBrowser_remove_ads.lpx",
+    "output": "QuarkBrowser_remove_ads.stoverride"
+  },
+  {
+    "name": "起点读书去广告",
+    "source": "https://kelee.one/Tool/Loon/Lpx/QiDian_remove_ads.lpx",
+    "output": "QiDian_remove_ads.stoverride"
+  },
+  {
+    "name": "网易云音乐去广告",
+    "source": "https://kelee.one/Tool/Loon/Lpx/NeteaseCloudMusic_remove_ads.lpx",
+    "output": "NeteaseCloudMusic_remove_ads.stoverride"
+  },
+  {
+    "name": "下厨房去广告",
+    "source": "https://kelee.one/Tool/Loon/Lpx/XiaChuFang_remove_ads.lpx",
+    "output": "XiaChuFang_remove_ads.stoverride"
+  },
+  {
+    "name": "京东去广告",
+    "source": "https://kelee.one/Tool/Loon/Lpx/JD_remove_ads.lpx",
+    "output": "JD_remove_ads.stoverride"
+  },
+  {
+    "name": "什么值得买去广告",
+    "source": "https://kelee.one/Tool/Loon/Lpx/smzdm_remove_ads.lpx",
+    "output": "smzdm_remove_ads.stoverride"
+  },
+  {
+    "name": "QQ音乐去广告",
+    "source": "https://kelee.one/Tool/Loon/Lpx/QQKSong_remove_ads.lpx",
+    "output": "QQKSong_remove_ads.stoverride"
+  },
+  {
+    "name": "Twitter 去广告",
+    "source": "https://github.com/fmz200/wool_scripts/raw/main/Loon/plugin/split/partT/Twitter.lpx",
+    "output": "Twitter.stoverride"
+  },
+  {
+    "name": "中国电信去广告",
+    "source": "https://github.com/fmz200/wool_scripts/raw/main/Loon/plugin/split/partZ/ChinaTelecom.lpx",
+    "output": "ChinaTelecom.stoverride"
+  },
+  {
+    "name": "Hello",
+    "source": "https://github.com/fmz200/wool_scripts/raw/main/Loon/plugin/split/partH/Hello.lpx",
+    "output": "Hello.stoverride"
+  },
+  {
+    "name": "微博去广告",
+    "source": "https://kelee.one/Tool/Loon/Lpx/Weibo_remove_ads.lpx",
+    "output": "Weibo_remove_ads.stoverride"
+  },
+  {
+    "name": "美团外卖去广告",
+    "source": "https://github.com/fmz200/wool_scripts/raw/main/Loon/plugin/split/partM/Meituan-MeituanWaimai.lpx",
+    "output": "Meituan-MeituanWaimai.stoverride"
+  },
+  {
+    "name": "微信小程序去广告",
+    "source": "https://kelee.one/Tool/Loon/Lpx/WexinMiniPrograms_Remove_ads.lpx",
+    "output": "WexinMiniPrograms_Remove_ads.stoverride"
+  },
+  {
+    "name": "微信外部链接解锁",
+    "source": "https://kelee.one/Tool/Loon/Lpx/Weixin_external_links_unlock.lpx",
+    "output": "Weixin_external_links_unlock.stoverride"
+  },
+  {
+    "name": "京东历史价格",
+    "source": "https://kelee.one/Tool/Loon/Lpx/JD_Price.lpx",
+    "output": "JD_Price.stoverride"
+  },
+  {
+    "name": "QQ链接跳转",
+    "source": "https://kelee.one/Tool/Loon/Lpx/QQ_Redirect.lpx",
+    "output": "QQ_Redirect.stoverride"
+  },
+  {
+    "name": "Apple天气增强",
+    "source": "https://kelee.one/Tool/Loon/Lpx/AppleWeatherEnhancer.lpx",
+    "output": "AppleWeatherEnhancer.stoverride",
+    "argument_style": "pairs"
+  }
+]

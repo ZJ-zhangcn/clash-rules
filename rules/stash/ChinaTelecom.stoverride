@@ -1,0 +1,15 @@
+name: "中国电信去广告"
+rules:
+  - "DOMAIN,ad.21cn.com,REJECT"
+  - "DOMAIN,ad.k.21cn.com,REJECT"
+  - "DOMAIN,admarket.21cn.com,REJECT"
+  - "DOMAIN,adshows.21cn.com,REJECT"
+  - "IP-CIDR,122.229.8.47/32,REJECT,no-resolve"
+  - "IP-CIDR,122.229.29.89/32,REJECT,no-resolve"
+http:
+  mitm:
+    - "cloud.189.cn"
+    - "zt-app.go189.cn"
+  url-rewrite:
+    - "^https?:\\/\\/cloud\\.189\\.cn\\/include\\/splash\\/ - reject"
+    - "^https?:\\/\\/zt-app\\.go189\\.cn\\/zt-app\\/welcome\\/.*?Animation - reject"

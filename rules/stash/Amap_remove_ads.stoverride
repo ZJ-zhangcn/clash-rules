@@ -1,0 +1,126 @@
+name: "高德地图去广告"
+rules:
+  - "DOMAIN,amap-aos-info-nogw.amap.com,REJECT"
+  - "DOMAIN,free-aos-cdn-image.amap.com,REJECT"
+  - "DOMAIN-SUFFIX,v.smtcdns.com,REJECT"
+http:
+  mitm:
+    - "*.amap.com"
+  url-rewrite:
+    - "^https:\\/\\/m5\\.amap\\.com\\/ws\\/shield\\/search\\/new_hotword\\? - reject"
+    - "^https:\\/\\/m5\\.amap\\.com\\/ws\\/faas\\/amap-navigation\\/card-service-(?:car-end|route-plan) - reject"
+    - "^https:\\/\\/m5\\.amap\\.com\\/ws\\/shield\\/search_poi\\/tips_adv\\? - reject"
+    - "^https:\\/\\/oss\\.amap\\.com\\/ws\\/banner\\/lists\\/\\? - reject"
+    - "^https:\\/\\/ai\\.amap\\.com\\/v1\\/ai_rec\\/ - reject"
+    - "^https:\\/\\/m5\\.amap\\.com\\/ws\\/aos\\/main\\/page\\/product\\/list\\? - reject"
+    - "^https:\\/\\/m5\\.amap\\.com\\/ws\\/faas\\/amap-navigation\\/(?:main-page-assets|main-page-location|ridewalk-end-fc|usr-profile-fc\\/homeV2) - reject"
+    - "^https:\\/\\/m5\\.amap\\.com\\/ws\\/(?:mapapi\\/hint_text\\/offline_data|message\\/notice\\/list|shield\\/search\\/new_hotword) - reject"
+    - "^https:\\/\\/m5\\.amap\\.com\\/ws\\/shield\\/scene\\/recommend\\? - reject"
+    - "^https:\\/\\/m5\\.amap\\.com\\/ws\\/valueadded\\/weather\\/v2\\? - reject"
+    - "^https:\\/\\/sns\\.amap\\.com\\/ws\\/msgbox\\/pull_mp\\? - reject"
+    - "^https:\\/\\/m5-zb\\.amap\\.com\\/ws\\/boss\\/(?:order\\/car\\/(?:feedback\\/get_card_questions|feedback\\/viptips|king_toolbox_car_bubble|remark\\/satisfactionConf|rights_information)|tips\\/onscene_visual_optimization) - reject"
+    - "^https:\\/\\/m5-zb\\.amap\\.com\\/ws\\/boss\\/(?:pay\\/web\\/paySuccess\\/info\\/request|transportation\\/diversion\\/resource\\/driving) - reject"
+  body-rewrite:
+    - "^https:\\/\\/m5\\.amap\\.com\\/ws\\/shield\\/search_business\\/process\\/marketingOperationStructured\\? response-json-del data.commonMaterial data.tipsOperationLocation data.resourcePlacement"
+    - "^https:\\/\\/m5\\.amap\\.com\\/ws\\/shield\\/search_poi\\/homepage\\? response-json-del history_tags"
+    - "^https:\\/\\/m5-zb\\.amap\\.com\\/ws\\/sharedtrip\\/taxi\\/order_detail_car_tips\\? response-json-del data.carTips.data.popupInfo"
+  script:
+    - match: "^https:\\/\\/m5\\.amap\\.com\\/ws\\/aos\\/perception\\/publicTravel\\/beforeNavi\\?"
+      name: "loon_amap_remove_ads_01"
+      type: "response"
+      require-body: true
+    - match: "^https:\\/\\/m5\\.amap\\.com\\/ws\\/bus\\/plan\\/integrate\\?"
+      name: "loon_amap_remove_ads_02"
+      type: "response"
+      require-body: true
+    - match: "^https:\\/\\/m5\\.amap\\.com\\/ws\\/c3frontend\\/(?:af-(?:hotel|launch)\\/page\\/main|af-nearby\\/nearby)"
+      name: "loon_amap_remove_ads_03"
+      type: "response"
+      require-body: true
+    - match: "^https:\\/\\/m5\\.amap\\.com\\/ws\\/perception\\/drive\\/(?:routeInfo|routePlan)"
+      name: "loon_amap_remove_ads_04"
+      type: "response"
+      require-body: true
+    - match: "^https:\\/\\/m5\\.amap\\.com\\/ws\\/shield\\/search_bff\\/hotword\\?"
+      name: "loon_amap_remove_ads_05"
+      type: "response"
+      require-body: true
+    - match: "^https:\\/\\/m5\\.amap\\.com\\/ws\\/shield\\/search_poi\\/(?:mps|search\\/sp|sug|tips_operation_location)"
+      name: "loon_amap_remove_ads_06"
+      type: "response"
+      require-body: true
+    - match: "^https:\\/\\/m5\\.amap\\.com\\/ws\\/faas\\/amap-navigation\\/(?:card-service-plan-home|main-page)"
+      name: "loon_amap_remove_ads_07"
+      type: "response"
+      require-body: true
+    - match: "^https:\\/\\/m5\\.amap\\.com\\/ws\\/shield\\/frogserver\\/aocs\\/updatable\\/1\\?"
+      name: "loon_amap_remove_ads_08"
+      type: "response"
+      require-body: true
+    - match: "^https:\\/\\/m5\\.amap\\.com\\/ws\\/shield\\/dsp\\/profile\\/index\\/nodefaasv3\\?"
+      name: "loon_amap_remove_ads_09"
+      type: "response"
+      require-body: true
+    - match: "^https:\\/\\/m5\\.amap\\.com\\/ws\\/shield\\/search\\/nearbyrec_smart\\?"
+      name: "loon_amap_remove_ads_10"
+      type: "response"
+      require-body: true
+    - match: "^https:\\/\\/m5\\.amap\\.com\\/ws\\/valueadded\\/alimama\\/splash_screen\\?"
+      name: "loon_amap_remove_ads_11"
+      type: "response"
+      require-body: true
+    - match: "^https:\\/\\/m5-zb\\.amap\\.com\\/ws\\/boss\\/(?:car\\/order\\/content_info|order_web\\/friendly_information)"
+      name: "loon_amap_remove_ads_12"
+      type: "response"
+      require-body: true
+    - match: "^https:\\/\\/m5-zb\\.amap\\.com\\/ws\\/promotion-web\\/resource(\\/home)?\\?"
+      name: "loon_amap_remove_ads_13"
+      type: "response"
+      require-body: true
+    - match: "^https:\\/\\/(?:info|m5)\\.amap\\.com\\/ws\\/shield\\/search\\/(?:common\\/coupon\\/info|poi\\/detail)"
+      name: "loon_amap_remove_ads_14"
+      type: "response"
+      require-body: true
+script-providers:
+  "loon_amap_remove_ads_01":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/Amap/Amap_remove_ads.js"
+    interval: 86400
+  "loon_amap_remove_ads_02":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/Amap/Amap_remove_ads.js"
+    interval: 86400
+  "loon_amap_remove_ads_03":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/Amap/Amap_remove_ads.js"
+    interval: 86400
+  "loon_amap_remove_ads_04":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/Amap/Amap_remove_ads.js"
+    interval: 86400
+  "loon_amap_remove_ads_05":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/Amap/Amap_remove_ads.js"
+    interval: 86400
+  "loon_amap_remove_ads_06":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/Amap/Amap_remove_ads.js"
+    interval: 86400
+  "loon_amap_remove_ads_07":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/Amap/Amap_remove_ads.js"
+    interval: 86400
+  "loon_amap_remove_ads_08":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/Amap/Amap_remove_ads.js"
+    interval: 86400
+  "loon_amap_remove_ads_09":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/Amap/Amap_remove_ads.js"
+    interval: 86400
+  "loon_amap_remove_ads_10":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/Amap/Amap_remove_ads.js"
+    interval: 86400
+  "loon_amap_remove_ads_11":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/Amap/Amap_remove_ads.js"
+    interval: 86400
+  "loon_amap_remove_ads_12":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/Amap/Amap_remove_ads.js"
+    interval: 86400
+  "loon_amap_remove_ads_13":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/Amap/Amap_remove_ads.js"
+    interval: 86400
+  "loon_amap_remove_ads_14":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/Amap/Amap_remove_ads.js"
+    interval: 86400

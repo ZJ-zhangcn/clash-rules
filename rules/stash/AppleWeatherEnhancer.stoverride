@@ -1,0 +1,28 @@
+name: "Apple天气增强"
+rules:
+  - "DOMAIN,weather-analytics-events.apple.com,REJECT-DROP"
+  - "DOMAIN,tether.edge.apple,REJECT-DROP"
+  - "DOMAIN-SUFFIX,tthr.apple.com,REJECT-DROP"
+  - "AND,((OR,((IP-ASN,714,no-resolve),(IP-ASN,6185,no-resolve))),(PROTOCOL,QUIC)),REJECT-DROP"
+http:
+  mitm:
+    - "weatherkit.apple.com"
+  script:
+    - match: "^https?:\\/\\/weatherkit\\.apple\\.com\\/api\\/v1\\/availability\\/"
+      name: "loon_appleweatherenhancer_01"
+      type: "response"
+      require-body: true
+      argument: "Weather.Provider=ColorfulClouds&NextHour.Provider=ColorfulClouds&AirQuality.Calculate.Algorithm=EU_EAQI&API.ColorfulClouds.Token=&API.QWeather.Host=devapi.qweather.com&API.QWeather.Token=&API.WAQI.Token=&Storage=Argument&LogLevel=WARN"
+    - match: "^https?:\\/\\/weatherkit\\.apple\\.com\\/api\\/v2\\/weather\\/"
+      name: "loon_appleweatherenhancer_02"
+      type: "response"
+      require-body: true
+      binary-mode: true
+      argument: "Weather.Provider=ColorfulClouds&NextHour.Provider=ColorfulClouds&AirQuality.Calculate.Algorithm=EU_EAQI&API.ColorfulClouds.Token=&API.QWeather.Host=devapi.qweather.com&API.QWeather.Token=&API.WAQI.Token=&Storage=Argument&LogLevel=WARN"
+script-providers:
+  "loon_appleweatherenhancer_01":
+    url: "https://github.com/NSRingo/WeatherKit/releases/download/v3.1.0/response.bundle.js"
+    interval: 86400
+  "loon_appleweatherenhancer_02":
+    url: "https://github.com/NSRingo/WeatherKit/releases/download/v3.1.0/response.bundle.js"
+    interval: 86400

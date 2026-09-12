@@ -1,0 +1,14 @@
+name: "美团外卖去广告"
+http:
+  mitm:
+    - "img.meituan.net"
+    - "s3plus.meituan.net"
+    - "flowplus.meituan.net"
+  url-rewrite:
+    - "^https?:\\/\\/wmapi\\.meituan\\.com\\/api\\/v7\\/(loadInfo|openscreen|startpicture)\\? - reject"
+    - "^https?:\\/\\/(s3plus|flowplus)\\.meituan\\.net\\/v\\d\\/\\w+\\/linglong\\/\\w+\\.(gif|jpg|mp4) - reject"
+    - "^https?:\\/\\/img\\.meituan\\.net\\/bizad\\/bizad_brandCpt_\\d+\\.jpg - reject"
+    - "^https?:\\/\\/img\\.meituan\\.net\\/goodsawardpic\\/[a-f0-9]+\\.png\\.webp - reject"
+    - "^https?:\\/\\/s3plus\\.meituan\\.net\\/ocean-blk-index\\/index\\/blk_conf_73\\.json - reject"
+    - "^https?:\\/\\/s3plus\\.meituan\\.net\\/v1\\/mss_\\w+\\/(brandcpt-vedio|waimai-alita)\\/\\w+\\.zip$ - reject"
+    - "^http:\\/\\/59\\.82\\.113\\.10\\/amdc\\/mobileDispatch\\?appkey=213807& - reject"

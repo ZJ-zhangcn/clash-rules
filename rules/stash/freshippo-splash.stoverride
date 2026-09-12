@@ -1,0 +1,14 @@
+name: "盒马开屏广告"
+http:
+  mitm:
+    - "acs-m.freshippo.com"
+  script:
+    - match: "^https:\\/\\/acs-m\\.freshippo\\.com\\/gw\\/mtop\\.wdk\\.render\\.querysinglepage\\/3\\.0\\/"
+      name: "loon_freshippo_splash_01"
+      type: "response"
+      require-body: true
+      timeout: 10
+script-providers:
+  "loon_freshippo_splash_01":
+    url: "https://raw.githubusercontent.com/ZJ-zhangcn/loon-plugins/main/scripts/freshippo-splash.js"
+    interval: 86400

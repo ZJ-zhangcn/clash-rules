@@ -1,0 +1,80 @@
+name: "网易云音乐去广告"
+rules:
+  - "DOMAIN,iadmat.nosdn.127.net,REJECT"
+  - "DOMAIN,iadmatapk.nosdn.127.net,REJECT"
+  - "DOMAIN,iadmusicmat.music.126.net,REJECT"
+  - "DOMAIN,iadmusicmatvideo.music.126.net,REJECT"
+  - "DOMAIN,ipv4.music.163.com,REJECT"
+  - "DOMAIN,ipv6.music.163.com,REJECT"
+http:
+  mitm:
+    - "interface*.music.163.com"
+  url-rewrite:
+    - "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/(?:delivery\\/(batch-)?deliver|moment\\/tab\\/info\\/|side-bar\\/mini-program\\/music-service\\/account|yunbei\\/account\\/entrance\\/) - reject"
+    - "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/(?:community\\/friends\\/fans-group\\/artist\\/group\\/|mine\\/applet\\/redpoint|music\\/songshare\\/text\\/recommend\\/|resniche\\/position\\/play\\/new\\/|resniche\\/tspopup\\/show|resource\\/comments?\\/musiciansaid\\/|user\\/sub\\/artist) - reject"
+    - "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/(?:ios\\/version|mlivestream\\/entrance\\/playpage\\/|link\\/position\\/show\\/strategy|link\\/scene\\/show\\/resource|v1\\/content\\/exposure\\/comment\\/banner\\/) - reject"
+    - "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/w?eapi\\/(?:activity\\/bonus\\/playpage\\/time\\/query|resource-exposure\\/|search\\/(?:chart\\/|rcmd\\/keyword\\/|specialkeyword\\/)) - reject"
+    - "^https:\\/\\/interface\\d\\.music\\.163\\.com\\/eapi\\/my\\/podcast\\/tab\\/recommend - reject"
+  mock:
+    - match: "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/e?api\\/(ocpc\\/)?ad\\/"
+      text: ""
+    - match: "^https?:\\/\\/interface\\d?\\.music\\.163.com\\/w?e?api\\/search\\/default"
+      text: ""
+  script:
+    - match: "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/(?:batch|v2\\/resource\\/comment\\/floor\\/get)"
+      name: "loon_neteasecloudmusic_remove_ads_01"
+      type: "response"
+      require-body: true
+      binary-mode: true
+      timeout: 20
+    - match: "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/(?:homepage\\/block\\/page|link\\/page\\/rcmd\\/(?:block\\/resource\\/multi\\/refresh|resource\\/show))"
+      name: "loon_neteasecloudmusic_remove_ads_02"
+      type: "response"
+      require-body: true
+      binary-mode: true
+      timeout: 20
+      argument: "{\"PRGG\":false,\"PRRK\":false,\"PRDRD\":false,\"PRSCVPT\":false,\"PRST\":false,\"PRRR\":false,\"HMPR\":false,\"PRMST\":false,\"PRCN\":false}"
+    - match: "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/link\\/home\\/framework\\/tab"
+      name: "loon_neteasecloudmusic_remove_ads_03"
+      type: "response"
+      require-body: true
+      binary-mode: true
+      timeout: 20
+      argument: "{\"MY\":false,\"DT\":false,\"FX\":false}"
+    - match: "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/link\\/page\\/discovery\\/resource\\/show"
+      name: "loon_neteasecloudmusic_remove_ads_04"
+      type: "response"
+      require-body: true
+      binary-mode: true
+      timeout: 20
+    - match: "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/link\\/position\\/show\\/resource"
+      name: "loon_neteasecloudmusic_remove_ads_05"
+      type: "response"
+      require-body: true
+      binary-mode: true
+      timeout: 20
+    - match: "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/user\\/follow\\/users\\/mixed\\/get"
+      name: "loon_neteasecloudmusic_remove_ads_06"
+      type: "response"
+      require-body: true
+      binary-mode: true
+      timeout: 20
+script-providers:
+  "loon_neteasecloudmusic_remove_ads_01":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/NeteaseCloudMusic/NeteaseCloudMusic_remove_ads.js"
+    interval: 86400
+  "loon_neteasecloudmusic_remove_ads_02":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/NeteaseCloudMusic/NeteaseCloudMusic_remove_ads.js"
+    interval: 86400
+  "loon_neteasecloudmusic_remove_ads_03":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/NeteaseCloudMusic/NeteaseCloudMusic_remove_ads.js"
+    interval: 86400
+  "loon_neteasecloudmusic_remove_ads_04":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/NeteaseCloudMusic/NeteaseCloudMusic_remove_ads.js"
+    interval: 86400
+  "loon_neteasecloudmusic_remove_ads_05":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/NeteaseCloudMusic/NeteaseCloudMusic_remove_ads.js"
+    interval: 86400
+  "loon_neteasecloudmusic_remove_ads_06":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/NeteaseCloudMusic/NeteaseCloudMusic_remove_ads.js"
+    interval: 86400

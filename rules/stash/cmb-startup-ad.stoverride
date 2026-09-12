@@ -1,0 +1,17 @@
+name: "招商银行开屏广告"
+http:
+  mitm:
+    - "webappcfg.paas.cmbchina.com"
+    - "s3gw.cmbimg.cn"
+  url-rewrite:
+    - "^https:\\/\\/s3gw\\.cmbimg\\.cn\\/lr4504-mbappinitads-prd-1255000108\\/ - reject"
+  script:
+    - match: "^https:\\/\\/webappcfg\\.paas\\.cmbchina\\.com\\/v1\\/func\\/getmarketconfig"
+      name: "loon_cmb_startup_ad_01"
+      type: "response"
+      require-body: true
+      timeout: 10
+script-providers:
+  "loon_cmb_startup_ad_01":
+    url: "https://raw.githubusercontent.com/ZJ-zhangcn/loon-plugins/main/scripts/cmb-startup-ad.js"
+    interval: 86400

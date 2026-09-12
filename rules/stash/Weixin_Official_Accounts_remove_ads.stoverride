@@ -1,0 +1,9 @@
+name: "微信公众号去广告"
+rules:
+  - "DOMAIN-SUFFIX,wxs.qq.com,REJECT"
+http:
+  mitm:
+    - "mp.weixin.qq.com"
+  url-rewrite:
+    - "^https:\\/\\/mp\\.weixin\\.qq\\.com\\/mp\\/(cps_product_info|getappmsgad|jsmonitor|masonryfeed|relatedarticle)\\? - reject"
+    - "^https:\\/\\/mp\\.weixin\\.qq\\.com\\/mp\\/relatedsearchword - reject"

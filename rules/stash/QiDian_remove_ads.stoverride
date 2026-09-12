@@ -1,0 +1,24 @@
+name: "起点读书去广告"
+http:
+  mitm:
+    - "magev6.if.qidian.com"
+    - "ywab.reader.qq.com"
+  url-rewrite:
+    - "^https:\\/\\/magev6\\.if\\.qidian\\.com\\/argus\\/api\\/v4\\/client\\/getsplashscreen\\? - reject"
+    - "^https:\\/\\/magev6\\.if\\.qidian\\.com\\/argus\\/api\\/v1\\/adv\\/ - reject"
+    - "^https:\\/\\/ywab\\.reader\\.qq\\.com\\/user\\/experiments\\/v2\\? - reject"
+    - "^https:\\/\\/magev6\\.if\\.qidian\\.com\\/argus\\/api\\/v1\\/checkin\\/simpleinfo\\? - reject"
+    - "^https:\\/\\/magev6\\.if\\.qidian\\.com\\/argus\\/api\\/v1\\/push\\/getdialog\\? - reject"
+    - "^https:\\/\\/magev6\\.if\\.qidian\\.com\\/argus\\/api\\/v1\\/message\\/getpushedmessagelist$ - reject"
+    - "^https:\\/\\/magev6\\.if\\.qidian\\.com\\/argus\\/api\\/v1\\/maintain\\/playstrip$ - reject"
+    - "^https:\\/\\/magev6\\.if\\.qidian\\.com\\/argus\\/api\\/v1\\/dailyrecommend\\/recommendBook\\? - reject"
+    - "^https:\\/\\/magev6\\.if\\.qidian\\.com\\/argus\\/api\\/v1\\/freshman\\/bookshelfbtn$ - reject"
+    - "^https:\\/\\/magev6\\.if\\.qidian\\.com\\/argus\\/api\\/v1\\/bookshelf\\/getTopOperation$ - reject"
+    - "^https:\\/\\/magev6\\.if\\.qidian\\.com\\/argus\\/api\\/v1\\/booksearch\\/hotWords\\? - reject"
+    - "^https:\\/\\/magev6\\.if\\.qidian\\.com\\/argus\\/api\\/v1\\/followsubscribe\\/showChapterEndModule\\? - reject"
+    - "^https:\\/\\/magev6\\.if\\.qidian\\.com\\/argus\\/api\\/v1\\/young\\/getconf$ - reject"
+  body-rewrite:
+    - "^https:\\/\\/magev6\\.if\\.qidian\\.com\\/argus\\/api\\/v1\\/client\\/getconf$ response-json-replace Data.WolfEye 0 Data.CloudSetting.TeenShowFreq 0"
+    - "^https:\\/\\/magev6\\.if\\.qidian\\.com\\/argus\\/api\\/v1\\/client\\/getconf$ response-json-del Data.ActivityPageBackPushNoticeFrequency Data.ActivityIcon Data.ActivityPopup Data.LuckBag"
+    - "^https:\\/\\/magev6\\.if\\.qidian\\.com\\/argus\\/api\\/v2\\/dailyrecommend\\/getdailyrecommend\\? response-json-replace Data.Items []"
+    - "^https:\\/\\/magev6\\.if\\.qidian\\.com\\/argus\\/api\\/v3\\/user\\/getaccountpage\\? response-json-del Data.BenefitButtonList"

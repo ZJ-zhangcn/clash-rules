@@ -1,0 +1,23 @@
+name: "京东历史价格"
+http:
+  mitm:
+    - "in.m.jd.com"
+    - "apapia-sqk-weblogic.manmanbuy.com"
+  script:
+    - match: "^https?:\\/\\/apapia-sqk-weblogic\\.manmanbuy\\.com\\/baoliao\\/center\\/menu$"
+      name: "loon_jd_price_01"
+      type: "request"
+      require-body: true
+      timeout: 10
+    - match: "^https?:\\/\\/in\\.m\\.jd\\.com\\/product\\/graphext\\/\\d+\\.html"
+      name: "loon_jd_price_02"
+      type: "response"
+      require-body: true
+      timeout: 10
+script-providers:
+  "loon_jd_price_01":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/JD/JD_Price.js"
+    interval: 86400
+  "loon_jd_price_02":
+    url: "https://git.repcz.link/kelee.one/Resource/JavaScript/JD/JD_Price.js"
+    interval: 86400
