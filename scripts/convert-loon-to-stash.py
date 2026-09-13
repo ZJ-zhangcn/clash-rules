@@ -17,6 +17,7 @@ USER_AGENT = "clash-rules-stash-converter/1.0"
 RAW_BASE = "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/"
 STASH_INSTALL_BASE = "https://link.stash.ws/install-override/raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/"
 MAX_BODY_REWRITE_LENGTH = 2000
+STASH_JSON_PATH = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*|\[\d+\])*$")
 
 
 def runtime_url(url: str) -> str:
@@ -177,9 +178,11 @@ def clean_jq(value: str) -> str:
 
 
 def split_json_delete_rewrites(match: str, body_action: str, paths: str) -> list[str]:
-    values = paths.split()
+    # Stash's shorthand path grammar has no quoted-key form; skip keys that
+    # require jq bracket notation rather than making the whole override invalid.
+    values = [value for value in paths.split() if STASH_JSON_PATH.fullmatch(value)]
     if not values:
-        return [f"{match} {body_action}"]
+        return []
 
     result: list[str] = []
     current: list[str] = []
