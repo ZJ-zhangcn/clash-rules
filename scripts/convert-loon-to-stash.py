@@ -16,6 +16,7 @@ README = ROOT / "README.md"
 USER_AGENT = "clash-rules-stash-converter/1.0"
 RAW_BASE = "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/"
 STASH_INSTALL_BASE = "https://link.stash.ws/install-override/raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/"
+MAX_BODY_REWRITE_LENGTH = 2000
 
 
 def runtime_url(url: str) -> str:
@@ -175,6 +176,25 @@ def clean_jq(value: str) -> str:
     return " ".join(lines)
 
 
+def split_json_delete_rewrites(match: str, body_action: str, paths: str) -> list[str]:
+    values = paths.split()
+    if not values:
+        return [f"{match} {body_action}"]
+
+    result: list[str] = []
+    current: list[str] = []
+    for value in values:
+        candidate = f"{match} {body_action} {' '.join(current + [value])}"
+        if current and len(candidate) > MAX_BODY_REWRITE_LENGTH:
+            result.append(f"{match} {body_action} {' '.join(current)}")
+            current = [value]
+        else:
+            current.append(value)
+    if current:
+        result.append(f"{match} {body_action} {' '.join(current)}")
+    return result
+
+
 def parse_rewrites(lines: list[str]) -> dict[str, list]:
     url_rewrite: list[str] = []
     body_rewrite: list[str] = []
@@ -209,7 +229,10 @@ def parse_rewrites(lines: list[str]) -> dict[str, list]:
             "response-body-json-add",
         }:
             body_action = "response-" + action.removeprefix("response-body-")
-            body_rewrite.append(f"{match} {body_action} {rest}".rstrip())
+            if action == "response-body-json-del":
+                body_rewrite.extend(split_json_delete_rewrites(match, body_action, rest))
+            else:
+                body_rewrite.append(f"{match} {body_action} {rest}".rstrip())
         elif action == "mock-response-body":
             attributes = parse_attributes(
                 rest, {"data-type", "status-code", "data", "mock-data-is-base64"}
