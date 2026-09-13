@@ -10,9 +10,12 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
-MANIFEST = ROOT / "rules" / "stash" / "loon-sources.json"
+MANIFEST = ROOT / "rules" / "stash" / "sources" / "loon-plugins.json"
 OUTPUT_DIR = ROOT / "rules" / "stash"
+README = ROOT / "README.md"
 USER_AGENT = "clash-rules-stash-converter/1.0"
+RAW_BASE = "https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/"
+STASH_INSTALL_BASE = "https://link.stash.ws/install-override/raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/"
 
 
 def runtime_url(url: str) -> str:
@@ -311,6 +314,33 @@ def yaml_scalar(value: object) -> str:
     return json.dumps(str(value), ensure_ascii=False)
 
 
+def update_readme(manifest: list[dict[str, str]]) -> None:
+    begin = "<!-- BEGIN STASH OVERRIDES -->"
+    end = "<!-- END STASH OVERRIDES -->"
+    rows = [
+        begin,
+        "| 覆写 | 快捷添加 | Raw |",
+        "| --- | --- | --- |",
+    ]
+    for item in manifest:
+        output = item["output"]
+        relative = f"rules/stash/{output}"
+        raw_url = RAW_BASE + relative
+        install_url = STASH_INSTALL_BASE + relative
+        rows.append(
+            f"| {item['name']} (`{output}`) | [添加到 Stash]({install_url}) | [Raw]({raw_url}) |"
+        )
+    rows.append(end)
+    block = "\n".join(rows)
+    text = README.read_text(encoding="utf-8")
+    pattern = re.compile(re.escape(begin) + r".*?" + re.escape(end), re.S)
+    if not pattern.search(text):
+        raise RuntimeError(f"README markers not found: {begin} / {end}")
+    updated = pattern.sub(block, text, count=1)
+    if updated != text:
+        README.write_text(updated, encoding="utf-8")
+
+
 def emit_mapping_item(lines: list[str], indent: str, key: str, value: object) -> None:
     lines.append(f"{indent}{key}: {yaml_scalar(value)}")
 
@@ -409,6 +439,8 @@ def main() -> int:
             encoding="utf-8",
         )
         print(f"{item['source']} -> {output.relative_to(ROOT)}")
+    update_readme(manifest)
+    print("updated README.md")
     return 0
 
 

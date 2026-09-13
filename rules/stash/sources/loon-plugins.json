@@ -1,5 +1,10 @@
 [
   {
+    "name": "番茄小说去广告",
+    "source": "https://kelee.one/Tool/Loon/Lpx/DragonRead_remove_ads.lpx",
+    "output": "DragonRead_remove_ads.stoverride"
+  },
+  {
     "name": "招商银行开屏广告",
     "source": "https://raw.githubusercontent.com/ZJ-zhangcn/loon-plugins/main/plugins/cmb-startup-ad.lpx",
     "output": "cmb-startup-ad.stoverride"

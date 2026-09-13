@@ -28,11 +28,11 @@ jobs:
 
       - name: Commit updates
         run: |
-          if git diff --quiet -- rules/stash; then
+          if git diff --quiet -- README.md rules/stash; then
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add rules/stash
+          git add README.md rules/stash
           git commit -m "chore: update Stash overrides from Loon sources"
           git push
