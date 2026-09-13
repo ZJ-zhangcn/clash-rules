@@ -54,7 +54,7 @@ http:
       binary-mode: true
       timeout: 10
       argument: "{\"logLevel\":\"off\",\"sponsorBlock\":false}"
-    - match: "^https:\\/\\/(?:grpc\\.biliapi\\.net|app\\.bilibili\\.com)\\/bilibili\\.(?:app\\.viewunite\\.v1\\.View\\/View|main\\.community\\.reply\\.v1\\.Reply\\/MainList)$"
+    - match: "^https:\\/\\/(?:grpc\\.biliapi\\.net|app\\.bilibili\\.com)\\/bilibili\\.(?:app\\.viewunite\\.v1\\.View\\/View)$"
       name: "loon_bilibili_remove_ads_02"
       type: "request"
       require-body: true

@@ -327,6 +327,12 @@ def parse_scripts(
             item["argument"] = argument
         scripts.append(item)
         providers[provider_name] = {"url": runtime_url(script_url), "interval": 86400}
+    if slug == "bilibili_remove_ads":
+        for item in scripts:
+            if item["type"] == "request":
+                item["match"] = str(item["match"]).replace(
+                    r"|main\.community\.reply\.v1\.Reply\/MainList", ""
+                )
     return scripts, providers
 
 
