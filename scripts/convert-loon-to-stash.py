@@ -157,14 +157,13 @@ def normalize_rule(line: str) -> str:
 
 
 def url_regex_rule_to_rewrite(rule: str) -> str | None:
-    if rule.startswith("URL-REGEX,"):
-        fields = split_csv(rule)
-        if len(fields) >= 3 and fields[0] == "URL-REGEX":
+    # Only convert top-level URL-REGEX rules. A nested URL-REGEX may be a
+    # DIRECT exception inside AND/OR and must remain a normal routing rule.
+    fields = split_csv(rule)
+    if len(fields) >= 3 and fields[0] == "URL-REGEX":
+        action = unquote(fields[2]).upper()
+        if action == "REJECT":
             return f"{unquote(fields[1])} - reject"
-    if "URL-REGEX," in rule:
-        match = re.search(r"URL-REGEX,\s*(\"(?:\\\\.|[^\"])*\"|[^,)]+)", rule)
-        if match:
-            return f"{unquote(match.group(1))} - reject"
     return None
 
 
@@ -211,8 +210,8 @@ def parse_rewrites(lines: list[str]) -> dict[str, list]:
         match, action = parts[0], parts[1]
         rest = parts[2] if len(parts) == 3 else ""
 
-        if action in {"reject", "reject-dict", "reject-img"}:
-            url_rewrite.append(f"{match} - reject")
+        if action in {"reject", "reject-200", "reject-img", "reject-dict", "reject-array"}:
+            url_rewrite.append(f"{match} - {action}")
         elif action == "307":
             if not rest:
                 raise ValueError(f"missing redirect target: {line}")

@@ -4,7 +4,7 @@ http:
     - "api.m.jd.com"
   url-rewrite:
     - "^http:\\/\\/\\w{32}\\.jddebug\\.com\\/diagnose\\? - reject"
-    - "^https:\\/\\/api\\.m\\.jd\\.com\\/client\\.action\\?functionId=(searchBoxWord|stationPullService|uniformRecommend[06]) - reject"
+    - "^https:\\/\\/api\\.m\\.jd\\.com\\/client\\.action\\?functionId=(searchBoxWord|stationPullService|uniformRecommend[06]) - reject-dict"
   body-rewrite:
     - "^https:\\/\\/api\\.m\\.jd\\.com\\/client\\.action\\?functionId=basicConfig response-json-replace data.JDMessage.socketmonitor.isSocketEstablishedAhead 0 data.JDMessage.socketmonitor.isSocketReport 0 data.JDHttpToolKit.httpdns.httpdns 0"
   script:

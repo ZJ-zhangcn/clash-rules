@@ -41,8 +41,8 @@ http:
     - "tmeadkg.y.qq.com"
   url-rewrite:
     - "^http:\\/\\/y\\.gtimg\\.cn\\/music\\/common\\/upload\\/t_k_main_page_banner\\/ - reject"
-    - "^https:\\/\\/wallpaper-\\d+\\.file\\.myqcloud\\.com\\/dsl\\/ - reject"
-    - "^https?:\\/\\/wallpaper-\\d+\\.file\\.myqcloud\\.com\\/hikari\\/ - reject"
-    - "^https:\\/\\/amsweb-cdn-\\S+-\\d+\\.file\\.myqcloud\\.com\\/video\\/ad_profile\\/ - reject"
+    - "^https:\\/\\/wallpaper-\\d+\\.file\\.myqcloud\\.com\\/dsl\\/ - reject-dict"
+    - "^https?:\\/\\/wallpaper-\\d+\\.file\\.myqcloud\\.com\\/hikari\\/ - reject-dict"
+    - "^https:\\/\\/amsweb-cdn-\\S+-\\d+\\.file\\.myqcloud\\.com\\/video\\/ad_profile\\/ - reject-dict"
     - "^https:\\/\\/tmeadkg\\.y\\.qq\\.com\\/maproxy\\/getAd$ - reject"
-    - "^https:\\/\\/wnsaviator\\.kg\\.qq\\.com\\/wnsaviator\\/api\\/v1\\/transMerge\\?_webcgikey=get_activity_entry$ - reject"
+    - "^https:\\/\\/wnsaviator\\.kg\\.qq\\.com\\/wnsaviator\\/api\\/v1\\/transMerge\\?_webcgikey=get_activity_entry$ - reject-dict"

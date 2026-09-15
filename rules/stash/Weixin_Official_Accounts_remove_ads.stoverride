@@ -5,5 +5,5 @@ http:
   mitm:
     - "mp.weixin.qq.com"
   url-rewrite:
-    - "^https:\\/\\/mp\\.weixin\\.qq\\.com\\/mp\\/(cps_product_info|getappmsgad|jsmonitor|masonryfeed|relatedarticle)\\? - reject"
-    - "^https:\\/\\/mp\\.weixin\\.qq\\.com\\/mp\\/relatedsearchword - reject"
+    - "^https:\\/\\/mp\\.weixin\\.qq\\.com\\/mp\\/(cps_product_info|getappmsgad|jsmonitor|masonryfeed|relatedarticle)\\? - reject-dict"
+    - "^https:\\/\\/mp\\.weixin\\.qq\\.com\\/mp\\/relatedsearchword - reject-dict"

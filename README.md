@@ -77,6 +77,8 @@ IP-CIDR,1.1.1.1/32
 <!-- BEGIN STASH OVERRIDES -->
 | 覆写 | 快捷添加 | Raw |
 | --- | --- | --- |
+| HTTPDNS拦截器 (`Block_HTTPDNS.stoverride`) | [添加到 Stash](https://link.stash.ws/install-override/raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/stash/Block_HTTPDNS.stoverride) | [Raw](https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/stash/Block_HTTPDNS.stoverride) |
+| 广告平台拦截器 (`BlockAdvertisers.stoverride`) | [添加到 Stash](https://link.stash.ws/install-override/raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/stash/BlockAdvertisers.stoverride) | [Raw](https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/stash/BlockAdvertisers.stoverride) |
 | 番茄小说去广告 (`DragonRead_remove_ads.stoverride`) | [添加到 Stash](https://link.stash.ws/install-override/raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/stash/DragonRead_remove_ads.stoverride) | [Raw](https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/stash/DragonRead_remove_ads.stoverride) |
 | 招商银行开屏广告 (`cmb-startup-ad.stoverride`) | [添加到 Stash](https://link.stash.ws/install-override/raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/stash/cmb-startup-ad.stoverride) | [Raw](https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/stash/cmb-startup-ad.stoverride) |
 | 沃尔玛去广告 (`Walmart_remove_ads.stoverride`) | [添加到 Stash](https://link.stash.ws/install-override/raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/stash/Walmart_remove_ads.stoverride) | [Raw](https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/stash/Walmart_remove_ads.stoverride) |

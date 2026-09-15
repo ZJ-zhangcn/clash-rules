@@ -12,4 +12,4 @@ http:
     - "zt-app.go189.cn"
   url-rewrite:
     - "^https?:\\/\\/cloud\\.189\\.cn\\/include\\/splash\\/ - reject"
-    - "^https?:\\/\\/zt-app\\.go189\\.cn\\/zt-app\\/welcome\\/.*?Animation - reject"
+    - "^https?:\\/\\/zt-app\\.go189\\.cn\\/zt-app\\/welcome\\/.*?Animation - reject-img"

@@ -1,5 +1,15 @@
 [
   {
+    "name": "HTTPDNS拦截器",
+    "source": "https://kelee.one/Tool/Loon/Lpx/Block_HTTPDNS.lpx",
+    "output": "Block_HTTPDNS.stoverride"
+  },
+  {
+    "name": "广告平台拦截器",
+    "source": "https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx",
+    "output": "BlockAdvertisers.stoverride"
+  },
+  {
     "name": "番茄小说去广告",
     "source": "https://kelee.one/Tool/Loon/Lpx/DragonRead_remove_ads.lpx",
     "output": "DragonRead_remove_ads.stoverride"
