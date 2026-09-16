@@ -50,6 +50,31 @@ payload:
 | `Customer-Proxy-USGT.yaml` | [Raw](https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/clash/Customer-Proxy-USGT.yaml) |
 | `DNS.yaml` | [Raw](https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/clash/DNS.yaml) |
 
+## qB 分流（下载直连 / tracker 公告走 VPS）
+
+`rules.yaml` 里的 `listeners.qb-direct` 是给 qBittorrent 单独用的入口：qB 的 SOCKS5 指向 `127.0.0.1:7891`
+并勾选「使用代理服务器进行用户连接」，其它 Docker 容器仍走 7890 的常规规则链，不受影响。
+
+`sub-rules.qb-split` 的分流逻辑：
+
+| 流量 | 判定方式 | 出口 |
+| --- | --- | --- |
+| BT peer 连接 | 裸 IP（`IP-CIDR,0.0.0.0/0,no-resolve`） | 家宽直连（下载不走代理 / 不消耗订阅节点） |
+| tracker 公告（M-Team 除外） | 域名 | `vps-announce`（netcup VPS 出口） |
+| M-Team tracker | `m-team.cc` / `m-team.io` | 家宽直连 |
+
+为什么这么做：家宽是 CGNAT（没有可入站的公网 IPv4，路由器只发 ULA、无全局 IPv6），家宽 58230 从公网连不进来。
+让 tracker 公告从 VPS 出去后，tracker 记录的是 VPS 公网 IP，peer 会去连 `VPS:58230`
+（VPS 上 DNAT 到 WireGuard 隧道 `10.66.66.2:58230`），上传因此走 VPS 隧道；下载仍由家宽直连完成。
+注意这不会提升上传带宽上限：数据仍要先经家宽上行送到 VPS，VPS 只是解决「peer 能否连到你」。
+
+M-Team 的站点规则明确「切勿透過代理連接 tracker」，且用境外服务器与 tracker 回报会被判定为盒子
+（不享有促销、上传最多只计种子体积 3 倍），所以 M-Team 保持家宽直连。
+
+`vps-announce` 不在本仓库定义（需要 WireGuard 私钥，避免放进公开仓库），由本地 Clash Party 覆写提供：
+`type: wireguard`，服务端 `37.221.193.132:51820`，隧道地址 `10.66.66.3/32`。
+若在别处直接使用本配置，请自行定义同名 outbound，或把 `sub-rules.qb-split` 最后一行的 `vps-announce` 改成 `DIRECT`。
+
 ## Loon 规则
 
 规则文件位于 `rules/loon/`，使用 `.lsr` 后缀：
