@@ -12,8 +12,8 @@ bind-address: 127.0.0.1
 #      这样 tracker 记录到的是 VPS 公网 IP，peer 会从 VPS:58230 连入，上传走 VPS 隧道
 #   3. M-Team：站点规则明确「切勿透過代理連接 tracker」，且用境外服务器回报会被判为盒子
 #      （无促销 + 上传最多只计种子体积 3 倍），因此保持家宽直连
-# 注意：vps-announce 这个 outbound 由本地 Clash Party 覆写提供（内含 WireGuard 私钥，不放公开仓库）；
-#       若在别处直接使用本配置，请自行定义同名 outbound，或把 sub-rules.qb-split 最后一行的 vps-announce 改成 DIRECT。
+# 兜底指向策略组 qB出口（本文件里定义为 select + DIRECT，保证本配置在缺少隧道 outbound 的设备上仍能正常加载）；
+# 需要「公告走 VPS」的机器，在本地覆写里把 vps-announce 塞进 qB出口 并选中，或直接把兜底写成同名 outbound。
 listeners:
   - name: qb-direct
     type: mixed
@@ -30,8 +30,8 @@ sub-rules:
     # M-Team tracker → 家宽（站点禁止用代理连接 tracker）
     - DOMAIN-SUFFIX,m-team.cc,DIRECT
     - DOMAIN-SUFFIX,m-team.io,DIRECT
-    # 其余 tracker 域名 → VPS 出口
-    - MATCH,vps-announce
+    # 其余 tracker 域名 → qB出口 组（默认 DIRECT；装了隧道的机器在本地覆写里选 vps-announce）
+    - MATCH,qB出口
 mode: rule
 log-level: warning
 ipv6: true
@@ -214,6 +214,14 @@ Fallback_Defaults: &fallback-defaults
 # HK_REGEX: (?i)港|hk|hkg|hong ?kong
 
 proxy-groups:
+  # ---- qB tracker 公告出口 ----
+  # 默认 DIRECT（家宽直连）。要让「tracker 公告走 VPS」的机器，
+  # 在本地 Clash Party 覆写里把 vps-announce 加入本组并选中即可（见 README「qB 分流」）。
+  - name: qB出口
+    type: select
+    proxies:
+      - DIRECT
+
   # ---- 核心出口组 ----
   - name: 全部
     # type: select
