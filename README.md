@@ -60,7 +60,7 @@ payload:
 | 流量 | 判定方式 | 出口 |
 | --- | --- | --- |
 | BT peer 连接 | 裸 IP（`IP-CIDR,0.0.0.0/0,no-resolve`） | 家宽直连（下载不走代理 / 不消耗订阅节点） |
-| tracker 公告（M-Team 除外） | 域名 | `qB出口` 组（默认 DIRECT；装了隧道的机器选 `vps-announce`） |
+| tracker 公告（M-Team 除外） | 域名 | `vps-announce`（netcup VPS 出口，由本地覆写提供） |
 | M-Team tracker | `m-team.cc` / `m-team.io` | 家宽直连 |
 
 为什么这么做：家宽是 CGNAT（没有可入站的公网 IPv4，路由器只发 ULA、无全局 IPv6），家宽 58230 从公网连不进来。
@@ -73,9 +73,9 @@ M-Team 的站点规则明确「切勿透過代理連接 tracker」，且用境�
 
 `vps-announce` 需要 WireGuard 私钥，因此不在本仓库定义，由使用方的本地覆写提供：
 `type: wireguard`，服务端 `37.221.193.132:51820`，隧道地址 `10.66.66.3/32`。
-仓库里 `qB出口` 组默认只有 `DIRECT`，所以本配置在没有隧道的设备上也能正常加载
-（若把兜底直接写成未定义的 `vps-announce`，mihomo 会因 `proxy not found` 直接加载失败）。
-本机（macOS）当前的本地覆写是把 `sub-rules.qb-split` 的兜底直接指向 `vps-announce`，效果一致。
+仓库里 `sub-rules.qb-split` 的兜底写的是 `DIRECT`，所以本配置在没有隧道的设备上也能正常加载
+（若兜底直接写未定义的 `vps-announce`，mihomo 会因 `proxy not found` 直接加载失败）；
+本机由 Clash Party 覆写把该兜底替换成 `vps-announce`。
 
 ## Loon 规则
 
