@@ -6,14 +6,16 @@ allow-lan: false
 bind-address: 127.0.0.1
 
 # qB 专属入口：只允许 qB 显式使用，不影响其他 Docker 容器。
-# 分流规则（见下方 sub-rules.qb-split）：
-#   1. BT peer 连接：qB 通过 SOCKS5 传入的是裸 IP → 家宽直连（下载不走代理/不走订阅节点）
-#   2. tracker 公告：qB 开启了「通过代理查找主机名」，传入的是域名 → 走 vps-announce（netcup VPS 出口），
-#      这样 tracker 记录到的是 VPS 公网 IP，peer 会从 VPS:58230 连入，上传走 VPS 隧道
-#   3. M-Team：站点规则明确「切勿透過代理連接 tracker」，且用境外服务器回报会被判为盒子
-#      （无促销 + 上传最多只计种子体积 3 倍），因此保持家宽直连
-# 兜底是本文件的 DIRECT（保证配置在缺少隧道 outbound 的设备上也能正常加载）；
-# 需要「公告走 VPS」的机器，由本地覆写把 sub-rules.qb-split 的兜底改成自建的 vps-announce outbound。
+# 分流规则（见下方 sub-rules.qb-split）：qB 的全部 BT 流量（peer + tracker + RSS）一律家宽直连，
+# 不经过订阅节点，也不经过自建 VPS。
+#   1. BT peer 连接：qB 通过 SOCKS5 传入的是裸 IP → 家宽直连
+#   2. tracker 公告：qB 开启了「通过代理查找主机名」，传入的是域名 → 同样家宽直连
+#   3. M-Team：站点规则明确「切勿透過代理連接 tracker」，家宽直连
+# 兜底是 DIRECT，保证配置在缺少任何 outbound 的设备上也能正常加载。
+# 前提：qB 必须勾选「使用代理服务器进行用户连接」(proxy_peer_connections=true)，
+# 否则 peer 连接不走本 listener，会被宿主机 TUN 主规则接管而落到订阅节点上。
+# 副作用：勾选该项后 libtorrent 不再监听 BT 端口（不能被对端入站连入）；
+# 需要入站就改回 false，但那样 peer 连接会走宿主 TUN 主规则。
 listeners:
   - name: qb-direct
     type: mixed
@@ -30,7 +32,7 @@ sub-rules:
     # M-Team tracker → 家宽（站点禁止用代理连接 tracker）
     - DOMAIN-SUFFIX,m-team.cc,DIRECT
     - DOMAIN-SUFFIX,m-team.io,DIRECT
-    # 其余 tracker 域名；本机由本地覆写改成 vps-announce
+    # 其余 tracker 域名 → 同样家宽直连（无需 VPS 中转）
     - MATCH,DIRECT
 mode: rule
 log-level: warning
