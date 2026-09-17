@@ -512,7 +512,7 @@ rules:
   # - RULE-SET,Customer-Proxy-DE,德国自建
   # - RULE-SET,Customer-Proxy-USGT,美国自建GT
   - RULE-SET,Customer-Direct,DIRECT
-  - RULE-SET,Customer-Proxy-US,美国自建
+  - RULE-SET,Customer-Proxy-US,全部
 
   # 直连分流
   - GEOSITE,private,DIRECT
@@ -524,7 +524,7 @@ rules:
   # 服务分流
   - RULE-SET,SpeedtestIntl,Speedtest国际
   - RULE-SET,Game,游戏选择
-  - RULE-SET,Disney,美国自建
+  - RULE-SET,Disney,美国自动策略
   - RULE-SET,YouTube,全部
   - RULE-SET,Google,AI
   - RULE-SET,Bahamut,台湾自动策略
