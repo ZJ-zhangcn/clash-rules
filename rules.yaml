@@ -514,7 +514,7 @@ rules:
   # - RULE-SET,Customer-Proxy-DE,德国自建
   # - RULE-SET,Customer-Proxy-USGT,美国自建GT
   - RULE-SET,Customer-Direct,DIRECT
-  - RULE-SET,Customer-Proxy-US,全部
+  - RULE-SET,Customer-Proxy-US,美国自动策略
 
   # 直连分流
   - GEOSITE,private,DIRECT
