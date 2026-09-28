@@ -151,7 +151,7 @@ http:
     - "^http:\\/\\/103\\.44\\.58\\.64\\/md\\? - reject"
     - "^http:\\/\\/cdn\\.wup\\.huya\\.com\\/launch\\/queryHttpDns - reject"
     - "^http:\\/\\/xmc\\.ximalaya\\.com\\/xmlymain-login-web\\/login\\/ - reject"
-    - "^http:\\/\\/amdc\\.m\\.taobao\\.com\\/amdc\\/mobileDispatchh - reject"
+    - "^http:\\/\\/amdc\\.m\\.taobao\\.com\\/amdc\\/mobileDispatch - reject"
     - "^http:\\/\\/47\\.246\\.103\\.9\\/amdc\\/mobileDispatch - reject"
     - "^http:\\/\\/47\\.246\\.103\\.10\\/amdc\\/mobileDispatch - reject"
     - "^http:\\/\\/59\\.82\\.113\\.10\\/amdc\\/mobileDispatch - reject"
