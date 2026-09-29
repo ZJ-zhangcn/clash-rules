@@ -10,5 +10,5 @@ http:
       timeout: 10
 script-providers:
   "loon_freshippo_splash_01":
-    url: "https://raw.githubusercontent.com/ZJ-zhangcn/loon-plugins/main/scripts/freshippo-splash.js"
+    url: "https://raw.githubusercontent.com/ZJ-zhangcn/loon-stash-toolkit/main/scripts/freshippo-splash.js"
     interval: 86400
