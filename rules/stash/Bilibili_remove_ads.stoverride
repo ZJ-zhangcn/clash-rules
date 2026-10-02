@@ -42,10 +42,13 @@ http:
       status-code: 200
     - match: "^https:\\/\\/grpc\\.biliapi\\.net\\/bilibili\\.app\\.interface\\.v1\\.Teenagers\\/ModeStatus$"
       base64: "AAAAABMKEQgCEgl0ZWVuYWdlcnMgAioA"
+      status-code: 200
     - match: "^https:\\/\\/grpc\\.biliapi\\.net\\/bilibili\\.app\\.interface\\.v1\\.Search\\/DefaultWords$"
       base64: "AAAAACEaHeaQnOe0ouinhumikeOAgeeVquWJp+aIlnVw5Li7KAE="
+      status-code: 200
     - match: "^https:\\/\\/grpc\\.biliapi\\.net\\/bilibili\\.app\\.(view\\.v1\\.View\\/TFInfo|viewunite\\.v1\\.View\\/(PlayPause|ViewEndPage))$"
       base64: "AAAAAAA="
+      status-code: 200
   script:
     - match: "^https:\\/\\/(?:grpc\\.biliapi\\.net|app\\.bilibili\\.com)\\/bilibili\\.community\\.service\\.dm\\.v1\\.DM\\/DmSegMobile$"
       name: "loon_bilibili_remove_ads_01"

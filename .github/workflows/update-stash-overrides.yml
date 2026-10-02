@@ -20,6 +20,9 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Check converter
+        run: python3 scripts/test_convert_loon_to_stash.py
+
       - name: Convert tracked Loon plugins
         run: python3 scripts/convert-loon-to-stash.py
 

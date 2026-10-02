@@ -197,6 +197,148 @@ def split_json_delete_rewrites(match: str, body_action: str, paths: str) -> list
     return result
 
 
+CONDITIONAL = re.compile(
+    r"^(?P<kind>request|response)\s+if\s+\$\{url\}\s*~=\s*/(?P<pattern>.+)/(?P<flags>[a-z]*)\s*"
+    r"(?:as\s+\S+\s+)?then\s+(?P<rest>.+)$"
+)
+ACTION_NAME = re.compile(r"([A-Za-z_][A-Za-z0-9_.]*)\s*\(")
+SCRIPT_OPTION_KEYS = {"requires_body", "binary_body_mode", "timeout", "tag", "enable", "argument"}
+
+
+def split_arguments(value: str) -> list[str]:
+    """Split an argument list on top-level commas, respecting quotes and brackets."""
+    parts: list[str] = []
+    start = 0
+    depth = 0
+    quote: str | None = None
+    escaped = False
+    for index, char in enumerate(value):
+        if escaped:
+            escaped = False
+        elif char == "\\" and quote:
+            escaped = True
+        elif quote:
+            if char == quote:
+                quote = None
+        elif char in "'\"":
+            quote = char
+        elif char in "([{":
+            depth += 1
+        elif char in ")]}":
+            depth -= 1
+        elif char == "," and depth == 0:
+            parts.append(value[start:index].strip())
+            start = index + 1
+    parts.append(value[start:].strip())
+    return [item for item in parts if item]
+
+
+def split_action(rest: str) -> tuple[str, list[str], dict[str, str]]:
+    """Split 'name(a, b) with k=v, k2=v2' into name, arguments and options."""
+    name_match = ACTION_NAME.match(rest)
+    if not name_match:
+        raise ValueError(f"unparsable Rewrite action: {rest}")
+    depth = 1
+    quote: str | None = None
+    escaped = False
+    for index, char in enumerate(rest[name_match.end():], name_match.end()):
+        if escaped:
+            escaped = False
+        elif char == "\\" and quote:
+            escaped = True
+        elif quote:
+            if char == quote:
+                quote = None
+        elif char in "'\"":
+            quote = char
+        elif char == "(":
+            depth += 1
+        elif char == ")":
+            depth -= 1
+            if depth == 0:
+                arguments = split_arguments(rest[name_match.end():index])
+                tail = rest[index + 1:].strip()
+                if tail.startswith("with"):
+                    tail = tail.removeprefix("with").strip()
+                return name_match.group(1), arguments, parse_attributes(tail, SCRIPT_OPTION_KEYS) if tail else {}
+    raise ValueError(f"unterminated Rewrite action: {rest}")
+
+
+def json_argument(value: str):
+    """Decode a Loon script argument written as a JSON literal."""
+    try:
+        return json.loads(value.strip())
+    except (json.JSONDecodeError, AttributeError):
+        return value.strip()
+
+
+def scalar_text(value: object) -> str:
+    if isinstance(value, str):
+        return value
+    if value is True:
+        return "true"
+    if value is False:
+        return "false"
+    if isinstance(value, (int, float)):
+        return str(value)
+    return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+
+
+def json_paths(value: str) -> list[str]:
+    decoded = json_argument(value)
+    if isinstance(decoded, list):
+        return [scalar_text(item) for item in decoded]
+    return [scalar_text(decoded)]
+
+
+def conditional_rewrite(pattern: str, action: str, arguments: list[str]) -> tuple[str, list]:
+    """Convert Loon's `if ${url} ~= /pat/ then action(...)` form into Stash entries."""
+    if action in {"reject_dict", "reject_array", "reject_200", "reject_img"}:
+        return "url-rewrite", [f"{pattern} - {action.replace('_', '-')}"]
+    if action == "reject":
+        return "url-rewrite", [f"{pattern} - reject"]
+    if action == "redirect":
+        if len(arguments) < 2:
+            raise ValueError(f"redirect needs a status and a target: {pattern}")
+        status = scalar_text(json_argument(arguments[0]))
+        target = re.sub(r"\$\{urlMatch\.(\d+)\}", r"$\1", scalar_text(json_argument(arguments[1])))
+        return "url-rewrite", [f"{pattern} {target} {status}"]
+    if action == "response.header.add":
+        return "header-rewrite", [
+            f"{pattern} response-add {scalar_text(json_argument(arguments[0]))} "
+            f"{scalar_text(json_argument(arguments[1]))}"
+        ]
+    if action == "response.body.mock":
+        mock: dict[str, object] = {"match": pattern}
+        data = scalar_text(json_argument(arguments[1]))
+        if len(arguments) > 3 and str(json_argument(arguments[3])).lower() == "true":
+            mock["base64"] = data
+        else:
+            mock["text"] = data
+        if len(arguments) > 2:
+            mock["status-code"] = int(json_argument(arguments[2]))
+        return "mock", [mock]
+    if action == "response.json.delete":
+        return "body-rewrite", split_json_delete_rewrites(
+            pattern, "response-json-del", " ".join(json_paths(arguments[0]))
+        )
+    if action == "response.json.replace":
+        paths = json_paths(arguments[0])
+        values = json_argument(arguments[1])
+        if not isinstance(values, list):
+            values = [values]
+        pairs = " ".join(
+            f"{path} {scalar_text(value)}" for path, value in zip(paths, values)
+        )
+        return "body-rewrite", [f"{pattern} response-json-replace {pairs}"]
+    if action == "response.json.jq":
+        return "body-rewrite", [f"{pattern} response-jq {scalar_text(json_argument(arguments[0]))}"]
+    if action == "response.json.jq_file":
+        expression = clean_jq(fetch(scalar_text(json_argument(arguments[0]))))
+        return "body-rewrite", [f"{pattern} response-jq {expression}"]
+    raise ValueError(f"unsupported conditional Rewrite action {action!r}: {pattern}")
+
+
 def parse_rewrites(lines: list[str]) -> dict[str, list]:
     url_rewrite: list[str] = []
     body_rewrite: list[str] = []
@@ -204,6 +346,20 @@ def parse_rewrites(lines: list[str]) -> dict[str, list]:
     mocks: list[dict[str, object]] = []
 
     for line in nonempty(lines):
+        conditional = CONDITIONAL.match(line)
+        if conditional:
+            name, arguments, _options = split_action(conditional.group("rest"))
+            bucket, entries = conditional_rewrite(conditional.group("pattern"), name, arguments)
+            if bucket == "url-rewrite":
+                url_rewrite.extend(entries)
+            elif bucket == "body-rewrite":
+                body_rewrite.extend(entries)
+            elif bucket == "header-rewrite":
+                header_rewrite.extend(entries)
+            else:
+                mocks.extend(entries)
+            continue
+
         parts = line.split(None, 2)
         if len(parts) < 2:
             raise ValueError(f"invalid Rewrite line: {line}")
@@ -289,22 +445,34 @@ def parse_scripts(
     providers: dict[str, dict[str, object]] = {}
     index = 0
     for line in nonempty(lines):
-        match = re.match(r"^(http-request|http-response)\s+(\S+)\s+(.*)$", line)
-        if not match:
-            raise ValueError(f"invalid Script line: {line}")
-        kind, url_match, attribute_text = match.groups()
-        attributes = parse_attributes(
-            attribute_text,
-            {
-                "script-path",
-                "requires-body",
-                "binary-body-mode",
-                "timeout",
-                "argument",
-                "enable",
-                "tag",
-            },
-        )
+        conditional = CONDITIONAL.match(line)
+        if conditional:
+            name, arguments, options = split_action(conditional.group("rest"))
+            if name != "script" or not arguments:
+                raise ValueError(f"unsupported conditional Script action: {line}")
+            kind = conditional.group("kind")
+            url_match = conditional.group("pattern")
+            attributes = {key.replace("_", "-"): value for key, value in options.items()}
+            attributes["script-path"] = scalar_text(json_argument(arguments[0]))
+            if len(arguments) > 1:
+                attributes["argument"] = arguments[1]
+        else:
+            match = re.match(r"^(http-request|http-response)\s+(\S+)\s+(.*)$", line)
+            if not match:
+                raise ValueError(f"invalid Script line: {line}")
+            kind, url_match, attribute_text = match.groups()
+            attributes = parse_attributes(
+                attribute_text,
+                {
+                    "script-path",
+                    "requires-body",
+                    "binary-body-mode",
+                    "timeout",
+                    "argument",
+                    "enable",
+                    "tag",
+                },
+            )
         script_url = attributes.pop("script-path", "")
         if not script_url:
             raise ValueError(f"missing script-path: {line}")
@@ -313,7 +481,7 @@ def parse_scripts(
         item: dict[str, object] = {
             "match": url_match,
             "name": provider_name,
-            "type": "request" if kind == "http-request" else "response",
+            "type": "request" if kind in {"request", "http-request"} else "response",
         }
         if attributes.get("requires-body", "").lower() == "true":
             item["require-body"] = True
