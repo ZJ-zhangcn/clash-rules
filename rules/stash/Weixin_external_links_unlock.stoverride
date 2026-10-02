@@ -4,7 +4,7 @@ http:
     - "weixin110.qq.com"
     - "security.wechat.com"
   script:
-    - match: "^https\\:\\/\\/(weixin110\\.qq|security.wechat)\\.com\\/cgi-bin\\/mmspamsupport-bin\\/newredirectconfirmcgi\\?"
+    - match: "(?i)^https\\:\\/\\/(weixin110\\.qq|security.wechat)\\.com\\/cgi-bin\\/mmspamsupport-bin\\/newredirectconfirmcgi\\?"
       name: "loon_weixin_external_links_unlock_01"
       type: "response"
       require-body: true

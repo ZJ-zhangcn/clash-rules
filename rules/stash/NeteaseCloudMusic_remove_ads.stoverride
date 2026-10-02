@@ -10,50 +10,50 @@ http:
   mitm:
     - "interface*.music.163.com"
   url-rewrite:
-    - "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/(?:delivery\\/(batch-)?deliver|moment\\/tab\\/info\\/|side-bar\\/mini-program\\/music-service\\/account|yunbei\\/account\\/entrance\\/) - reject-dict"
-    - "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/(?:community\\/friends\\/fans-group\\/artist\\/group\\/|mine\\/applet\\/redpoint|music\\/songshare\\/text\\/recommend\\/|resniche\\/position\\/play\\/new\\/|resniche\\/tspopup\\/show|resource\\/comments?\\/musiciansaid\\/|user\\/sub\\/artist) - reject-dict"
-    - "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/(?:ios\\/version|mlivestream\\/entrance\\/playpage\\/|link\\/position\\/show\\/strategy|link\\/scene\\/show\\/resource|v1\\/content\\/exposure\\/comment\\/banner\\/) - reject-dict"
-    - "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/w?eapi\\/(?:activity\\/bonus\\/playpage\\/time\\/query|resource-exposure\\/|search\\/(?:chart\\/|rcmd\\/keyword\\/|specialkeyword\\/)) - reject-dict"
-    - "^https:\\/\\/interface\\d\\.music\\.163\\.com\\/eapi\\/my\\/podcast\\/tab\\/recommend - reject-dict"
+    - "(?i)^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/(?:delivery\\/(batch-)?deliver|moment\\/tab\\/info\\/|side-bar\\/mini-program\\/music-service\\/account|yunbei\\/account\\/entrance\\/) - reject-dict"
+    - "(?i)^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/(?:community\\/friends\\/fans-group\\/artist\\/group\\/|mine\\/applet\\/redpoint|music\\/songshare\\/text\\/recommend\\/|resniche\\/position\\/play\\/new\\/|resniche\\/tspopup\\/show|resource\\/comments?\\/musiciansaid\\/|user\\/sub\\/artist) - reject-dict"
+    - "(?i)^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/(?:ios\\/version|mlivestream\\/entrance\\/playpage\\/|link\\/position\\/show\\/strategy|link\\/scene\\/show\\/resource|v1\\/content\\/exposure\\/comment\\/banner\\/) - reject-dict"
+    - "(?i)^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/w?eapi\\/(?:activity\\/bonus\\/playpage\\/time\\/query|resource-exposure\\/|search\\/(?:chart\\/|rcmd\\/keyword\\/|specialkeyword\\/)) - reject-dict"
+    - "(?i)^https:\\/\\/interface\\d\\.music\\.163\\.com\\/eapi\\/my\\/podcast\\/tab\\/recommend - reject-dict"
   mock:
-    - match: "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/e?api\\/(ocpc\\/)?ad\\/"
+    - match: "(?i)^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/e?api\\/(ocpc\\/)?ad\\/"
       text: ""
-    - match: "^https?:\\/\\/interface\\d?\\.music\\.163.com\\/w?e?api\\/search\\/default"
+    - match: "(?i)^https?:\\/\\/interface\\d?\\.music\\.163.com\\/w?e?api\\/search\\/default"
       text: ""
   script:
-    - match: "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/(?:batch|v2\\/resource\\/comment\\/floor\\/get)"
+    - match: "(?i)^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/(?:batch|v2\\/resource\\/comment\\/floor\\/get)"
       name: "loon_neteasecloudmusic_remove_ads_01"
       type: "response"
       require-body: true
       binary-mode: true
       timeout: 20
-    - match: "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/(?:homepage\\/block\\/page|link\\/page\\/rcmd\\/(?:block\\/resource\\/multi\\/refresh|resource\\/show))"
+    - match: "(?i)^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/(?:homepage\\/block\\/page|link\\/page\\/rcmd\\/(?:block\\/resource\\/multi\\/refresh|resource\\/show))"
       name: "loon_neteasecloudmusic_remove_ads_02"
       type: "response"
       require-body: true
       binary-mode: true
       timeout: 20
       argument: "{\"PRGG\":false,\"PRRK\":false,\"PRDRD\":false,\"PRSCVPT\":false,\"PRST\":false,\"PRRR\":false,\"HMPR\":false,\"PRMST\":false,\"PRCN\":false}"
-    - match: "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/link\\/home\\/framework\\/tab"
+    - match: "(?i)^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/link\\/home\\/framework\\/tab"
       name: "loon_neteasecloudmusic_remove_ads_03"
       type: "response"
       require-body: true
       binary-mode: true
       timeout: 20
       argument: "{\"MY\":false,\"DT\":false,\"FX\":false}"
-    - match: "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/link\\/page\\/discovery\\/resource\\/show"
+    - match: "(?i)^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/link\\/page\\/discovery\\/resource\\/show"
       name: "loon_neteasecloudmusic_remove_ads_04"
       type: "response"
       require-body: true
       binary-mode: true
       timeout: 20
-    - match: "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/link\\/position\\/show\\/resource"
+    - match: "(?i)^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/link\\/position\\/show\\/resource"
       name: "loon_neteasecloudmusic_remove_ads_05"
       type: "response"
       require-body: true
       binary-mode: true
       timeout: 20
-    - match: "^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/user\\/follow\\/users\\/mixed\\/get"
+    - match: "(?i)^https?:\\/\\/interface\\d?\\.music\\.163\\.com\\/eapi\\/user\\/follow\\/users\\/mixed\\/get"
       name: "loon_neteasecloudmusic_remove_ads_06"
       type: "response"
       require-body: true

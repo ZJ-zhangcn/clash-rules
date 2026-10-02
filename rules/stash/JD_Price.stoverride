@@ -4,12 +4,12 @@ http:
     - "in.m.jd.com"
     - "apapia-sqk-weblogic.manmanbuy.com"
   script:
-    - match: "^https?:\\/\\/apapia-sqk-weblogic\\.manmanbuy\\.com\\/baoliao\\/center\\/menu$"
+    - match: "(?i)^https?:\\/\\/apapia-sqk-weblogic\\.manmanbuy\\.com\\/baoliao\\/center\\/menu$"
       name: "loon_jd_price_01"
       type: "request"
       require-body: true
       timeout: 10
-    - match: "^https?:\\/\\/in\\.m\\.jd\\.com\\/product\\/graphext\\/\\d+\\.html"
+    - match: "(?i)^https?:\\/\\/in\\.m\\.jd\\.com\\/product\\/graphext\\/\\d+\\.html"
       name: "loon_jd_price_02"
       type: "response"
       require-body: true

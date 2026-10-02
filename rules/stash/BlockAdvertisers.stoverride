@@ -336,7 +336,7 @@ http:
     - "t-dsp.pinduoduo.com"
     - "images.pinduoduo.com"
   url-rewrite:
-    - "^https:\\/\\/video-dsp\\.pddpic\\.com\\/market-dsp-video\\/ - reject"
-    - "^https:\\/\\/t-dsp\\.pinduoduo\\.com\\/dspcb\\/i\\/mrk_ - reject"
-    - "^https:\\/\\/images\\.pinduoduo\\.com\\/mrk\\/ - reject"
-    - "^https:\\/\\/images\\.pinduoduo\\.com\\/marketing_api\\/ - reject"
+    - "(?i)^https:\\/\\/video-dsp\\.pddpic\\.com\\/market-dsp-video\\/ - reject"
+    - "(?i)^https:\\/\\/t-dsp\\.pinduoduo\\.com\\/dspcb\\/i\\/mrk_ - reject"
+    - "(?i)^https:\\/\\/images\\.pinduoduo\\.com\\/mrk\\/ - reject"
+    - "(?i)^https:\\/\\/images\\.pinduoduo\\.com\\/marketing_api\\/ - reject"

@@ -291,11 +291,25 @@ def json_paths(value: str) -> list[str]:
     return [scalar_text(decoded)]
 
 
-def conditional_rewrite(pattern: str, action: str, arguments: list[str]) -> tuple[str, list]:
+def stash_json_value(value: object) -> str:
+    if not isinstance(value, str):
+        return scalar_text(value)
+    try:
+        json.loads(value)
+        return value
+    except json.JSONDecodeError:
+        return json.dumps(value, ensure_ascii=False)
+
+
+def conditional_rewrite(
+    pattern: str, action: str, arguments: list[str], flags: str = ""
+) -> tuple[str, list]:
     """Convert Loon's `if ${url} ~= /pat/ then action(...)` form into Stash entries."""
+    if "i" in flags:
+        pattern = f"(?i){pattern}"
     if action in {"reject_dict", "reject_array", "reject_200", "reject_img"}:
         return "url-rewrite", [f"{pattern} - {action.replace('_', '-')}"]
-    if action == "reject":
+    if action in {"reject", "reject_404"}:
         return "url-rewrite", [f"{pattern} - reject"]
     if action == "redirect":
         if len(arguments) < 2:
@@ -325,10 +339,10 @@ def conditional_rewrite(pattern: str, action: str, arguments: list[str]) -> tupl
     if action == "response.json.replace":
         paths = json_paths(arguments[0])
         values = json_argument(arguments[1])
-        if not isinstance(values, list):
+        if len(paths) == 1 or not isinstance(values, list):
             values = [values]
         pairs = " ".join(
-            f"{path} {scalar_text(value)}" for path, value in zip(paths, values)
+            f"{path} {stash_json_value(value)}" for path, value in zip(paths, values)
         )
         return "body-rewrite", [f"{pattern} response-json-replace {pairs}"]
     if action == "response.json.jq":
@@ -349,7 +363,12 @@ def parse_rewrites(lines: list[str]) -> dict[str, list]:
         conditional = CONDITIONAL.match(line)
         if conditional:
             name, arguments, _options = split_action(conditional.group("rest"))
-            bucket, entries = conditional_rewrite(conditional.group("pattern"), name, arguments)
+            bucket, entries = conditional_rewrite(
+                conditional.group("pattern"),
+                name,
+                arguments,
+                conditional.group("flags"),
+            )
             if bucket == "url-rewrite":
                 url_rewrite.extend(entries)
             elif bucket == "body-rewrite":
@@ -452,6 +471,8 @@ def parse_scripts(
                 raise ValueError(f"unsupported conditional Script action: {line}")
             kind = conditional.group("kind")
             url_match = conditional.group("pattern")
+            if "i" in conditional.group("flags"):
+                url_match = f"(?i){url_match}"
             attributes = {key.replace("_", "-"): value for key, value in options.items()}
             attributes["script-path"] = scalar_text(json_argument(arguments[0]))
             if len(arguments) > 1:
