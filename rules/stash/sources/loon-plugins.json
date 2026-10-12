@@ -16,7 +16,7 @@
   },
   {
     "name": "招商银行开屏广告",
-    "source": "https://raw.githubusercontent.com/ZJ-zhangcn/loon-plugins/main/plugins/cmb-startup-ad.lpx",
+    "source": "https://raw.githubusercontent.com/ZJ-zhangcn/loon-stash-toolkit/main/sources/custom-lpx/cmb-startup-ad.lpx",
     "output": "cmb-startup-ad.stoverride"
   },
   {
@@ -26,7 +26,7 @@
   },
   {
     "name": "盒马开屏广告",
-    "source": "https://raw.githubusercontent.com/ZJ-zhangcn/loon-plugins/main/plugins/freshippo-splash.lpx",
+    "source": "https://raw.githubusercontent.com/ZJ-zhangcn/loon-stash-toolkit/main/sources/custom-lpx/freshippo-splash.lpx",
     "output": "freshippo-splash.stoverride"
   },
   {

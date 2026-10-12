@@ -85,4 +85,13 @@ assert 'timeout: 10' in output
 assert 'argument: "{\\"alpha\\":true,\\"beta\\":\\"off\\"}"' in output, output
 assert 'url: "https://git.repcz.link/kelee.one/Resource/JavaScript/demo.js"' in output
 
+manifest = json.loads(converter.MANIFEST.read_text(encoding="utf-8"))
+expected_sources = {
+    "cmb-startup-ad.stoverride": "https://raw.githubusercontent.com/ZJ-zhangcn/loon-stash-toolkit/main/sources/custom-lpx/cmb-startup-ad.lpx",
+    "freshippo-splash.stoverride": "https://raw.githubusercontent.com/ZJ-zhangcn/loon-stash-toolkit/main/sources/custom-lpx/freshippo-splash.lpx",
+}
+for output_name, source_url in expected_sources.items():
+    item = next(entry for entry in manifest if entry["output"] == output_name)
+    assert item["source"] == source_url, f"stale source URL for {output_name}: {item['source']}"
+
 print("converter self-check passed")
