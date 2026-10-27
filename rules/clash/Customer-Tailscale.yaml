@@ -1,0 +1,11 @@
+# 家庭内网服务：mac.942645.xyz 的 A 记录指向 tailnet 地址 100.104.255.12，
+# 这些域名必须交给 Stash 的 tailscale 节点，DIRECT 无法路由。
+payload:
+  - DOMAIN,mac.942645.xyz
+  - DOMAIN,emby.942645.xyz
+  - DOMAIN,iyuu.942645.xyz
+  - DOMAIN,moontv.942645.xyz
+  - DOMAIN,moviepilot.942645.xyz
+  - DOMAIN,openlist.942645.xyz
+  - DOMAIN,qbittorrent.942645.xyz
+  - DOMAIN,uptime.942645.xyz

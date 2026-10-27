@@ -48,6 +48,7 @@ payload:
 | `Customer-Proxy-JP.yaml` | [Raw](https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/clash/Customer-Proxy-JP.yaml) |
 | `Customer-Proxy-US.yaml` | [Raw](https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/clash/Customer-Proxy-US.yaml) |
 | `Customer-Proxy-USGT.yaml` | [Raw](https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/clash/Customer-Proxy-USGT.yaml) |
+| `Customer-Tailscale.yaml` | [Raw](https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/clash/Customer-Tailscale.yaml) |
 | `DNS.yaml` | [Raw](https://raw.githubusercontent.com/ZJ-zhangcn/clash-rules/main/rules/clash/DNS.yaml) |
 
 ## qB 分流（全部走家宽直连）
