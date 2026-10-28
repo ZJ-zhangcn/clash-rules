@@ -1,5 +1,7 @@
 # 家庭内网服务：mac.942645.xyz 的 A 记录指向 tailnet 地址 100.104.255.12，
 # 这些域名必须交给 Stash 的 tailscale 节点，DIRECT 无法路由。
+# 直连 tailnet IP（无域名、无法被 sniff）时也要走 tailscale 节点
+IP-CIDR,100.64.0.0/10,no-resolve
 DOMAIN,mac.942645.xyz
 DOMAIN,emby.942645.xyz
 DOMAIN,iyuu.942645.xyz
