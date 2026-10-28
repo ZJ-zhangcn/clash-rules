@@ -8,6 +8,8 @@ payload:
   - DOMAIN,gateway-relay.942645.xyz
   - DOMAIN,zgo-relay.942645.xyz
   - DOMAIN,de-relay.942645.xyz
+  # Tailscale 香港 DERP：必须直连，走代理会绕日本再回香港
+  - DOMAIN-KEYWORD,derp20
   - DOMAIN-SUFFIX,942645.xyz
   - IP-CIDR,192.129.152.33/32
   - IP-CIDR,154.21.199.36/32
