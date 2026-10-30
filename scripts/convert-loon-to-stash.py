@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -42,6 +43,10 @@ def fetch(url: str) -> str:
         except Exception as exc:  # pragma: no cover - network-dependent branch
             errors.append(f"{candidate}: {exc}")
     raise RuntimeError("; ".join(errors))
+
+
+def warn(message: str) -> None:
+    print(f"::warning::{message}" if os.environ.get("GITHUB_ACTIONS") else f"warning: {message}")
 
 
 def sections(text: str) -> dict[str, list[str]]:
@@ -644,11 +649,20 @@ def render(
 def main() -> int:
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    unavailable: list[str] = []
     for item in manifest:
         source_url = item["source"]
         output = OUTPUT_DIR / item["output"]
         slug = re.sub(r"[^A-Za-z0-9]+", "_", Path(item["output"]).stem).strip("_").lower()
-        text = fetch(source_url)
+        try:
+            text = fetch(source_url)
+        except RuntimeError as exc:
+            # 上游全部不可达时保留上次生成的文件，等下次定时任务再同步。
+            if not output.is_file():
+                raise
+            unavailable.append(output.name)
+            warn(f"keeping previous {output.relative_to(ROOT)}: {exc}")
+            continue
         output.write_text(
             render(
                 item["name"],
@@ -661,6 +675,8 @@ def main() -> int:
         print(f"{item['source']} -> {output.relative_to(ROOT)}")
     update_readme(manifest)
     print("updated README.md")
+    if unavailable:
+        warn(f"{len(unavailable)} source(s) unavailable, kept previous overrides: {', '.join(unavailable)}")
     return 0
 
 

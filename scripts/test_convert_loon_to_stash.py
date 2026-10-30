@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import tempfile
 from pathlib import Path
 
 SPEC = importlib.util.spec_from_file_location(
@@ -93,5 +94,57 @@ expected_sources = {
 for output_name, source_url in expected_sources.items():
     item = next(entry for entry in manifest if entry["output"] == output_name)
     assert item["source"] == source_url, f"stale source URL for {output_name}: {item['source']}"
+
+with tempfile.TemporaryDirectory() as temporary_directory:
+    root = Path(temporary_directory)
+    (root / "rules/stash").mkdir(parents=True)
+    (root / "README.md").write_text(
+        "<!-- BEGIN STASH OVERRIDES -->\n<!-- END STASH OVERRIDES -->\n", encoding="utf-8"
+    )
+    manifest_path = root / "loon-plugins.json"
+    manifest_path.write_text(
+        json.dumps([{
+            "name": "Stale",
+            "source": "https://example.com/Stale.lpx",
+            "output": "stale.stoverride",
+        }]),
+        encoding="utf-8",
+    )
+    output = root / "rules/stash/stale.stoverride"
+    output.write_text("stale: true\n", encoding="utf-8")
+    original = (
+        converter.MANIFEST,
+        converter.OUTPUT_DIR,
+        converter.ROOT,
+        converter.README,
+        converter.fetch,
+    )
+    converter.MANIFEST = manifest_path
+    converter.OUTPUT_DIR = root / "rules/stash"
+    converter.ROOT = root
+    converter.README = root / "README.md"
+    try:
+        def unavailable(url: str) -> str:
+            raise RuntimeError("upstream down")
+
+        converter.fetch = unavailable
+        assert converter.main() == 0
+        assert output.read_text(encoding="utf-8") == "stale: true\n"
+
+        output.unlink()
+        try:
+            converter.main()
+        except RuntimeError as exc:
+            assert "upstream down" in str(exc)
+        else:
+            raise AssertionError("missing override must fail instead of being skipped")
+    finally:
+        (
+            converter.MANIFEST,
+            converter.OUTPUT_DIR,
+            converter.ROOT,
+            converter.README,
+            converter.fetch,
+        ) = original
 
 print("converter self-check passed")
