@@ -221,7 +221,7 @@ proxy-groups:
     # type: select
     <<: *fallback-defaults
     proxies:
-      - 日本自建
+      # - 日本自建
       # - 新国自建
       - 香港自建
       - 美国自建
