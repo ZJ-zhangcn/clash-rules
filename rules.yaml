@@ -181,7 +181,8 @@ FilterHKZJ: &FilterHKZJ "^(?=.*\\b香港-自建)(?!.*((?i)回国|校园|游戏|G
 FilterJPZJ: &FilterJPZJ "^(?=.*\\b日本-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterTEQZJ: &FilterTEQZJ "^(?=.*\\b土耳其-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 FilterMOZJ: &FilterMOZJ "^(?=.*\\b澳门-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
-FilterDEZJ: &FilterDEZJ "^(?=.*\\b德国-自建-netcup)(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterDEZJ: &FilterDEZJ "^(?=.*\\b德国-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
+FilterTRZJ: &FilterTRZJ "^(?=.*\\b土耳其-自建)(?!.*((?i)回国|校园|游戏|GAME)).*$"
 
 # ====================
 # 策略组公共参数 (定义锚点)
@@ -225,6 +226,7 @@ proxy-groups:
       # - 新国自建
       - 香港自建
       - 美国自建
+      - 土耳其自建
       - 日本自动策略
       - 香港自动策略
       # - 美国自建GT
@@ -279,6 +281,11 @@ proxy-groups:
     <<: *fallback-defaults
     include-all: true
     filter: *FilterJPZJ
+
+  - name: 土耳其自建
+    <<: *fallback-defaults
+    include-all: true
+    filter: *FilterTRZJ
 
   # - name: 澳门自建
   #   <<: *fallback-defaults
