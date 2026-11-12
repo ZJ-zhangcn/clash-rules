@@ -129,8 +129,8 @@ dns:
     "geosite:private": "system"
     "geosite:google-cn": ["223.5.5.5#DIRECT", "119.29.29.29#DIRECT"]
     "geosite:synology": ["223.5.5.5#DIRECT", "119.29.29.29#DIRECT"]
-    "*.linux.do": "https://xxx.ddd.oaifree.com/query-dns#美国自建"
-    "linux.do": "https://xxx.ddd.oaifree.com/query-dns#美国自建"
+    "*.linux.do": "https://xxx.ddd.oaifree.com/query-dns#家宽链式代理"
+    "linux.do": "https://xxx.ddd.oaifree.com/query-dns#家宽链式代理"
     # AI 分流 DNS
     "geosite:openai":
       ["https://1.1.1.1/dns-query#AI", "https://8.8.8.8/dns-query#AI"]
@@ -225,16 +225,16 @@ proxy-groups:
       # - 日本自建
       # - 新国自建
       - 香港自建
+      - 家宽链式代理
       - 美国自建
       - 土耳其自建
+      - 新国自动策略
       - 日本自动策略
-      - 香港自动策略
+      # - 香港自动策略
       # - 美国自建GT
-      - 德国自建
-      # - 新国自动策略
+      # - 德国自建
       # - 台湾自动策略
       # - 美国自动策略
-      # - 家宽链式代理
       # - 韩国自动策略
 
   - name: AI
@@ -521,7 +521,7 @@ rules:
   # - RULE-SET,Customer-Proxy-DE,德国自建
   # - RULE-SET,Customer-Proxy-USGT,美国自建GT
   - RULE-SET,Customer-Direct,DIRECT
-  - RULE-SET,Customer-Proxy-US,美国自建
+  - RULE-SET,Customer-Proxy-US,家宽链式代理
 
   # 直连分流
   - GEOSITE,private,DIRECT
