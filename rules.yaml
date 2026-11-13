@@ -521,7 +521,7 @@ rules:
   # - RULE-SET,Customer-Proxy-DE,德国自建
   # - RULE-SET,Customer-Proxy-USGT,美国自建GT
   - RULE-SET,Customer-Direct,DIRECT
-  - RULE-SET,Customer-Proxy-US,家宽链式代理
+  - RULE-SET,Customer-Proxy-US,美国自建
 
   # 直连分流
   - GEOSITE,private,DIRECT
