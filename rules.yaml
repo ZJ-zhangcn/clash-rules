@@ -513,6 +513,9 @@ rules:
   # 广告过滤
   - GEOSITE,category-ads-all,REJECT
 
+  # 全局禁用 QUIC：必须在域名分流之前，否则已命中域名规则的 UDP/443 会漏过去
+  - AND,((NETWORK,UDP),(DST-PORT,443)),REJECT
+
   # Customer分流
   - RULE-SET,DNS,全部
   - RULE-SET,Customer-Proxy-All,全部
@@ -547,9 +550,6 @@ rules:
   - GEOSITE,anthropic,AI
   - GEOSITE,google-gemini,AI
   - GEOSITE,xai,AI
-
-  # 禁用 QUIC
-  - AND,((NETWORK,UDP),(DST-PORT,443)),REJECT
 
   # 兜底分流
   - GEOSITE,gfw,全部
